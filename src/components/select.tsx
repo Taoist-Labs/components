@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import {forwardRef, useEffect, useState} from "react";
-import {UseFormRegister,Controller,useForm} from "react-hook-form";
+import {UseFormRegister,Controller} from "react-hook-form";
 import Select from 'react-select';
-import {SelectProps} from "../type/compontent.type";
 
 const Box = styled.div`
     display: flex;

@@ -1,4 +1,4 @@
-import React, {ForwardedRef, useEffect, useRef, useState} from 'react';
+import React, {ForwardedRef, useRef, useState} from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import styled from "styled-components";
 

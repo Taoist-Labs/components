@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import {ThHTMLAttributes, useEffect, useState} from "react";
-import {InputProps, TableProps} from "../type/compontent.type";
+import {useEffect, useState} from "react";
+import {TableProps} from "../type/compontent.type";
 import Input from "./input";
 import SelectBox from "./select";
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useFieldArray } from 'react-hook-form';
 
 
 const Box = styled.div`

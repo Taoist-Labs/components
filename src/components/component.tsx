@@ -1,7 +1,6 @@
-import {forwardRef, useEffect, useState,ForwardedRef} from "react";
+import {useEffect, useState,ForwardedRef} from "react";
 import styled from "styled-components";
 import {ChildMethods, Icomponent} from "../type/compontent.type";
-import {useForm, UseFormRegister} from "react-hook-form";
 import Input from "./input";
 import SelectBox from "./select";
 import Table from "./table"
