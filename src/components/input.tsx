@@ -26,7 +26,7 @@ const Box = styled.div`
 `
 
 
-export default function Input({item,register,tableIndex,listName}:InputProps){
+export default function Input({item,register,tableIndex,listName,type}:InputProps){
 
     const [prop,setProp] = useState<any>()
 
@@ -59,10 +59,10 @@ export default function Input({item,register,tableIndex,listName}:InputProps){
         <label className="labelLft">{prop?.title}</label>
         <div className="rht">
             {
-                item.inputType === "textarea" && <textarea className={prop?.size} {...register(tableIndex!==undefined?`${listName}.${tableIndex}.${item?.name}`:item?.name,  prop?.validate)}  />
+                item.inputType === "textarea" && <textarea className={prop?.size} {...register(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`, prop?.validate)}  />
             }
             {
-                item.inputType !== "textarea" && <input className={prop?.size} {...register(tableIndex!==undefined?`${listName}.${tableIndex}.${item?.name}`:item?.name,  prop?.validate)}  />
+                item.inputType !== "textarea" && <input className={prop?.size} {...register(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,  prop?.validate)}  />
             }
         </div>
     </Box>

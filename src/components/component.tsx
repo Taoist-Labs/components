@@ -47,13 +47,13 @@ const Component = ({listArr,register,control}:ChildProps) =>{
                 list?.content?.map((item,index)=>(
                     <li key={`list_${index}`}>
                         {
-                            item.type === "input" && <Input item={item} register={register} />
+                            item.type === "input" && <Input item={item} register={register} type={list?.type} />
                         }
                         {
-                            item.type === "select" && <SelectBox item={item} control={control} />
+                            item.type === "select" && <SelectBox item={item} control={control} type={list?.type} />
                         }
                         {
-                            item.type === "table" && <Table item={item} register={register} control={control} />
+                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.type} />
                         }
                     </li>
                 ))

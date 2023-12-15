@@ -19,6 +19,7 @@ export interface InputProps{
         inputType: string;
         properties:PropertiesObj[]
     }
+    type?:string;
     tableIndex?:number;
     listName?:string;
     register:UseFormRegister<any>
@@ -30,10 +31,12 @@ export interface SelectProps{
         dataList: string;
         properties:PropertiesObj[]
     }
+    type?:string;
     tableIndex?:number;
     listName?:string;
     register:UseFormRegister<any>
     name?:string
+    control:any
 
 }
 
@@ -49,6 +52,7 @@ export interface TableProps{
         rows:any;
         name:string;
     }
+    type?:string;
     register:UseFormRegister<any>
     control:any
 }

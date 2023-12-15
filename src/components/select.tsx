@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {forwardRef, useEffect, useState} from "react";
 import {UseFormRegister,Controller,useForm} from "react-hook-form";
 import Select from 'react-select';
+import {SelectProps} from "../type/compontent.type";
 
 const Box = styled.div`
     display: flex;
@@ -28,7 +29,7 @@ const Box = styled.div`
 `
 
 
-const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName }, ref) => {
+const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type }, ref) => {
 
     const [prop, setProp] = useState<any>()
 
@@ -58,7 +59,7 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
           <label  className="labelLft">{prop?.title}</label>
 
           <Controller
-              name={tableIndex!==undefined?`${listName}.${tableIndex}.${item?.name}`:item?.name}
+              name={tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`}
               control={control}
               defaultValue=""
               render={({ field }) => (

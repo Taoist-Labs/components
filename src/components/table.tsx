@@ -49,7 +49,7 @@ const BtnGroup = styled.div`
   justify-content: center;
 `
 
-export default function Table({item,register,control}:TableProps){
+export default function Table({item,register,control,type}:TableProps){
 
     const [column,setColumn] = useState(0);
     const [width,setWidth] = useState<number[]>([]);
@@ -58,7 +58,7 @@ export default function Table({item,register,control}:TableProps){
     const [dataItem,setDataItem] = useState<any>()
     const { fields, append, remove } = useFieldArray({
         control,
-        name: item?.name,
+        name: `${type}.${item?.name}`,
         shouldUnregister:true
     });
 
@@ -106,10 +106,10 @@ export default function Table({item,register,control}:TableProps){
                     {
                         [...Array(column)].map((r,index)=>(<td key={`tbody_${index}`}>
                             {
-                                rows[index].type === "input" && <Input item={rows[index]} listName={item?.name} tableIndex={innerIndex} register={register} />
+                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} />
                             }
                             {
-                                rows[index].type === "select" && <SelectBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} control={control} />
+                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} />
                             }
                         </td>))
                     }
