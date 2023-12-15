@@ -52,3 +52,7 @@ export interface TableProps{
     register:UseFormRegister<any>
     control:any
 }
+
+export interface ChildMethods {
+    childMethod: () => void;
+}

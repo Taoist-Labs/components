@@ -78,10 +78,8 @@ export default function Table({item,register,control}:TableProps){
 
         })
         setDataItem(obj);
-
         append(dataItem)
     }, [item]);
-
 
 
 
@@ -108,10 +106,10 @@ export default function Table({item,register,control}:TableProps){
                     {
                         [...Array(column)].map((r,index)=>(<td key={`tbody_${index}`}>
                             {
-                                rows[index].type === "input" && <Input item={rows[index]} listName="list" tableIndex={innerIndex} register={register} />
+                                rows[index].type === "input" && <Input item={rows[index]} listName={item?.name} tableIndex={innerIndex} register={register} />
                             }
                             {
-                                rows[index].type === "select" && <SelectBox item={rows[index]} listName="list" tableIndex={innerIndex} control={control} />
+                                rows[index].type === "select" && <SelectBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} control={control} />
                             }
                         </td>))
                     }

@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import {forwardRef, useEffect, useState,ForwardedRef} from "react";
 import styled from "styled-components";
-import {Icomponent} from "../type/compontent.type";
-import { useForm} from "react-hook-form";
+import {ChildMethods, Icomponent} from "../type/compontent.type";
+import {useForm, UseFormRegister} from "react-hook-form";
 import Input from "./input";
 import SelectBox from "./select";
 import Table from "./table"
@@ -25,12 +25,15 @@ const ContentBox = styled.ul`
   }
 `
 
-export default function Component({listArr}:any){
+interface ChildProps {
+    forwardedRef?: ForwardedRef<ChildMethods>;
+    listArr:any;
+    register:any;
+    control:any;
+}
 
-    const { register, handleSubmit,control } = useForm<any>();
-    const onSubmit = (data:any) => {
-        console.log((data))
-    }
+
+const Component = ({listArr,register,control}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
     useEffect(() => {
@@ -56,7 +59,9 @@ export default function Component({listArr}:any){
                 ))
             }
         </ContentBox>
-        <button onClick={handleSubmit(onSubmit)}>submit</button>
+        {/*<button onClick={handleSubmit(onSubmit)}>submit</button>*/}
 
     </Box>
 }
+
+export default Component;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {ForwardedRef, useEffect, useRef, useState} from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import styled from "styled-components";
 
@@ -7,6 +7,8 @@ import CreateJson from "../json/create.json";
 import AddJson from "../json/add.json";
 
 import Component from "../components/component";
+import {ChildMethods} from "../type/compontent.type";
+import {useForm} from "react-hook-form";
 
 const Box = styled.div`
     padding: 40px;
@@ -68,6 +70,14 @@ const FormBox = styled.div`
   }
 `
 
+const ButtonBox = styled.div`
+
+  padding: 20px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 type Item = {
     id: string;
     src: string;
@@ -75,7 +85,10 @@ type Item = {
     name: string;
     componentData: any;
 };
+
 const Template: React.FC = () => {
+
+    const { register, handleSubmit,control } = useForm<any>();
 
     const initialItems: Item[] = [
         {
@@ -100,7 +113,8 @@ const Template: React.FC = () => {
             componentData:CreateJson
         },
     ];
-
+    const childRef = useRef(null);
+    const childRefs = useRef<ForwardedRef<ChildMethods>[]>([]);
     const [leftItems, setLeftItems] = useState<Item[]>(initialItems);
     const [rightItems, setRightItems] = useState<Item[]>([]);
 
@@ -117,6 +131,7 @@ const Template: React.FC = () => {
 
             setLeftItems(updatedLeftItems);
             setRightItems(updatedRightItems);
+            childRefs.current[rightItems.length-1] = childRef;
         } else if (result.source.droppableId === 'right') {
             const draggedItem = rightItems[result.source.index];
             const updatedRightItems = rightItems.filter((_, index) => index !== result.source.index);
@@ -126,7 +141,6 @@ const Template: React.FC = () => {
 
     };
 
-
     const handleFormClose = (itemId: string) => {
         const closedItem = rightItems.find((item) => item.id === itemId);
         if (closedItem) {
@@ -135,8 +149,15 @@ const Template: React.FC = () => {
 
             setLeftItems(updatedLeftItems);
             setRightItems(updatedRightItems);
+
+            childRefs.current.pop();
         }
     };
+
+
+    const onSubmit = (data:any) =>{
+        console.log(data)
+    }
 
     return (<Box>
 
@@ -160,7 +181,7 @@ const Template: React.FC = () => {
                                                 ...provided.draggableProps.style,
                                             }}
                                         >
-                                            <Component listArr={item.componentData} />
+                                            <Component listArr={item.componentData} register={register} control={control}/>
                                             <div className="close" onClick={() => handleFormClose(item.id)}>X</div>
 
                                         </FormBox>
@@ -200,9 +221,11 @@ const Template: React.FC = () => {
                         </RhtBox>
                     )}
                 </Droppable>
-
             </InnerBox>
         </DragDropContext>
+            <ButtonBox>
+                <button onClick={handleSubmit(onSubmit)}>Submit</button>
+            </ButtonBox>
         </Box>
     );
 };
