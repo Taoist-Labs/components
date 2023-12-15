@@ -1,0 +1,111 @@
+
+{
+  "type": "create",
+  "title": "创建公共项目申请",
+  "id": "9e0328ee-fb30-42d1-84e6-2fbc3302d1c9",
+  "automation_action": "unknown/budget_apply/create_project",
+  "content": [
+    {
+      "type": "input",
+      "inputType": "text",
+      "value": "",
+      "name": "issue",
+      "properties":[
+        {
+          "name": "title",
+          "value": "项目名称"
+        },
+        {
+          "name": "size",
+          "value": "lg"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "required": true,
+            "maxLength": 50
+          }
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "name": "addList",
+      "style": {
+        "column": 2,
+        "width": [30,30],
+        "tHeader": ["项目成员","负责人"]
+      },
+      "rows": [
+        {
+          "type": "input",
+          "inputType": "address",
+          "value": "",
+          "name": "address",
+          "properties":[
+            {
+              "name": "title",
+              "value": "项目成员"
+            },
+            {
+              "name": "size",
+              "value": "md"
+            },
+            {
+              "name": "validate",
+              "value": {
+                "maxLength": 20
+              }
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "dataList": "--assets-type--",
+          "value":"",
+          "name": "type",
+          "properties":[
+            {
+              "name": "title",
+              "value": "资产类型"
+            },
+            {
+              "name": "size",
+              "value": "md"
+            },
+            {
+              "name": "validate",
+              "value": {
+                "maxLength": 20
+              }
+            }
+          ]
+        }
+
+      ]
+    },
+    {
+      "type": "input",
+      "inputType": "textarea",
+      "value": "",
+      "name": "description",
+      "properties":[
+        {
+          "name": "title",
+          "value": "项目简介"
+        },
+        {
+          "name": "size",
+          "value": "lg"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "maxLength": 200
+          }
+        }
+      ]
+    }
+  ]
+}
+
