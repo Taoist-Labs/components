@@ -104,7 +104,44 @@
           }
         }
       ]
+    },
+    {
+      "type": "file",
+      "uploadType": "image",
+      "value": "",
+      "name": "logo",
+      "properties":[
+        {
+          "name": "title",
+          "value": "项目Logo"
+        },
+        {
+          "name": "validate",
+          "value": {
+
+          }
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "uploadType": "file",
+      "value": "",
+      "name": "file",
+      "properties":[
+        {
+          "name": "title",
+          "value": "项目文件"
+        },
+        {
+          "name": "validate",
+          "value": {
+
+          }
+        }
+      ]
     }
+
   ]
 }
 

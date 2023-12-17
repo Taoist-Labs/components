@@ -40,6 +40,20 @@ export interface SelectProps{
 
 }
 
+export interface UpdateProps{
+    item:{
+        type: string;
+        name: string;
+        uploadType: string;
+        properties:PropertiesObj[]
+    }
+    type?:string;
+    tableIndex?:number;
+    listName?:string;
+    setValue?:any;
+    register:UseFormRegister<any>
+}
+
 export interface TableProps{
     item:{
         type: string;
@@ -55,6 +69,7 @@ export interface TableProps{
     type?:string;
     register:UseFormRegister<any>
     control:any
+    setValue?:any
 }
 
 export interface ChildMethods {

@@ -4,6 +4,8 @@ import {TableProps} from "../type/compontent.type";
 import Input from "./input";
 import SelectBox from "./select";
 import { useFieldArray } from 'react-hook-form';
+import File from "./File";
+import CheckBox from "./checkbox";
 
 
 const Box = styled.div`
@@ -49,7 +51,7 @@ const BtnGroup = styled.div`
   justify-content: center;
 `
 
-export default function Table({item,register,control,type}:TableProps){
+export default function Table({item,register,control,type,setValue}:TableProps){
 
     const [column,setColumn] = useState(0);
     const [width,setWidth] = useState<number[]>([]);
@@ -81,8 +83,6 @@ export default function Table({item,register,control,type}:TableProps){
         append(dataItem)
     }, [item]);
 
-
-
     if(!item)return null;
     return <Box>
         <table>
@@ -110,6 +110,13 @@ export default function Table({item,register,control,type}:TableProps){
                             }
                             {
                                 rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} />
+                            }
+
+                            {
+                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} setValue={setValue} />
+                            }
+                            {
+                                rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} register={register} type={type} />
                             }
                         </td>))
                     }

@@ -5,6 +5,8 @@ import styled from "styled-components";
 import ApplyJson from "../json/apply.json";
 import CreateJson from "../json/create.json";
 import AddJson from "../json/add.json";
+import DelJson from "../json/delMember.json";
+import OtherJson from "../json/other.json";
 
 import Component from "../components/component";
 import {ChildMethods} from "../type/compontent.type";
@@ -88,7 +90,7 @@ type Item = {
 
 const Template: React.FC = () => {
 
-    const { register, handleSubmit,control } = useForm<any>();
+    const { register, handleSubmit,control,setValue } = useForm<any>();
 
     const initialItems: Item[] = [
         {
@@ -112,6 +114,20 @@ const Template: React.FC = () => {
             type: 'image',
             componentData:CreateJson
         },
+        {
+            id: '9e03282',
+            name:"删除市政厅",
+            src: 'https://img0.baidu.com/it/u=3979949991,2513156939&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+            type: 'image',
+            componentData:DelJson
+        },
+        {
+            id: '9e03282443',
+            name:"others",
+            src: 'https://img0.baidu.com/it/u=46644979,2438128608&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+            type: 'image',
+            componentData:OtherJson
+        }
     ];
     const childRef = useRef(null);
     const childRefs = useRef<ForwardedRef<ChildMethods>[]>([]);
@@ -181,7 +197,7 @@ const Template: React.FC = () => {
                                                 ...provided.draggableProps.style,
                                             }}
                                         >
-                                            <Component listArr={item.componentData} register={register} control={control}/>
+                                            <Component listArr={item.componentData} register={register} control={control} setValue={setValue}/>
                                             <div className="close" onClick={() => handleFormClose(item.id)}>X</div>
 
                                         </FormBox>
