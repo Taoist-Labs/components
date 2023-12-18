@@ -43,7 +43,7 @@ const UlBox = styled.ul`
 
 `
 
-export default function Checkbox({item,register,tableIndex,type,listName}:InputProps){
+export default function Checkbox({item,register,tableIndex,type,listName,reset}:InputProps){
 
     const [prop,setProp] = useState<any>()
     const options = [
@@ -61,6 +61,12 @@ export default function Checkbox({item,register,tableIndex,type,listName}:InputP
         setProp(arr)
 
     }, [item.properties]);
+
+    useEffect(() => {
+        return () =>{
+            reset();
+        }
+    }, []);
     return <Box>
         <label className="labelLft">{prop?.title}</label>
         <UlBox className={prop?.size}>

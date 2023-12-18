@@ -1,6 +1,6 @@
 
   {
-    "type": "appy",
+    "type": "apply",
     "title": "资产申请",
     "id": "1be5d95d-a96b-4a56-9064-4cde5491077c",
     "automation_action": "unknown/budget_apply/create_project",

@@ -51,7 +51,7 @@ const BtnGroup = styled.div`
   justify-content: center;
 `
 
-export default function Table({item,register,control,type,setValue}:TableProps){
+export default function Table({item,register,control,type,setValue,reset}:TableProps){
 
     const [column,setColumn] = useState(0);
     const [width,setWidth] = useState<number[]>([]);
@@ -83,6 +83,12 @@ export default function Table({item,register,control,type,setValue}:TableProps){
         append(dataItem)
     }, [item]);
 
+    useEffect(() => {
+        return () =>{
+            reset();
+        }
+    }, []);
+
     if(!item)return null;
     return <Box>
         <table>
@@ -106,17 +112,17 @@ export default function Table({item,register,control,type,setValue}:TableProps){
                     {
                         [...Array(column)].map((r,index)=>(<td key={`tbody_${index}`}>
                             {
-                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} />
+                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} reset={reset} />
                             }
                             {
-                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} />
+                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} />
                             }
 
                             {
-                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} setValue={setValue} />
+                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} setValue={setValue} reset={reset} />
                             }
                             {
-                                rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} register={register} type={type} />
+                                rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} register={register} type={type} reset={reset} />
                             }
                         </td>))
                     }

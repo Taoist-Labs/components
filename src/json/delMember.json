@@ -8,7 +8,7 @@
     {
       "type": "checkbox",
       "dataList": "--budget-resource--",
-      "name": "delMemels",
+      "name": "delMemeberList",
       "value":{
       },
       "properties":[

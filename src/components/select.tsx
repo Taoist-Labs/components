@@ -28,7 +28,7 @@ const Box = styled.div`
 `
 
 
-const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type }, ref) => {
+const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset }, ref) => {
 
     const [prop, setProp] = useState<any>()
 
@@ -51,7 +51,11 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
 
     }, [item.properties]);
 
-
+    useEffect(() => {
+        return () =>{
+            reset();
+        }
+    }, []);
     if(!prop)return null;
   return(
       <Box>

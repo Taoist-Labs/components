@@ -69,7 +69,7 @@ const UploadFileBox = styled.label`
 `
 
 
-export default function File({item,register,tableIndex,listName,type,setValue}:UpdateProps){
+export default function File({item,register,tableIndex,listName,type,setValue,reset}:UpdateProps){
 
     const [prop,setProp] = useState<any>();
     const id = uuidv4();
@@ -126,8 +126,11 @@ export default function File({item,register,tableIndex,listName,type,setValue}:U
         setImageUrl('');
     };
 
-
-
+    useEffect(() => {
+        return () =>{
+            reset();
+        }
+    }, []);
 
     return <Box>
         <label className="labelLft">{prop?.title}</label>

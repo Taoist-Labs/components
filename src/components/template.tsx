@@ -1,4 +1,4 @@
-import React, {ForwardedRef, useRef, useState} from 'react';
+import React, {ForwardedRef, useEffect, useRef, useState} from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import styled from "styled-components";
 
@@ -85,12 +85,13 @@ type Item = {
     src: string;
     type: string;
     name: string;
+    auto_action?: string;
     componentData: any;
 };
 
 const Template: React.FC = () => {
 
-    const { register, handleSubmit,control,setValue } = useForm<any>();
+    const { register, handleSubmit,control,setValue,reset } = useForm<any>();
 
     const initialItems: Item[] = [
         {
@@ -98,6 +99,7 @@ const Template: React.FC = () => {
             name:"添加市政厅成员",
             src: 'https://mms0.baidu.com/it/u=480006263,2457381717&fm=253&app=138&f=JPEG?w=500&h=500',
             type: 'image',
+            auto_action:"auto_action1",
             componentData:AddJson
         },
         {
@@ -105,6 +107,7 @@ const Template: React.FC = () => {
             name:"资产申请",
             src: 'https://img0.baidu.com/it/u=1119404505,3019956218&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
             type: 'image',
+            auto_action:"auto_action2",
             componentData:ApplyJson
         },
         {
@@ -112,6 +115,7 @@ const Template: React.FC = () => {
             name:"创建公共项目申请",
             src: 'https://img1.baidu.com/it/u=38051914,745056107&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=802',
             type: 'image',
+            auto_action:"auto_action3",
             componentData:CreateJson
         },
         {
@@ -119,6 +123,7 @@ const Template: React.FC = () => {
             name:"删除市政厅",
             src: 'https://img0.baidu.com/it/u=3979949991,2513156939&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
             type: 'image',
+            auto_action:"auto_action4",
             componentData:DelJson
         },
         {
@@ -126,13 +131,26 @@ const Template: React.FC = () => {
             name:"others",
             src: 'https://img0.baidu.com/it/u=46644979,2438128608&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
             type: 'image',
+            auto_action:"auto_action5",
             componentData:OtherJson
         }
     ];
-    const childRef = useRef(null);
-    const childRefs = useRef<ForwardedRef<ChildMethods>[]>([]);
     const [leftItems, setLeftItems] = useState<Item[]>(initialItems);
     const [rightItems, setRightItems] = useState<Item[]>([]);
+
+    // useEffect(() => {
+    //     setRightItems(
+    //         [
+    //             {
+    //                 id: '9e03282',
+    //                 name:"删除市政厅",
+    //                 src: 'https://img0.baidu.com/it/u=3979949991,2513156939&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+    //                 type: 'image',
+    //                 componentData:DelJson
+    //             }
+    //         ]
+    //     )
+    // }, []);
 
     const handleDragEnd = (result: DropResult) => {
         if (!result.destination) {
@@ -147,7 +165,6 @@ const Template: React.FC = () => {
 
             setLeftItems(updatedLeftItems);
             setRightItems(updatedRightItems);
-            childRefs.current[rightItems.length-1] = childRef;
         } else if (result.source.droppableId === 'right') {
             const draggedItem = rightItems[result.source.index];
             const updatedRightItems = rightItems.filter((_, index) => index !== result.source.index);
@@ -166,13 +183,16 @@ const Template: React.FC = () => {
             setLeftItems(updatedLeftItems);
             setRightItems(updatedRightItems);
 
-            childRefs.current.pop();
         }
     };
 
 
     const onSubmit = (data:any) =>{
         console.log(data)
+        for(let key in data){
+            console.log(key)
+        }
+
     }
 
     return (<Box>
@@ -197,7 +217,7 @@ const Template: React.FC = () => {
                                                 ...provided.draggableProps.style,
                                             }}
                                         >
-                                            <Component listArr={item.componentData} register={register} control={control} setValue={setValue}/>
+                                            <Component listArr={item.componentData} register={register} control={control} setValue={setValue} reset={reset}/>
                                             <div className="close" onClick={() => handleFormClose(item.id)}>X</div>
 
                                         </FormBox>

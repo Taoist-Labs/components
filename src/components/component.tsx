@@ -1,6 +1,6 @@
 import {useEffect, useState,ForwardedRef} from "react";
 import styled from "styled-components";
-import {ChildMethods, Icomponent} from "../type/compontent.type";
+import {ChildMethods, ChildProps, Icomponent} from "../type/compontent.type";
 
 import Input from "./input";
 import SelectBox from "./select";
@@ -27,16 +27,10 @@ const ContentBox = styled.ul`
   }
 `
 
-interface ChildProps {
-    forwardedRef?: ForwardedRef<ChildMethods>;
-    listArr:any;
-    register:any;
-    control:any;
-    setValue?:any
-}
 
 
-const Component = ({listArr,register,control,setValue}:ChildProps) =>{
+
+const Component = ({listArr,register,control,setValue,reset}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
     useEffect(() => {
@@ -50,19 +44,19 @@ const Component = ({listArr,register,control,setValue}:ChildProps) =>{
                 list?.content?.map((item,index)=>(
                     <li key={`list_${index}`}>
                         {
-                            item.type === "input" && <Input item={item} register={register} type={list?.type} />
+                            item.type === "input" && <Input item={item} register={register} type={list?.type} reset={reset} />
                         }
                         {
-                            item.type === "select" && <SelectBox item={item} control={control} type={list?.type} />
+                            item.type === "select" && <SelectBox item={item} control={control} type={list?.type} reset={reset} />
                         }
                         {
-                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.type} setValue={setValue} />
+                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.type} setValue={setValue} reset={reset} />
                         }
                         {
-                            item.type === "file" && <File item={item} register={register}  type={list?.type} setValue={setValue} />
+                            item.type === "file" && <File item={item} register={register}  type={list?.type} setValue={setValue} reset={reset} />
                         }
                         {
-                            item.type === "checkbox" && <CheckBox item={item} register={register} type={list?.type} />
+                            item.type === "checkbox" && <CheckBox item={item} register={register} type={list?.type} reset={reset} />
                         }
                     </li>
                 ))

@@ -1,10 +1,20 @@
 import {UseFormRegister } from "react-hook-form";
+import {ForwardedRef} from "react";
 export interface Icomponent {
     type: string;
     id: string;
     title:string;
     automation_action:string;
     content:any[]
+}
+
+export interface ChildProps {
+    forwardedRef?: ForwardedRef<ChildMethods>;
+    listArr:any;
+    register:any;
+    control:any;
+    setValue?:any
+    reset?:any
 }
 
 interface PropertiesObj{
@@ -22,6 +32,7 @@ export interface InputProps{
     type?:string;
     tableIndex?:number;
     listName?:string;
+    reset?:any;
     register:UseFormRegister<any>
 }
 export interface SelectProps{
@@ -32,6 +43,7 @@ export interface SelectProps{
         properties:PropertiesObj[]
     }
     type?:string;
+    reset?:any;
     tableIndex?:number;
     listName?:string;
     register:UseFormRegister<any>
@@ -48,6 +60,7 @@ export interface UpdateProps{
         properties:PropertiesObj[]
     }
     type?:string;
+    reset?:any;
     tableIndex?:number;
     listName?:string;
     setValue?:any;
@@ -69,6 +82,7 @@ export interface TableProps{
     type?:string;
     register:UseFormRegister<any>
     control:any
+    reset?:any
     setValue?:any
 }
 
