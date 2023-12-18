@@ -69,7 +69,7 @@ const UploadFileBox = styled.label`
 `
 
 
-export default function File({item,register,tableIndex,listName,type,setValue,reset}:UpdateProps){
+export default function File({item,register,tableIndex,listName,type,setValue,reset,getValues}:UpdateProps){
 
     const [prop,setProp] = useState<any>();
     const id = uuidv4();
@@ -79,11 +79,10 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
     useEffect(() => {
         if(!item.properties)return;
         let arr:any ={}
-        item.properties.map((inner,index)=>{
+        item.properties.map((inner)=>{
             arr[inner.name] = inner.value;
         })
 
-        console.log("=====",item)
 
         setProp(arr)
 
@@ -126,7 +125,20 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
         setImageUrl('');
     };
 
+
     useEffect(() => {
+        if(tableIndex===undefined){
+            setValue(`${type}.${item?.name}`,item?.value)
+        }
+
+        let url = getValues(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
+
+        if(item.uploadType === "image"){
+            setImageUrl(url)
+        }else{
+            console.log(url)
+        }
+
         return () =>{
             reset();
         }

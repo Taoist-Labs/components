@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import {InputProps} from "../type/compontent.type";
 
 const Box = styled.div`
@@ -43,9 +43,10 @@ const UlBox = styled.ul`
 
 `
 
-export default function Checkbox({item,register,tableIndex,type,listName,reset}:InputProps){
+export default function Checkbox({item,register,tableIndex,type,listName,reset,setValue,getValues}:InputProps){
 
     const [prop,setProp] = useState<any>()
+    const [selectOptions,setSelectOptions] = useState<string[]>([]);
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
@@ -62,21 +63,57 @@ export default function Checkbox({item,register,tableIndex,type,listName,reset}:
 
     }, [item.properties]);
 
+    const returnChecked = (value:string)=>{
+        if(selectOptions){
+            const slOp = selectOptions?.filter((inner:string)=>inner === value);
+            return !!slOp.length
+        }else{
+            return false;
+        }
+    }
+
     useEffect(() => {
+        if(tableIndex===undefined){
+            setValue(`${type}.${item?.name}`,item?.value)
+        }
+
+        let selectOp = getValues(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`);
+        setSelectOptions(selectOp)
         return () =>{
             reset();
         }
     }, []);
+
+    const handleSelect = (e:ChangeEvent) =>{
+        const {value} = e.target as HTMLInputElement;
+
+        let arr:string[] = [];
+
+        if (selectOptions?.includes(value)) {
+            arr = selectOptions.filter((option) => option !== value);
+
+        } else {
+            arr =[...(selectOptions??[]), value];
+        }
+
+        setSelectOptions(arr);
+
+        setValue(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,arr);
+
+
+    }
+
     return <Box>
         <label className="labelLft">{prop?.title}</label>
         <UlBox className={prop?.size}>
 
             {
                 options.map((inner,index)=>(   <li key={index}>
-                    <input type="checkbox" id={`${item?.name}_${index}`} {...register(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`, prop?.validate)} value={inner.value} />
+                    <input type="checkbox" id={`${item?.name}_${index}`} value={inner.value} checked={returnChecked(inner.value)} onChange={(e)=>handleSelect(e)} name={`${item?.name}_${index}`}  />
                     <label htmlFor={`${item?.name}_${index}`}>{inner.label}</label>
                 </li>))
             }
         </UlBox>
+        <input type="hidden" {...register(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,  prop?.validate)}  />
     </Box>
 }

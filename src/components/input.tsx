@@ -26,7 +26,7 @@ const Box = styled.div`
 `
 
 
-export default function Input({item,register,tableIndex,listName,type,reset}:InputProps){
+export default function Input({item,register,tableIndex,listName,type,reset,setValue}:InputProps){
 
     const [prop,setProp] = useState<any>()
 
@@ -49,12 +49,16 @@ export default function Input({item,register,tableIndex,listName,type,reset}:Inp
                 }
             }
         })
-
         setProp(arr)
-
     }, [item.properties]);
 
+
+
     useEffect(() => {
+
+        if(tableIndex===undefined){
+            setValue(`${type}.${item?.name}`,item?.value)
+        }
         return () =>{
             reset();
         }

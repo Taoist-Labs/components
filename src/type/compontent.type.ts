@@ -15,6 +15,8 @@ export interface ChildProps {
     control:any;
     setValue?:any
     reset?:any
+    data?:any
+    getValues?:any
 }
 
 interface PropertiesObj{
@@ -28,11 +30,14 @@ export interface InputProps{
         name: string;
         inputType: string;
         properties:PropertiesObj[]
+        value?:any
     }
     type?:string;
     tableIndex?:number;
     listName?:string;
     reset?:any;
+    getValues?:any;
+    setValue?:any
     register:UseFormRegister<any>
 }
 export interface SelectProps{
@@ -41,6 +46,7 @@ export interface SelectProps{
         name: string;
         dataList: string;
         properties:PropertiesObj[]
+        value?:any
     }
     type?:string;
     reset?:any;
@@ -49,7 +55,7 @@ export interface SelectProps{
     register:UseFormRegister<any>
     name?:string
     control:any
-
+    setValue?:any
 }
 
 export interface UpdateProps{
@@ -58,12 +64,14 @@ export interface UpdateProps{
         name: string;
         uploadType: string;
         properties:PropertiesObj[]
+        value?:any
     }
     type?:string;
     reset?:any;
     tableIndex?:number;
     listName?:string;
     setValue?:any;
+    getValues?:any;
     register:UseFormRegister<any>
 }
 
@@ -74,18 +82,31 @@ export interface TableProps{
             column: number,
             width: number[],
             tHeader: string[]
-
         }
         rows:any;
         name:string;
+        value?:any;
     }
     type?:string;
     register:UseFormRegister<any>
     control:any
     reset?:any
+    getValues?:any
     setValue?:any
 }
 
 export interface ChildMethods {
     childMethod: () => void;
 }
+
+export interface  Item  {
+    id: string;
+    src: string;
+    title: string;
+    name: string;
+    auto_action?: string;
+    dragType?: string;
+    componentData: any;
+    data?:any;
+    value?:any
+};

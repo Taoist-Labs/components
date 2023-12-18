@@ -10,10 +10,6 @@
         "type": "select",
         "dataList": "--budget-resource--",
         "name": "budget",
-        "value":{
-          "name": "市政厅",
-          "value":1
-        },
         "properties":[
           {
             "name": "title",

@@ -28,7 +28,7 @@ const Box = styled.div`
 `
 
 
-const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset }, ref) => {
+const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset,setValue }, ref) => {
 
     const [prop, setProp] = useState<any>()
 
@@ -46,16 +46,20 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
             arr[inner.name] = inner.value;
         })
         console.log(item.dataList)
-
         setProp(arr)
 
     }, [item.properties]);
 
     useEffect(() => {
+        if(tableIndex===undefined){
+            setValue(`${type}.${item?.name}`,item?.value)
+        }
         return () =>{
             reset();
         }
     }, []);
+
+
     if(!prop)return null;
   return(
       <Box>
@@ -64,7 +68,6 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
           <Controller
               name={tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`}
               control={control}
-              defaultValue=""
               render={({ field }) => (
                   <Select
                       className="innerSelect"

@@ -6,6 +6,27 @@
   "automation_action": "unknown/budget_apply/create_project",
   "content": [
     {
+      "type": "select",
+      "dataList": "--budget-resource--",
+      "name": "budget",
+      "properties":[
+        {
+          "name": "title",
+          "value": "预算来源"
+        },
+        {
+          "name": "size",
+          "value": "md"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "maxLength": 20
+          }
+        }
+      ]
+    },
+    {
       "type": "input",
       "inputType": "text",
       "value": "",
@@ -32,11 +53,49 @@
       "type": "table",
       "name": "addList",
       "style": {
-        "column": 2,
-        "width": [30,30],
-        "tHeader": ["项目成员","负责人"]
+        "column": 4,
+        "width": [10,20],
+        "tHeader": ["logo","项目成员","负责人"]
       },
       "rows": [
+        {
+          "type": "file",
+          "uploadType": "image",
+          "value": "",
+          "name": "logo",
+          "properties":[
+            {
+              "name": "title",
+              "value": "项目Logo"
+            },
+            {
+              "name": "validate",
+              "value": {
+
+              }
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "value": "",
+          "name": "food",
+          "properties":[
+            {
+              "name": "title",
+              "value": "资产数量"
+            },
+            {
+              "name": "size",
+              "value": "md"
+            },
+            {
+              "name": "validate",
+              "value": {
+              }
+            }
+          ]
+        },
         {
           "type": "input",
           "inputType": "address",
@@ -62,7 +121,7 @@
           "type": "select",
           "dataList": "--assets-type--",
           "value":"",
-          "name": "type",
+          "name": "typeTest",
           "properties":[
             {
               "name": "title",

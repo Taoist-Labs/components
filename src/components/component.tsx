@@ -1,6 +1,6 @@
 import {useEffect, useState,ForwardedRef} from "react";
 import styled from "styled-components";
-import {ChildMethods, ChildProps, Icomponent} from "../type/compontent.type";
+import {ChildMethods, ChildProps, Icomponent, Item} from "../type/compontent.type";
 
 import Input from "./input";
 import SelectBox from "./select";
@@ -27,15 +27,25 @@ const ContentBox = styled.ul`
   }
 `
 
-
-
-
-const Component = ({listArr,register,control,setValue,reset}:ChildProps) =>{
+const Component = ({listArr,register,control,setValue,reset,data,getValues}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
+    const searchParams = new URLSearchParams(window.location.search);
+    const operate = searchParams.get('operate');
+
     useEffect(() => {
+        listArr?.content.map((item:Item)=>{
+            if(!!data){
+                item.value = data[item.name];
+            }else{
+                item.value = null;
+            }
+
+
+        })
         setList(listArr)
-    }, [listArr]);
+    }, [listArr,operate]);
+
 
     return <Box key={list?.id}>
         <TitleBox>{list?.title}</TitleBox>
@@ -44,25 +54,24 @@ const Component = ({listArr,register,control,setValue,reset}:ChildProps) =>{
                 list?.content?.map((item,index)=>(
                     <li key={`list_${index}`}>
                         {
-                            item.type === "input" && <Input item={item} register={register} type={list?.type} reset={reset} />
+                            item.type === "input" && <Input item={item} register={register} type={list?.type} reset={reset} setValue={setValue} />
                         }
                         {
-                            item.type === "select" && <SelectBox item={item} control={control} type={list?.type} reset={reset} />
+                            item.type === "select" && <SelectBox item={item} control={control} type={list?.type} reset={reset} setValue={setValue} />
                         }
                         {
-                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.type} setValue={setValue} reset={reset} />
+                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.type} setValue={setValue} reset={reset} getValues={getValues} />
                         }
                         {
-                            item.type === "file" && <File item={item} register={register}  type={list?.type} setValue={setValue} reset={reset} />
+                            item.type === "file" && <File item={item} register={register}  type={list?.type} setValue={setValue} reset={reset} getValues={getValues} />
                         }
                         {
-                            item.type === "checkbox" && <CheckBox item={item} register={register} type={list?.type} reset={reset} />
+                            item.type === "checkbox" && <CheckBox item={item} register={register} type={list?.type} reset={reset} setValue={setValue} getValues={getValues} />
                         }
                     </li>
                 ))
             }
         </ContentBox>
-        {/*<button onClick={handleSubmit(onSubmit)}>submit</button>*/}
 
     </Box>
 }
