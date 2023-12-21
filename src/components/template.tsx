@@ -176,8 +176,6 @@ const Template: React.FC = () => {
 
     return (<Box>
 
-
-
         <DragDropContext onDragEnd={handleDragEnd}>
             <InnerBox>
                 <Droppable droppableId="right">

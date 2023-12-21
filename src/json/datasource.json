@@ -13,7 +13,7 @@
       "addList": [
         {
           "logo": "https://img0.baidu.com/it/u=3979949991,2513156939&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-          "food": ["strawberry","chocolate"],
+          "food": [{"value":"chocolate","label":"Chocolate"},{"value":"strawberry","label":"Strawberry"},{"value":"vanilla","label":"Vanilla"}],
           "address": "0x07Da0c2CA57Cc384b39242A81323ba8417248153",
           "typeTest": {
             "value": "strawberry",
@@ -23,7 +23,7 @@
         {
           "logo": "https://img0.baidu.com/it/u=1119404505,3019956218&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
           "address": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
-          "food": ["vanilla"],
+          "food": [{"value":"vanilla","label":"Vanilla"}],
           "typeTest": {
             "value": "chocolate",
             "label": "Chocolate"
@@ -39,9 +39,7 @@
     "auto_action": "unknown/budget_apply/create_project",
     "name": "delete",
     "data": {
-      "delMemeberList": [
-        "strawberry"
-      ]
+      "delMemeberList": [{"value":"strawberry","label":"Strawberry"}]
     }
   },
   {

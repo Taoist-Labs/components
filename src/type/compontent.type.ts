@@ -24,6 +24,10 @@ interface PropertiesObj{
     value: any
 }
 
+export interface thProps{
+    width:number;
+}
+
 export interface InputProps{
     item:{
         type: string;

@@ -64,8 +64,10 @@ export default function Checkbox({item,register,tableIndex,type,listName,reset,s
     }, [item.properties]);
 
     const returnChecked = (value:string)=>{
+
         if(selectOptions){
-            const slOp = selectOptions?.filter((inner:string)=>inner === value);
+            const slOp = selectOptions?.filter((inner:any)=>inner.value === value);
+
             return !!slOp.length
         }else{
             return false;
@@ -97,8 +99,14 @@ export default function Checkbox({item,register,tableIndex,type,listName,reset,s
         }
 
         setSelectOptions(arr);
+        console.log(arr)
 
-        setValue(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,arr);
+        const resultArray = options.filter(obj => arr.includes(obj.value));
+        console.log(JSON.stringify(resultArray))
+
+
+
+        setValue(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,resultArray);
 
 
     }

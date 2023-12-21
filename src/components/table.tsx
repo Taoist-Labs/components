@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {useEffect, useState} from "react";
-import {TableProps} from "../type/compontent.type";
+import {TableProps, thProps} from "../type/compontent.type";
 import Input from "./input";
 import SelectBox from "./select";
 import { useFieldArray } from 'react-hook-form';
@@ -32,9 +32,7 @@ const Box = styled.div`
   }
 
 `
-interface thProps{
-    width:number;
-}
+
 
 const ThBox = styled.th<thProps>`
     width: ${props => props.width+ "%"};
