@@ -75,8 +75,26 @@ const ButtonBox = styled.div`
   justify-content: center;
 `
 
+const LftFlex = styled.div`
+    display: flex;
+  flex-direction: column;
+`
 
-export default function Template  ({DataSource,operate,initialItems}:any)  {
+const BeforeDiv = styled.div`
+    margin-bottom: 20px;
+`
+
+const AfterDiv = styled.div`
+    margin: 20px 0;
+`
+
+const RhtFlex = styled.div`
+`
+
+ const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent}:any,ref) => {
+     React.useImperativeHandle(ref, () => ({
+         submitForm:handleSubmit(onSubmit),
+     }));
 
     const { register, handleSubmit,control,setValue,reset,getValues } = useForm<any>();
 
@@ -166,78 +184,94 @@ export default function Template  ({DataSource,operate,initialItems}:any)  {
             arr.push(obj)
 
         }
-        console.log(arr)
+        onSubmitData && onSubmitData(data);
+
     }
 
     return (<Box>
 
         <DragDropContext onDragEnd={handleDragEnd}>
             <InnerBox>
-                <Droppable droppableId="right">
-                    {(provided) => (
-                        <LftBox
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                        >
-                            <TitleBox>模版组件区域</TitleBox>
-                            {rightItems.map((item, index) => (
-                                <Draggable key={item.id} draggableId={item.id} index={index}>
+                <LftFlex>
+                    <BeforeDiv>
+                        {
+                            BeforeComponent
+                        }
+                    </BeforeDiv>
+                    <Droppable droppableId="right">
+                        {(provided) => (
+                            <LftBox
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                <TitleBox>模版组件区域</TitleBox>
+                                {rightItems.map((item, index) => (
+                                    <Draggable key={item.id} draggableId={item.id} index={index}>
 
-                                    {(provided) => (
-                                        <FormBox
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            style={{
-                                                ...provided.draggableProps.style,
-                                            }}
-                                        >
-                                            <Component listArr={item.componentData} getValues={getValues} register={register} control={control} setValue={setValue} reset={reset} data={item?.data}/>
-                                            <div className="close" onClick={() => handleFormClose(item.id)}>X</div>
+                                        {(provided) => (
+                                            <FormBox
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                style={{
+                                                    ...provided.draggableProps.style,
+                                                }}
+                                            >
+                                                <Component listArr={item.componentData} getValues={getValues} register={register} control={control} setValue={setValue} reset={reset} data={item?.data}/>
+                                                <div className="close" onClick={() => handleFormClose(item.id)}>X</div>
 
-                                        </FormBox>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {provided.placeholder}
-                        </LftBox>
-                    )}
-                </Droppable>
-                <Droppable droppableId="left">
-                    {(provided) => (
-                        <RhtBox
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                        >
-                            <TitleBox>组件</TitleBox>
-                            {leftItems.map((item, index) => (
-                                <Draggable key={item.id} draggableId={item.id} index={index}>
-                                    {(provided) => (
-                                        <ImageBox
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            style={{
-                                                ...provided.draggableProps.style,
-                                            }}
-                                        >
-                                            <img src={item.src} alt=""/>
-                                            {item.title}
+                                            </FormBox>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </LftBox>
+                        )}
+                    </Droppable>
 
-                                        </ImageBox>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {provided.placeholder}
-                        </RhtBox>
-                    )}
-                </Droppable>
+                    <AfterDiv>
+                        {
+                            AfterComponent
+                        }
+                    </AfterDiv>
+                </LftFlex>
+
+                <RhtFlex>
+                    <Droppable droppableId="left">
+                        {(provided) => (
+                            <RhtBox
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                <TitleBox>组件</TitleBox>
+                                {leftItems.map((item, index) => (
+                                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                                        {(provided) => (
+                                            <ImageBox
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                style={{
+                                                    ...provided.draggableProps.style,
+                                                }}
+                                            >
+                                                <img src={item.src} alt=""/>
+                                                {item.title}
+
+                                            </ImageBox>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </RhtBox>
+                        )}
+                    </Droppable>
+                </RhtFlex>
+
             </InnerBox>
         </DragDropContext>
-            <ButtonBox>
-                <button onClick={handleSubmit(onSubmit)}>Submit</button>
-            </ButtonBox>
         </Box>
     );
-};
+});
 
+export default Template
