@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+import React ,{useEffect, useState} from "react";
 import {TableProps, thProps} from "../type/compontent.type";
 import Input from "./input";
 import SelectBox from "./select";
@@ -68,9 +68,9 @@ export default function Table({item,register,control,type,setValue,reset,getValu
 
     useEffect(() => {
         if(!item.style || !item.rows.length)return;
-        const {column,width,tHeader} = item.style;
+        const {width,tHeader} = item.style;
         setRows(item.rows)
-        setColumn(column);
+        setColumn(item.rows.length);
         setWidth(width);
         setHeader(tHeader);
         let obj:any = {};

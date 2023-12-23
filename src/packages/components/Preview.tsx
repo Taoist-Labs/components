@@ -1,9 +1,6 @@
-import DataSource from "./json/datasource.json";
 import styled from "styled-components";
-import {useEffect, useState} from "react";
-import initialItems from "./utils/initialItem";
-import {thProps} from "./type/compontent.type";
-
+import React,{useEffect, useState} from "react";
+import {thProps} from "../type/compontent.type";
 
 const Box = styled.div`
     padding: 40px;
@@ -63,14 +60,14 @@ const ThBox = styled.th<thProps>`
 `
 
 
-export default function Preview(){
+export default function Preview({DataSource,initialItems}:any){
 
     const [list,setList] = useState<any[]>([])
 
     useEffect(() => {
         let arr:any[]=[];
-        DataSource.map((d)=>{
-            initialItems.map((i)=>{
+        DataSource.map((d:any)=>{
+            initialItems.map((i:any)=>{
                 if(i.name === d.name){
                     const {data} = d;
                    i.componentData.content?.map((inner:any)=>{
@@ -78,13 +75,11 @@ export default function Preview(){
                         inner.properties?.map((inn:any)=>{
                             inner.pro[inn.name] = inn.value;
                         })
-
                         inner.value = (data as any)[inner.name] ?? null;
-
                        if(inner.type === "table"){
 
                            inner.table = [...Array(inner.value.length)];
-                           
+
                            for (let j = 0; j < inner.value.length; j++) {
                                let arr = [];
                                for (let k = 0; k < inner.rows.length; k++) {
@@ -127,7 +122,7 @@ export default function Preview(){
                                             <tr>
 
                                                 {
-                                                    [...Array(inner.style.column)].map((col,index)=>(<ThBox key={`thead_${index}`} width={inner.style.width[index]}>
+                                                    [...Array(inner.rows.length)].map((col,index)=>(<ThBox key={`thead_${index}`} width={inner.style.width[index]}>
                                                         {
                                                             inner.style.tHeader[index]
                                                         }

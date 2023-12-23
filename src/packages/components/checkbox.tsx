@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from "styled-components";
 import {ChangeEvent, useEffect, useState} from "react";
 import {InputProps} from "../type/compontent.type";

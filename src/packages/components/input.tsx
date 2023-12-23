@@ -1,6 +1,6 @@
 import {InputProps} from "../type/compontent.type";
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+import React,{useEffect, useState} from "react";
 
 
 const Box = styled.div`

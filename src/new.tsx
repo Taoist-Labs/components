@@ -1,13 +1,12 @@
 import React from 'react';
-import Template from "./components/template";
+import Template from "./packages/components/template";
+import initialItems from "./json/initialItem";
+import DataSource from "./json/datasource.json";
 
 
 function New() {
     return (
-        <div>
-            <Template />
-
-        </div>
+            <Template DataSource={DataSource} operate="edit" initialItems={initialItems} />
     );
 }
 

@@ -56,7 +56,6 @@
         "type": "table",
         "name": "receiverList",
         "style": {
-          "column": 4,
           "width": [30,25,25],
           "tHeader": ["接收人","资产类型","资产数量","备注"]
         },

@@ -8,7 +8,6 @@
     {
       "type": "table",
       "style": {
-        "column": 2,
         "width": [30,30],
         "tHeader": ["成员","分类"]
       },

@@ -1,0 +1,23 @@
+{
+    "name": "@seedao/proposal",
+    "version": "0.0.3",
+    "description": "proposal",
+    "main": "index.js",
+    "repository": "",
+    "homepage": "",
+    "scripts": {},
+    "keywords": [
+        "web3",
+        "proposal",
+        "template"
+    ],
+    "peerDependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "styled-components": "^6.1.1",
+        "uuid": "^9.0.1",
+        "react-hook-form": "^7.49.2",
+        "react-beautiful-dnd": "^13.1.1"
+    },
+    "license": "MIT"
+}

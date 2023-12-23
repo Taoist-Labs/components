@@ -1,6 +1,6 @@
-import {useEffect, useState,ForwardedRef} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import {ChildMethods, ChildProps, Icomponent, Item} from "../type/compontent.type";
+import {ChildProps, Icomponent, Item} from "../type/compontent.type";
 
 import Input from "./input";
 import SelectBox from "./select";

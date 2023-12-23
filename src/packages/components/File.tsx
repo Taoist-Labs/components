@@ -1,6 +1,6 @@
 import {UpdateProps} from "../type/compontent.type";
 import styled from "styled-components";
-import {useEffect, useState , FormEvent} from "react";
+import React ,{useEffect, useState , FormEvent} from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 const Box = styled.div`

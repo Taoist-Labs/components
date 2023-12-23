@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import styled from "styled-components";
-import Component from "../components/component";
+import Component from "./component";
 import {Item} from "../type/compontent.type";
 import {useForm} from "react-hook-form";
-import initialItems from "../utils/initialItem";
 import { v4 as uuidv4 } from 'uuid';
-
-import DataSource from "../json/datasource.json";
 
 const Box = styled.div`
     padding: 40px;
@@ -79,15 +76,13 @@ const ButtonBox = styled.div`
 `
 
 
-const Template: React.FC = () => {
+export default function Template  ({DataSource,operate,initialItems}:any)  {
 
     const { register, handleSubmit,control,setValue,reset,getValues } = useForm<any>();
 
     const [leftItems, setLeftItems] = useState<Item[]>(initialItems);
     const [rightItems, setRightItems] = useState<Item[]>([]);
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const operate = searchParams.get('operate');
 
     useEffect(() => {
         if(operate === 'edit'){
@@ -98,12 +93,12 @@ const Template: React.FC = () => {
     const init = () =>{
         let updateRht:Item[] = [];
         let updateLft = [...leftItems];
-        DataSource.map((dItem)=>{
-            const cptIndex = initialItems.findIndex((item)=> item.name === dItem.name);
+        DataSource.map((dItem:any)=>{
+            const cptIndex = initialItems.findIndex((item:any)=> item.name === dItem.name);
             initialItems[cptIndex].data = dItem.data;
 
             updateRht.push({...initialItems[cptIndex],  dragType: 'form'});
-            const cptLft = initialItems.filter((element)=> !updateRht.some(e => e.name === element.name));
+            const cptLft = initialItems.filter((element:any)=> !updateRht.some(e => e.name === element.name));
             updateLft = [...cptLft];
         })
         setLeftItems(updateLft);
@@ -159,7 +154,7 @@ const Template: React.FC = () => {
     const onSubmit = (data:any) =>{
         let arr = [];
         for(let key in data){
-            const cpt = initialItems.filter((item)=> item.name === key);
+            const cpt = initialItems.filter((item:any)=> item.name === key);
             const id = uuidv4();
             const {type,automation_action} = cpt[0]?.componentData;
             let obj ={
@@ -246,4 +241,3 @@ const Template: React.FC = () => {
     );
 };
 
-export default Template;

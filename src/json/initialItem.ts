@@ -1,12 +1,11 @@
-import AddJson from "../json/add.json";
-import ApplyJson from "../json/apply.json";
-import CreateJson from "../json/create.json";
-import DelJson from "../json/delMember.json";
-import OtherJson from "../json/other.json";
-import {Item} from "../type/compontent.type";
+import AddJson from "./add.json";
+import ApplyJson from "./apply.json";
+import CreateJson from "./create.json";
+import DelJson from "./delMember.json";
+import OtherJson from "./other.json";
 
 
-const initialItems: Item[] = [
+const initialItems: any[] = [
     {
         id: '1',
         title:"添加市政厅成员",
