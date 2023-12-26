@@ -3,7 +3,6 @@ import Template from "./packages/components/template";
 import initialItems from "./json/initialItem";
 import DataSource from "./json/datasource.json";
 import styled from "styled-components";
-import {useParams} from "react-router-dom";
 
 
 const ButtonBox = styled.div`
@@ -22,12 +21,11 @@ function New() {
     const hash = window.location.hash;
     const searchParams = new URLSearchParams(hash.split('?')[1]);
     const operate = searchParams.get('operate')
-    
+
     const handleInput = (e:ChangeEvent) =>{
         const {value} = e.target as HTMLInputElement;
         setTest(value)
     }
-
 
     const handleFormSubmit = (data:any) => {
         console.log({
