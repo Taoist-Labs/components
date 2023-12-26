@@ -66,14 +66,6 @@ const FormBox = styled.div`
   }
 `
 
-const ButtonBox = styled.div`
-
-  padding: 20px;
-  background: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
 
 const LftFlex = styled.div`
     display: flex;
