@@ -1,7 +1,7 @@
 import React from 'react';
 import GlobalStyle from "./packages/utils/GlobalStyle";
 import RouterLink from "./router/router";
-import {BrowserRouter as Router} from "react-router-dom";
+import {HashRouter as Router} from "react-router-dom";
 
 function App() {
 
