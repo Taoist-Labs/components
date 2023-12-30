@@ -8,16 +8,17 @@ import Table from "./table";
 import File from "./File";
 import CheckBox from "./checkbox"
 
+
 const Box = styled.div`
-    background: #F5F5F5;
-  padding: 10px;
+  padding: 12px 24px;
 `
 
 const TitleBox = styled.div`
     font-weight: bold;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(217, 217, 217, 0.5);
   text-align: center;
+    font-size: 16px;
+    margin-top: 44px;
 `
 
 const ContentBox = styled.ul`

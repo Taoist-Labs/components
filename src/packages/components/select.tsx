@@ -10,20 +10,31 @@ const Box = styled.div`
   flex-grow: 1;
   label{
     margin-right: 10px;
-    line-height: 30px;
+    line-height: 40px;
     flex-shrink: 0;
   }
   .sm{
-    width: 200px;
+    width: 160px;
   }
   .md{
-    width: 400px;
+    width: 240px;
   }
   .lg{
-    width: 600px;
+    width: 480px;
   }
   .innerSelect{
     flex-grow: 1;
+      [class$="-control"] {
+          border-color: rgba(217, 217, 217, 0.50) !important;
+          border-radius: 8px;
+          &:focus,&:focus-visible{
+              outline: none!important;
+
+          }
+      }
+      [class$="-indicatorSeparator"] {
+          width: 0;
+      }
   }
 `
 
@@ -59,23 +70,60 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
         }
     }, []);
 
+    const customTheme = (theme:any) => ({
+        ...theme,
+        colors: {
+            ...theme.colors,
+            primary: 'rgba(82, 0, 255, 0.50)',
+            primary25: 'rgba(82, 0, 255, 0.50)',
+        },
+    });
+
+    const customStyles = {
+        control: (provided:any) => ({
+            ...provided,
+
+            borderColor: '#f00!important',
+            '&:hover': {
+                borderColor: '#f00!important',
+            },
+        }),
+        option: (provided:any,state:any) => ({
+            ...provided,
+            color: '#1A1323',
+            paddingBlock:"15px",
+            background: state.isSelected ? "#F8F5FF" :'#fff',
+            '&:hover': {
+                color: '#1A1323',
+                background:"#F8F5FF"
+            },
+        }),
+    };
+
 
     if(!prop)return null;
   return(
       <Box>
           <label  className="labelLft">{prop?.title}</label>
 
-          <Controller
-              name={tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`}
-              control={control}
-              render={({ field }) => (
-                  <Select
-                      className="innerSelect"
-                      {...field}
-                      options={options}
-                  />
-              )}
-          />
+
+          <div className={prop?.size}>
+              <Controller
+                  name={tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`}
+                  control={control}
+                  render={({ field }) => (
+                      <Select
+                          className="innerSelect"
+                          {...field}
+                          options={options}
+                          styles={customStyles}
+                          theme={customTheme}
+                          isSearchable={false}
+                      />
+                  )}
+              />
+          </div>
+
       </Box>
   )
 });

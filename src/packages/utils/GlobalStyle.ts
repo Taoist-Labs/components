@@ -5,14 +5,16 @@ const GlobalStyle = createGlobalStyle`
   body,html{
     padding: 0;
     margin: 0;
-    overscroll-behavior: none;
+
     font-size: 14px;
   }
   button{
     padding: 10px;
     
   }
-
+    label{
+        min-width: 100px;
+    }
   * {
     font-family: -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue",
@@ -20,12 +22,15 @@ const GlobalStyle = createGlobalStyle`
     "Segoe UI Emoji", "Segoe UI Symbol";
     padding: 0;
     margin: 0;
-
+      &:focus,&:focus-visible{
+          outline: none!important;
+          box-shadow: none!important;
+      }
+      //&::-webkit-scrollbar {
+      //    display: none;
+      //    width: 0;
+      //}
   }
-    &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
   dl,dt,ul,li{
     padding: 0;
     margin: 0;
@@ -35,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
   input{
-    height: 30px;
+    min-height: 40px;
   }
 
 `;

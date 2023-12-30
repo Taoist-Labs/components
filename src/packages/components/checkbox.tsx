@@ -15,16 +15,36 @@ const Box = styled.div`
 
 const UlBox = styled.ul`
   flex-grow: 1;
-  line-height: 30px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+    input{
+        //appearance: none;
+        //-webkit-appearance: none;
+        //-moz-appearance: none;
+        accent-color: #5200ff;
+        //background: #5200ff;
+        box-sizing: border-box;
+        width: 18px;
+        height: 18px!important;
+        min-height: 18px!important;
+        border-radius: 4px!important;
+        border: 1px solid rgba(217, 217, 217, 0.50);!important;
+        position: relative;
+
+    }
   li{
     display: flex;
     align-items: center;
+    border: 1px solid rgba(217, 217, 217, 0.50);
+      background: #fff;
+      border-radius: 8px;
+      padding: 0 12px;
+      height: 40px;
     label{
       padding-left: 10px;
     }
+  
   }
   &.sm{
     li{

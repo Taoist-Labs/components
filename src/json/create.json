@@ -68,6 +68,10 @@
               "value": "项目Logo"
             },
             {
+              "name": "size",
+              "value": "sm"
+            },
+            {
               "name": "validate",
               "value": {
 
@@ -174,6 +178,10 @@
           "value": "项目Logo"
         },
         {
+          "name": "size",
+          "value": "md"
+        },
+        {
           "name": "validate",
           "value": {
 
@@ -190,6 +198,10 @@
         {
           "name": "title",
           "value": "项目文件"
+        },
+        {
+          "name": "size",
+          "value": "md"
         },
         {
           "name": "validate",

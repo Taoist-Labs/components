@@ -8,17 +8,35 @@ const Box = styled.div`
   align-items: flex-start;
   label{
     margin-right: 10px;
-    line-height: 30px;
+    line-height: 40px;
     flex-shrink: 0;
+
   }
+    input,textarea{
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid rgba(217, 217, 217, 0.50);
+        background:  #FFF;
+        padding: 0 12px;
+        box-sizing: border-box;
+        &:hover,&:focus{
+            border: 1px solid rgba(82, 0, 255, 0.50);
+            outline: none;
+        }
+    }
+    textarea{
+        resize: none;
+        min-height: 120px;
+        padding: 12px;
+    }
   .sm{
-    width: 200px;
+    width: 160px;
   }
   .md{
-    width: 400px;
+    width: 240px;
   }
   .lg{
-    width: 600px;
+    width: 480px;
   }
   .rht{
     flex-grow: 1;

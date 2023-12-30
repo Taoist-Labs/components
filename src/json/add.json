@@ -8,7 +8,7 @@
     {
       "type": "table",
       "style": {
-        "width": [30,30],
+        "width": [50,30],
         "tHeader": ["成员","分类"]
       },
       "name": "memberList",

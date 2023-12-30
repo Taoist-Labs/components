@@ -6,19 +6,25 @@ import SelectBox from "./select";
 import { useFieldArray } from 'react-hook-form';
 import File from "./File";
 import CheckBox from "./checkbox";
+import Minus from "../svg/minus";
+import Add from "../svg/add";
 
 
 const Box = styled.div`
     display: flex;
   align-items: flex-start;
   flex-direction: column;
+    background: #F8F5FF;
+    border-radius: 8px;
   table{
     width: 100%;
     td,th{
       height: 40px;
-      border-bottom: 1px solid rgba(0,0,0,0.3);
       padding: 5px 20px;
     }
+      th{
+          text-align: center;
+      }
     .labelLft{
         display: none;
     }
@@ -38,18 +44,32 @@ const ThBox = styled.th<thProps>`
     width: ${props => props.width+ "%"};
 `
 
-const AddButton = styled.span`
-    padding: 5px 20px;
+const AddButton = styled.div`
   background: #fff;
   cursor: pointer;
-  margin: 0 5px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(217, 217, 217, 0.50);
+    border-radius: 8px;
 `
 
-const BtnGroup = styled.div`
-    width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const BtmBtn = styled.div`
+    height: 36px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    cursor: pointer;
+    border: 1px solid rgba(217, 217, 217, 0.50);
+    border-radius: 8px;
+    span{
+        padding-left: 10px;
+    }
+`
+
+const AddBox = styled.div`
+    margin: 20px;
 `
 
 export default function Table({item,register,control,type,setValue,reset,getValues}:TableProps){
@@ -134,15 +154,19 @@ export default function Table({item,register,control,type,setValue,reset,getValu
                         </td>))
                     }
                     <td>
-                        <BtnGroup>
-                            <AddButton onClick={() => append(dataItem)}>+</AddButton>
-                            <AddButton onClick={() =>remove(innerIndex)}>-</AddButton>
-                        </BtnGroup>
+
+
+                            <AddButton onClick={() =>remove(innerIndex)}><Minus /></AddButton>
                     </td>
                 </tr>))
             }
             </tbody>
         </table>
+        <AddBox>
+            <BtmBtn onClick={() => append(dataItem)}>
+                <Add /> <span>添加</span>
+            </BtmBtn>
+        </AddBox>
 
 
 

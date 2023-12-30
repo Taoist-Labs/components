@@ -2,6 +2,9 @@ import {UpdateProps} from "../type/compontent.type";
 import styled from "styled-components";
 import React ,{useEffect, useState , FormEvent} from "react";
 import { v4 as uuidv4 } from 'uuid';
+import Add from "../svg/add";
+import Del from "../svg/delete";
+import FileImg from "../svg/file";
 
 const Box = styled.div`
     display: flex;
@@ -14,13 +17,24 @@ const Box = styled.div`
   .rht{
     flex-grow: 1;
   }
+    .inner{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        span{
+            padding-top: 5px;
+        }
+    }
 `
 
 const UploadImgBox = styled.label`
 
 `
 
-const ImgBox = styled.div`
+const ImgBox = styled.div<{ size: string }>`
   width: 100%;
   height: 100%;
   display: flex;
@@ -34,13 +48,14 @@ const ImgBox = styled.div`
     width: 100%;
     height: 100%;
     z-index: 999;
-    background: #a16eff;
+      background: rgba(255,255,255,0.5);
     opacity: 0.8;
     align-items: center;
     justify-content: center;
     display: none;
     cursor: pointer;
-    color: #fff;
+    color: #000;
+      border-radius: 8px;
   }
   &:hover {
     .del {
@@ -48,33 +63,61 @@ const ImgBox = styled.div`
     }
   }
   img{
-    width: 100px;
-    height: 100px;
+      width: ${props => props.size ==="sm" ? "126px":"224px"};
+    height:126px;
     object-fit: cover;
     object-position: center;
+      border-radius: 8px;
   }
   
 `
-const UploadBox  = styled.div`
-  width: 100px;
-  height: 100px;
-  border: 1px solid rgba(0,0,0,0.2);
+const UploadBox  = styled.div<{ size: string }>`
+    width: ${props => props.size ==="sm" ? "126px":"224px"};
+    height:126px;
+  border: 1px solid rgba(217, 217, 217, 0.50);
+    border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
+    &:hover{
+        background: #F8F5FF;
+    }
+
+    
 `
 
 const UploadFileBox = styled.label`
+    background: #F9F9F9;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    .fileBtn{
+        background: #fff;
+        border-radius: 8px;
+        border:1px solid rgba(217, 217, 217, 0.50);
+        width: 120px;
+        font-weight: 600;
+        font-size: 14px;
+        height: 38px;
+        line-height: 38px;
+        text-align: center;
+        margin-right: 10px;
+    }
+    .block{
+        padding-left: 5px; 
+    }
 `
-
-
 export default function File({item,register,tableIndex,listName,type,setValue,reset,getValues}:UpdateProps){
 
     const [prop,setProp] = useState<any>();
     const id = uuidv4();
 
+    console.log(item)
+
     const [imageUrl,setImageUrl] = useState('')
+    const [fileUrl,setFileUrl] = useState('')
 
     useEffect(() => {
         if(!item.properties)return;
@@ -82,7 +125,6 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
         item.properties.map((inner)=>{
             arr[inner.name] = inner.value;
         })
-
 
         setProp(arr)
 
@@ -97,6 +139,7 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
 
     const updateFile = (e: FormEvent) =>{
         const { files } = e.target as any;
+        setFileUrl(files[0].name)
         setValue(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,files[0].name)
     }
 
@@ -149,25 +192,39 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
         {
             item.uploadType === "image" && <UploadImgBox  htmlFor={id}  onChange={(e) => updateLogo(e)}>
                 {
-                    !!imageUrl && <ImgBox onClick={() => removeUrl()}>
+                    !!imageUrl && <ImgBox onClick={() => removeUrl()} size={prop?.size}>
                         <div className="del">
-                            remove
+                            <div className="inner">
+                                <Del />
+                                <span>删除</span>
+                            </div>
+
                         </div>
                         <img src={imageUrl} alt="" />
                     </ImgBox>
                 }
                 {
-                    !imageUrl && <UploadBox>
+                    !imageUrl && <UploadBox size={prop?.size}>
                         <input type="file" id={id}  hidden accept=".jpg, .jpeg, .png" className={prop?.size}  />
-                        <div> + </div>
+                        <div className="inner">
+                            <Add />
+                            <span>上传</span>
+                        </div>
+
                     </UploadBox>
                 }
 
             </UploadImgBox>
         }
         {
-            item.uploadType === "file" &&<UploadFileBox htmlFor={id}  onChange={(e) => updateFile(e)}>
-                <input type="file" id={id} />
+            item.uploadType === "file" && <UploadFileBox htmlFor={id} onChange={(e) => updateFile(e)}>
+                <input type="file" id={id} hidden/>
+                <span className="fileBtn">选择文件</span>
+                {
+                    !!fileUrl&&  <FileImg />
+                }
+
+                <span className="block">{fileUrl}</span>
             </UploadFileBox>
         }
         <input type="hidden" {...register(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,  prop?.validate)}  />

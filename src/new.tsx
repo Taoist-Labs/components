@@ -4,15 +4,52 @@ import initialItems from "./json/initialItem";
 import DataSource from "./json/datasource.json";
 import styled from "styled-components";
 
+const AllBox = styled.div`
+    padding: 24px 32px;
+    background: #f5f5f5;
+`
+
+const TopBox = styled.div`
+    width: 100%;
+    height: 77px;
+    background: #f00;
+    position: fixed;
+    z-index: 99;
+`
+
+const Main = styled.div`
+
+    height: 100vh;
+
+`
 
 const ButtonBox = styled.div`
+    background: #fff;
+    position: sticky;
+    margin:-24px 0 0 -32px;
+    width: calc(100% + 64px);
+    top:77px;
+    height: 64px;
+    z-index: 99;
+    box-sizing: border-box;
+    padding-right: 372px;
+    box-shadow: 0px 4px 8px 0px rgba(138, 134, 146, 0.10);
+    border-top:1px solid var(--bs-border-color);
+`
 
-  padding: 20px;
-  background: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-    margin-bottom: 40px;
+const Box = styled.div`
+    background: #fff;
+    width: calc(100% - 410px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 40px 40px 0 20px;
+    
+    
 `
 
 function New() {
@@ -40,14 +77,28 @@ function New() {
     }
 
     return (
-        <div>
-        <Template DataSource={DataSource} operate={operate} initialItems={initialItems} BeforeComponent={ <input type="text" onChange={handleInput} />} AfterComponent={<div>-----test add after-----</div>}  ref={childRef} onSubmitData={handleFormSubmit} />
+        <>
+            <TopBox>
+                ddd
+            </TopBox>
+            <AllBox>
+
+
+            <Main>
             <ButtonBox>
 
                 <button onClick={() => AllSubmit()}>submit</button>
             </ButtonBox>
+            <Box>
+                <Template DataSource={DataSource} operate={operate} initialItems={initialItems} BeforeComponent={ <input type="text" onChange={handleInput} />} AfterComponent={<div>-----test add after-----</div>}  ref={childRef} onSubmitData={handleFormSubmit} />
 
-        </div>
+
+            </Box>
+        </Main>
+            </AllBox>
+        </>
+
+
     );
 }
 
