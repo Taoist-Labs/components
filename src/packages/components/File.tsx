@@ -89,17 +89,17 @@ const UploadBox  = styled.div<{ size: string,theme?:string }>`
     
 `
 
-const UploadFileBox = styled.label <{ BgTheme?: string }>`
+const UploadFileBox = styled.label <{ bgtheme?: string }>`
     //background: #F9F9F9;
-    background: ${props=> props.BgTheme === 'true'?"#2D2736":"#F9F9F9"};
+    background: ${props=> props.bgtheme === 'true'?"#2D2736":"#F9F9F9"};
     flex-grow: 1;
     display: flex;
     align-items: center;
     padding: 8px;
     .fileBtn{
-        background: ${props=> props.BgTheme === 'true'?"#1A1323":"#F9F9F9"};
+        background: ${props=> props.bgtheme === 'true'?"#1A1323":"#F9F9F9"};
         border-radius: 8px;
-        border:${props=>props.BgTheme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+        border:${props=>props.bgtheme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
         width: 120px;
         font-weight: 600;
         font-size: 14px;
@@ -218,7 +218,7 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
             </UploadImgBox>
         }
         {
-            item.uploadType === "file" && <UploadFileBox htmlFor={id} BgTheme={theme?.toString()} onChange={(e) => updateFile(e)} >
+            item.uploadType === "file" && <UploadFileBox htmlFor={id} bgtheme={theme?.toString()} onChange={(e) => updateFile(e)} >
                 <input type="file" id={id} hidden/>
                 <span className="fileBtn">{Lan[language??"zh"]?.select}</span>
                 {

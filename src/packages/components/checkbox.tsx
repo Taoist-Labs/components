@@ -96,9 +96,8 @@ export default function Checkbox({item,register,tableIndex,type,listName,reset,s
         if(tableIndex===undefined){
             setValue(`${type}.${item?.name}`,item?.value)
         }
-
         let selectOp = getValues(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`);
-        setSelectOptions(selectOp)
+        setSelectOptions(selectOp?selectOp:[])
         return () =>{
             reset();
         }
@@ -108,6 +107,8 @@ export default function Checkbox({item,register,tableIndex,type,listName,reset,s
         const {value} = e.target as HTMLInputElement;
 
         let arr:string[] = [];
+
+
 
         const containOption = selectOptions?.some((option) => option?.value === value)
 
@@ -137,7 +138,7 @@ export default function Checkbox({item,register,tableIndex,type,listName,reset,s
                 options.map((inner,index)=>(   <li key={index}>
 
                     <input type="checkbox" id={`${id}_${index}`} value={inner.value} checked={returnChecked(inner.value)} onChange={(e)=>handleSelect(e)} name={`${item?.name}_${index}`}  />
-                    <label htmlFor={`${item?.name}_${index}`}>{inner.label}</label>
+                    <label htmlFor={`${id}_${index}`}>{inner.label}</label>
                 </li>))
             }
         </UlBox>
