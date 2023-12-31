@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import styled from "styled-components";
 import Component from "./component";
@@ -134,6 +134,13 @@ const SearchInner = styled.div<{theme:string}>`
     height: 40px;
     padding: 0 10px;
     margin-bottom: 40px;
+    input{
+        padding: 0;
+        margin: 0;
+        border: 0;
+        background: transparent;
+        color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
+    }
 `
 
 const TitRht = styled.div`
@@ -258,7 +265,10 @@ const DragTips = styled.div<{theme:string}>`
 
     }
 
-    const handleSearch = () =>{
+    const handleSearch = (e:ChangeEvent) =>{
+        const {value} = e.target as HTMLInputElement;
+        const list = initialItems.filter((op:any)=>op.title.indexOf(value)>-1);
+        setLeftItems(list)
 
     }
 
@@ -340,8 +350,8 @@ const DragTips = styled.div<{theme:string}>`
                                     <RhtInner>
                                         <SearchBox theme={theme.toString()}>
                                             <SearchInner theme={theme.toString()} >
-                                                <div>{Lan[language]?.search}</div>
-                                                <div onClick={()=>handleSearch()} >
+                                                <input type="text" placeholder={Lan[language]?.search} onChange={(e)=>handleSearch(e)} />
+                                                <div>
                                                     <SearcImg/>
                                                 </div>
                                             </SearchInner>

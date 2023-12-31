@@ -14,7 +14,7 @@ const TopBox = styled.div`
     height: 77px;
     background: #f00;
     position: fixed;
-    z-index: 99;
+    z-index: 95;
 `
 
 const Main = styled.div`
@@ -30,7 +30,7 @@ const ButtonBox = styled.div`
     width: calc(100% + 64px);
     top:77px;
     height: 64px;
-    z-index: 99;
+    z-index: 95;
     box-sizing: border-box;
     padding-right: 372px;
     box-shadow: 0px 4px 8px 0px rgba(138, 134, 146, 0.10);
@@ -90,7 +90,7 @@ function New() {
                 <button onClick={() => AllSubmit()}>submit</button>
             </ButtonBox>
             <Box>
-                <Template language="en" showRight={true} theme={false} DataSource={DataSource} operate={operate} initialItems={initialItems} BeforeComponent={ <input type="text" onChange={handleInput} />} AfterComponent={<div>-----test add after-----</div>}  ref={childRef} onSubmitData={handleFormSubmit} />
+                <Template language="en" showRight={true} theme={true} DataSource={DataSource} operate={operate} initialItems={initialItems} BeforeComponent={ <input type="text" onChange={handleInput} />} AfterComponent={<div>-----test add after-----</div>}  ref={childRef} onSubmitData={handleFormSubmit} />
 
 
             </Box>
