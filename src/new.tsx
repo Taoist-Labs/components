@@ -90,7 +90,7 @@ function New() {
                 <button onClick={() => AllSubmit()}>submit</button>
             </ButtonBox>
             <Box>
-                <Template theme={true} DataSource={DataSource} operate={operate} initialItems={initialItems} BeforeComponent={ <input type="text" onChange={handleInput} />} AfterComponent={<div>-----test add after-----</div>}  ref={childRef} onSubmitData={handleFormSubmit} />
+                <Template language="en" showRight={true} theme={false} DataSource={DataSource} operate={operate} initialItems={initialItems} BeforeComponent={ <input type="text" onChange={handleInput} />} AfterComponent={<div>-----test add after-----</div>}  ref={childRef} onSubmitData={handleFormSubmit} />
 
 
             </Box>

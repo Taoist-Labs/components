@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Add from "../svg/add";
 import Del from "../svg/delete";
 import FileImg from "../svg/file";
+import Lan from "../utils/lan";
 
 const Box = styled.div`
     display: flex;
@@ -74,7 +75,7 @@ const ImgBox = styled.div<{ size: string}>`
 const UploadBox  = styled.div<{ size: string,theme?:string }>`
     width: ${props => props.size ==="sm" ? "126px":"224px"};
     height:126px;
-  border: 1px solid rgba(217, 217, 217, 0.50);
+  border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     border-radius: 8px;
   display: flex;
   align-items: center;
@@ -98,7 +99,7 @@ const UploadFileBox = styled.label <{ BgTheme?: string }>`
     .fileBtn{
         background: ${props=> props.BgTheme === 'true'?"#1A1323":"#F9F9F9"};
         border-radius: 8px;
-        border:1px solid rgba(217, 217, 217, 0.50);
+        border:${props=>props.BgTheme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
         width: 120px;
         font-weight: 600;
         font-size: 14px;
@@ -111,12 +112,10 @@ const UploadFileBox = styled.label <{ BgTheme?: string }>`
         padding-left: 5px; 
     }
 `
-export default function File({item,register,tableIndex,listName,type,setValue,reset,getValues,theme}:UpdateProps){
+export default function File({item,register,tableIndex,listName,type,setValue,reset,getValues,theme,language}:UpdateProps){
 
     const [prop,setProp] = useState<any>();
     const id = uuidv4();
-
-    console.log(item)
 
     const [imageUrl,setImageUrl] = useState('')
     const [fileUrl,setFileUrl] = useState('')
@@ -198,7 +197,7 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
                         <div className="del">
                             <div className="inner">
                                 <Del />
-                                <span>删除</span>
+                                <span>{Lan[language??"zh"]?.remove}</span>
                             </div>
 
                         </div>
@@ -210,7 +209,7 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
                         <input type="file" id={id}  hidden accept=".jpg, .jpeg, .png" className={prop?.size}  />
                         <div className="inner">
                             <Add theme={theme} />
-                            <span>上传</span>
+                            <span>{Lan[language??"zh"]?.upload}</span>
                         </div>
 
                     </UploadBox>
@@ -221,7 +220,7 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
         {
             item.uploadType === "file" && <UploadFileBox htmlFor={id} BgTheme={theme?.toString()} onChange={(e) => updateFile(e)} >
                 <input type="file" id={id} hidden/>
-                <span className="fileBtn">选择文件</span>
+                <span className="fileBtn">{Lan[language??"zh"]?.select}</span>
                 {
                     !!fileUrl&&  <FileImg />
                 }

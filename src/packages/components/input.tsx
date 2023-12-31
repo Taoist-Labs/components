@@ -16,7 +16,7 @@ const Box = styled.div<{theme?:string}>`
     input,textarea{
         height: 40px;
         border-radius: 8px;
-        border: 1px solid rgba(217, 217, 217, 0.50);
+        border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
         background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
         color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
         padding: 0 12px;

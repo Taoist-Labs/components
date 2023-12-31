@@ -25,7 +25,6 @@ const Box = styled.div`
   .innerSelect{
     flex-grow: 1;
       [class$="-control"] {
-          border-color: rgba(217, 217, 217, 0.50) !important;
           border-radius: 8px;
           &:focus,&:focus-visible{
               outline: none!important;
@@ -83,6 +82,7 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
             ...provided,
             color: theme?'#fff':'#1A1323',
             background: theme?'#1A1323':'#fff',
+            border:theme?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)",
             '&:hover': {
                 background:theme?'#1A1323':'#fff',
             },

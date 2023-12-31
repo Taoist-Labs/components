@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import {ChangeEvent, useEffect, useState} from "react";
 import {InputProps} from "../type/compontent.type";
+import { v4 as uuidv4 } from 'uuid';
 
 const Box = styled.div`
     display: flex;
@@ -25,12 +26,12 @@ const UlBox = styled.ul<{theme?:string}>`
         height: 18px!important;
         min-height: 18px!important;
         border-radius: 4px!important;
-        border: 1px solid rgba(217, 217, 217, 0.50);!important;
+        border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     }
   li{
     display: flex;
     align-items: center;
-    border: 1px solid rgba(217, 217, 217, 0.50);
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
       background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
       border-radius: 8px;
       padding: 0 12px;
@@ -61,6 +62,7 @@ const UlBox = styled.ul<{theme?:string}>`
 export default function Checkbox({item,register,tableIndex,type,listName,reset,setValue,getValues,theme}:InputProps){
 
     const [prop,setProp] = useState<any>()
+    const id = uuidv4();
     const [selectOptions,setSelectOptions] = useState<any[]>([]);
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
@@ -134,7 +136,7 @@ export default function Checkbox({item,register,tableIndex,type,listName,reset,s
             {
                 options.map((inner,index)=>(   <li key={index}>
 
-                    <input type="checkbox" id={`${item?.name}_${index}`} value={inner.value} checked={returnChecked(inner.value)} onChange={(e)=>handleSelect(e)} name={`${item?.name}_${index}`}  />
+                    <input type="checkbox" id={`${id}_${index}`} value={inner.value} checked={returnChecked(inner.value)} onChange={(e)=>handleSelect(e)} name={`${item?.name}_${index}`}  />
                     <label htmlFor={`${item?.name}_${index}`}>{inner.label}</label>
                 </li>))
             }

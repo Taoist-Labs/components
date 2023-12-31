@@ -8,6 +8,7 @@ import File from "./File";
 import CheckBox from "./checkbox";
 import Minus from "../svg/minus";
 import Add from "../svg/add";
+import Lan from "../utils/lan";
 
 
 const Box = styled.div<{theme?:string}>`
@@ -49,7 +50,7 @@ const AddButton = styled.div<{theme?:string}>`
   cursor: pointer;
     width: 40px;
     height: 40px;
-    border: 1px solid rgba(217, 217, 217, 0.50);
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     border-radius: 8px;
 `
 
@@ -61,7 +62,7 @@ const BtmBtn = styled.div<{theme?:string}>`
     justify-content: center;
     background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
     cursor: pointer;
-    border: 1px solid rgba(217, 217, 217, 0.50);
+    border:${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     border-radius: 8px;
     span{
         padding-left: 10px;
@@ -72,7 +73,7 @@ const AddBox = styled.div`
     margin: 20px;
 `
 
-export default function Table({item,register,control,type,setValue,reset,getValues,theme}:TableProps){
+export default function Table({item,register,control,type,setValue,reset,getValues,theme,language}:TableProps){
 
     const [column,setColumn] = useState(0);
     const [width,setWidth] = useState<number[]>([]);
@@ -146,7 +147,7 @@ export default function Table({item,register,control,type,setValue,reset,getValu
                             }
 
                             {
-                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} setValue={setValue} reset={reset} getValues={getValues} theme={theme} />
+                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} setValue={setValue} reset={reset} getValues={getValues} theme={theme} language={language}/>
                             }
                             {
                                 rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} register={register} type={type} reset={reset}  setValue={setValue} getValues={getValues}  theme={theme}/>
@@ -164,7 +165,7 @@ export default function Table({item,register,control,type,setValue,reset,getValu
         </table>
         <AddBox>
             <BtmBtn onClick={() => append(dataItem)}  theme={theme?.toString()}>
-                <Add theme={theme} /> <span>添加</span>
+                <Add theme={theme} /> <span>{Lan[language??"zh"]?.add}</span>
             </BtmBtn>
         </AddBox>
 

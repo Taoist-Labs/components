@@ -17,6 +17,7 @@ export interface ChildProps {
     reset?:any
     data?:any
     theme?:boolean;
+    language?:string;
     getValues?:any
 }
 
@@ -76,6 +77,7 @@ export interface UpdateProps{
     reset?:any;
     tableIndex?:number;
     listName?:string;
+    language?:string;
     setValue?:any;
     theme?:boolean;
     getValues?:any;
@@ -96,6 +98,7 @@ export interface TableProps{
     }
     theme?:boolean;
     type?:string;
+    language?:string;
     register:UseFormRegister<any>
     control:any
     reset?:any

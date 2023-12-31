@@ -9,6 +9,8 @@ import SearcImg from "../svg/searcImg";
 import Decorate from "../svg/decorate";
 import Plus from "../svg/plus";
 import Close from "../svg/close";
+import Lan from "../utils/lan";
+
 
 const Box = styled.div<{theme:string}>`
     height: 100%;
@@ -45,10 +47,10 @@ const RhtBox = styled.div<{theme:string}>`
     top: 77px;
     height: calc(100vh - 77px);
     background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
-    z-index: 9999;
+    z-index: 98;
     padding: 24px 32px;
     box-sizing: border-box;
-    border-left:1px solid rgba(217, 217, 217, 0.50);
+    border-left:${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     display: flex;
     flex-direction: column;
 `
@@ -65,7 +67,7 @@ const SearchBox = styled.div<{theme:string}>`
     top: 0;
 `
 
-const ImageBox = styled.div`
+const ImageBox = styled.div<{theme:string}>`
 
   user-select: none;
   display: flex;
@@ -77,9 +79,9 @@ const ImageBox = styled.div`
     }
   img{
     width: 100%;
-      border: 1px solid rgba(217, 217, 217, 0.50);
+      border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
       border-radius: 8px;
-      box-shadow: 2px 4px 4px 0px rgba(211, 206, 221, 0.10);
+      box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
   }
 `
 
@@ -87,12 +89,11 @@ const FormBox = styled.div<{theme:string}>`
 
   user-select: none;
   position: relative;
-
-
+    
     border-radius: 8px;
-    border: 1px solid rgba(217, 217, 217, 0.50);
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
-    box-shadow: 2px 4px 4px 0px rgba(211, 206, 221, 0.10);
+    box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
     margin-bottom: 20px;
   .close{
       position: absolute;
@@ -124,8 +125,8 @@ const RhtFlex = styled.div`
     justify-content: space-between;
 `
 
-const SearchInner = styled.div`
-    border:1px solid rgba(217, 217, 217, 0.50);
+const SearchInner = styled.div<{theme:string}>`
+    border:${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -148,7 +149,7 @@ const TitRht = styled.div`
 `
 
 const DragTips = styled.div<{theme:string}>`
-    border: 1px dashed #ccc;
+    border: ${props=>props.theme === 'true'?"1px dashed #29282F":"1px dashed rgba(217, 217, 217, 0.50)"};
     background:${props=>props.theme === 'true'?"#1A1323":"#F9F9F9"};
     height: 55px;
     display: flex;
@@ -161,7 +162,7 @@ const DragTips = styled.div<{theme:string}>`
     }
 `
 
- const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme}:any,ref) => {
+ const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language}:any,ref) => {
      React.useImperativeHandle(ref, () => ({
          submitForm:handleSubmit(onSubmit),
      }));
@@ -170,7 +171,6 @@ const DragTips = styled.div<{theme:string}>`
 
     const [leftItems, setLeftItems] = useState<Item[]>(initialItems);
     const [rightItems, setRightItems] = useState<Item[]>([]);
-
 
     useEffect(() => {
         if(operate === 'edit'){
@@ -299,6 +299,7 @@ const DragTips = styled.div<{theme:string}>`
                                                         listArr={item.componentData}
                                                         getValues={getValues}
                                                         theme={theme}
+                                                        language={language}
                                                                register={register} control={control} setValue={setValue}
                                                                reset={reset} data={item?.data}/>
 
@@ -308,9 +309,12 @@ const DragTips = styled.div<{theme:string}>`
 
                                         </Draggable>
                                     ))}
-                                <DragTips theme={theme.toString()}>
-                                <Plus /><span>请从右边选择需要执行的组件</span>
-                                </DragTips>
+                                {
+                                    showRight && <DragTips theme={theme.toString()}>
+                                        <Plus /><span>{Lan[language]?.dragTips}</span>
+                                    </DragTips>
+                                }
+
                                 {provided.placeholder}
                             </LftBox>
                         )}
@@ -323,7 +327,8 @@ const DragTips = styled.div<{theme:string}>`
                     </AfterDiv>
                 </LftFlex>
 
-                <RhtFlex>
+                {
+                    showRight && <RhtFlex>
 
                         <Droppable droppableId="left">
                             {(provided) => (
@@ -334,15 +339,15 @@ const DragTips = styled.div<{theme:string}>`
                                 >
                                     <RhtInner>
                                         <SearchBox theme={theme.toString()}>
-                                            <SearchInner >
-                                                <div>搜索</div>
+                                            <SearchInner theme={theme.toString()} >
+                                                <div>{Lan[language]?.search}</div>
                                                 <div onClick={()=>handleSearch()} >
                                                     <SearcImg/>
                                                 </div>
                                             </SearchInner>
                                             <TitRht>
                                                 <Decorate />
-                                                <span>提案执行组件</span>
+                                                <span>{Lan[language]?.rightTitle}</span>
                                             </TitRht>
 
 
@@ -351,31 +356,34 @@ const DragTips = styled.div<{theme:string}>`
                                             <Draggable key={item.id} draggableId={item.id} index={index}>
                                                 {(provided) => (
                                                     <ImageBox
+                                                        theme={theme.toString()}
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
                                                         style={{
                                                             ...provided.draggableProps.style,
                                                         }}
-                                                >
-                                                    <img src={item.src} alt=""/>
+                                                    >
+                                                        <img src={item.src} alt=""/>
                                                         <div className="line">
                                                             {item.title}
                                                         </div>
 
 
-                                                </ImageBox>
-                                            )}
-                                        </Draggable>
-                                    ))}
-                                    {provided.placeholder}
+                                                    </ImageBox>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
                                     </RhtInner>
                                 </RhtBox>
                             )}
                         </Droppable>
 
 
-                </RhtFlex>
+                    </RhtFlex>
+                }
+
 
             </InnerBox>
         </DragDropContext>
