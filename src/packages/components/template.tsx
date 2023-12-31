@@ -10,10 +10,11 @@ import Decorate from "../svg/decorate";
 import Plus from "../svg/plus";
 import Close from "../svg/close";
 
-const Box = styled.div`
+const Box = styled.div<{theme:string}>`
     height: 100%;
     box-sizing: border-box;
     width: 100%;
+    color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
     *{
         font-size: 14px;
         &::-webkit-scrollbar {
@@ -37,17 +38,17 @@ const LftBox = styled.div`
 
 `
 
-const RhtBox = styled.div`
+const RhtBox = styled.div<{theme:string}>`
   width: 350px;
     position: fixed;
     right: 0;
     top: 77px;
     height: calc(100vh - 77px);
-    background: #fff;
+    background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
     z-index: 9999;
     padding: 24px 32px;
     box-sizing: border-box;
-    border-left: 1px solid #E9EBED;
+    border-left:1px solid rgba(217, 217, 217, 0.50);
     display: flex;
     flex-direction: column;
 `
@@ -57,9 +58,9 @@ const RhtInner = styled.div`
     overflow-y: auto;
 `
 
-const SearchBox = styled.div`
+const SearchBox = styled.div<{theme:string}>`
     width: 100%;
-    background: #fff;
+    background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
     position: sticky;
     top: 0;
 `
@@ -76,13 +77,13 @@ const ImageBox = styled.div`
     }
   img{
     width: 100%;
-      border: 1px solid #E9EBED;
+      border: 1px solid rgba(217, 217, 217, 0.50);
       border-radius: 8px;
       box-shadow: 2px 4px 4px 0px rgba(211, 206, 221, 0.10);
   }
 `
 
-const FormBox = styled.div`
+const FormBox = styled.div<{theme:string}>`
 
   user-select: none;
   position: relative;
@@ -90,7 +91,7 @@ const FormBox = styled.div`
 
     border-radius: 8px;
     border: 1px solid rgba(217, 217, 217, 0.50);
-    background: #FFF;
+    background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
     box-shadow: 2px 4px 4px 0px rgba(211, 206, 221, 0.10);
     margin-bottom: 20px;
   .close{
@@ -124,7 +125,7 @@ const RhtFlex = styled.div`
 `
 
 const SearchInner = styled.div`
-    border: 1px solid #E9EBED;
+    border:1px solid rgba(217, 217, 217, 0.50);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -146,9 +147,9 @@ const TitRht = styled.div`
 
 `
 
-const DragTips = styled.div`
+const DragTips = styled.div<{theme:string}>`
     border: 1px dashed #ccc;
-    background:#f9f9f9;
+    background:${props=>props.theme === 'true'?"#1A1323":"#F9F9F9"};
     height: 55px;
     display: flex;
     align-items: center;
@@ -160,7 +161,7 @@ const DragTips = styled.div`
     }
 `
 
- const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent}:any,ref) => {
+ const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme}:any,ref) => {
      React.useImperativeHandle(ref, () => ({
          submitForm:handleSubmit(onSubmit),
      }));
@@ -261,7 +262,7 @@ const DragTips = styled.div`
 
     }
 
-    return (<Box>
+    return (<Box theme={theme.toString()}>
 
         <DragDropContext onDragEnd={handleDragEnd}>
             <InnerBox>
@@ -283,6 +284,7 @@ const DragTips = styled.div`
 
                                             {(provided) => (
                                                 <FormBox
+                                                    theme={theme.toString()}
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
@@ -293,7 +295,10 @@ const DragTips = styled.div`
                                                     <div className="close" onClick={() => handleFormClose(item.id)}>
                                                         <Close/>
                                                     </div>
-                                                    <Component listArr={item.componentData} getValues={getValues}
+                                                    <Component
+                                                        listArr={item.componentData}
+                                                        getValues={getValues}
+                                                        theme={theme}
                                                                register={register} control={control} setValue={setValue}
                                                                reset={reset} data={item?.data}/>
 
@@ -303,7 +308,7 @@ const DragTips = styled.div`
 
                                         </Draggable>
                                     ))}
-                                <DragTips>
+                                <DragTips theme={theme.toString()}>
                                 <Plus /><span>请从右边选择需要执行的组件</span>
                                 </DragTips>
                                 {provided.placeholder}
@@ -325,16 +330,15 @@ const DragTips = styled.div`
                                 <RhtBox
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
+                                    theme={theme.toString()}
                                 >
                                     <RhtInner>
-                                        <SearchBox>
-                                            <SearchInner>
+                                        <SearchBox theme={theme.toString()}>
+                                            <SearchInner >
                                                 <div>搜索</div>
                                                 <div onClick={()=>handleSearch()} >
                                                     <SearcImg/>
                                                 </div>
-
-
                                             </SearchInner>
                                             <TitRht>
                                                 <Decorate />

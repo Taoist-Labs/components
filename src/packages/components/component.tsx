@@ -28,7 +28,7 @@ const ContentBox = styled.ul`
   }
 `
 
-const Component = ({listArr,register,control,setValue,reset,data,getValues}:ChildProps) =>{
+const Component = ({listArr,register,control,setValue,reset,data,getValues,theme}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
     const searchParams = new URLSearchParams(window.location.search);
@@ -55,19 +55,19 @@ const Component = ({listArr,register,control,setValue,reset,data,getValues}:Chil
                 list?.content?.map((item,index)=>(
                     <li key={`list_${index}`}>
                         {
-                            item.type === "input" && <Input item={item} register={register} type={list?.type} reset={reset} setValue={setValue} />
+                            item.type === "input" && <Input item={item} register={register} type={list?.type} reset={reset} setValue={setValue} theme={theme} />
                         }
                         {
-                            item.type === "select" && <SelectBox item={item} control={control} type={list?.type} reset={reset} setValue={setValue} />
+                            item.type === "select" && <SelectBox item={item} control={control} type={list?.type} reset={reset} setValue={setValue} theme={theme} />
                         }
                         {
-                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.type} setValue={setValue} reset={reset} getValues={getValues} />
+                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.type} setValue={setValue} reset={reset} getValues={getValues} theme={theme}  />
                         }
                         {
-                            item.type === "file" && <File item={item} register={register}  type={list?.type} setValue={setValue} reset={reset} getValues={getValues} />
+                            item.type === "file" && <File item={item} register={register}  type={list?.type} setValue={setValue} reset={reset} getValues={getValues}  theme={theme} />
                         }
                         {
-                            item.type === "checkbox" && <CheckBox item={item} register={register} type={list?.type} reset={reset} setValue={setValue} getValues={getValues} />
+                            item.type === "checkbox" && <CheckBox item={item} register={register} type={list?.type} reset={reset} setValue={setValue} getValues={getValues} theme={theme}  />
                         }
                     </li>
                 ))

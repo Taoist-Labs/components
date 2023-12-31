@@ -3,9 +3,10 @@ import styled from "styled-components";
 import React,{useEffect, useState} from "react";
 
 
-const Box = styled.div`
+const Box = styled.div<{theme?:string}>`
     display: flex;
   align-items: flex-start;
+    
   label{
     margin-right: 10px;
     line-height: 40px;
@@ -16,7 +17,8 @@ const Box = styled.div`
         height: 40px;
         border-radius: 8px;
         border: 1px solid rgba(217, 217, 217, 0.50);
-        background:  #FFF;
+        background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
+        color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
         padding: 0 12px;
         box-sizing: border-box;
         &:hover,&:focus{
@@ -44,7 +46,7 @@ const Box = styled.div`
 `
 
 
-export default function Input({item,register,tableIndex,listName,type,reset,setValue}:InputProps){
+export default function Input({item,register,tableIndex,listName,type,reset,setValue,theme}:InputProps){
 
     const [prop,setProp] = useState<any>()
 
@@ -83,7 +85,7 @@ export default function Input({item,register,tableIndex,listName,type,reset,setV
     }, []);
 
   if(!prop)return null;
-    return <Box>
+    return <Box theme={theme?.toString()}>
         <label className="labelLft">{prop?.title}</label>
         <div className="rht">
             {

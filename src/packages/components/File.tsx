@@ -34,7 +34,7 @@ const UploadImgBox = styled.label`
 
 `
 
-const ImgBox = styled.div<{ size: string }>`
+const ImgBox = styled.div<{ size: string}>`
   width: 100%;
   height: 100%;
   display: flex;
@@ -71,7 +71,7 @@ const ImgBox = styled.div<{ size: string }>`
   }
   
 `
-const UploadBox  = styled.div<{ size: string }>`
+const UploadBox  = styled.div<{ size: string,theme?:string }>`
     width: ${props => props.size ==="sm" ? "126px":"224px"};
     height:126px;
   border: 1px solid rgba(217, 217, 217, 0.50);
@@ -79,22 +79,24 @@ const UploadBox  = styled.div<{ size: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+    background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
+    color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
     &:hover{
-        background: #F8F5FF;
+        background: rgba(82, 0, 255, 0.05);
     }
 
     
 `
 
-const UploadFileBox = styled.label`
-    background: #F9F9F9;
+const UploadFileBox = styled.label <{ BgTheme?: string }>`
+    //background: #F9F9F9;
+    background: ${props=> props.BgTheme === 'true'?"#2D2736":"#F9F9F9"};
     flex-grow: 1;
     display: flex;
     align-items: center;
     padding: 8px;
     .fileBtn{
-        background: #fff;
+        background: ${props=> props.BgTheme === 'true'?"#1A1323":"#F9F9F9"};
         border-radius: 8px;
         border:1px solid rgba(217, 217, 217, 0.50);
         width: 120px;
@@ -109,7 +111,7 @@ const UploadFileBox = styled.label`
         padding-left: 5px; 
     }
 `
-export default function File({item,register,tableIndex,listName,type,setValue,reset,getValues}:UpdateProps){
+export default function File({item,register,tableIndex,listName,type,setValue,reset,getValues,theme}:UpdateProps){
 
     const [prop,setProp] = useState<any>();
     const id = uuidv4();
@@ -204,10 +206,10 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
                     </ImgBox>
                 }
                 {
-                    !imageUrl && <UploadBox size={prop?.size}>
+                    !imageUrl && <UploadBox size={prop?.size} theme={theme?.toString()}>
                         <input type="file" id={id}  hidden accept=".jpg, .jpeg, .png" className={prop?.size}  />
                         <div className="inner">
-                            <Add />
+                            <Add theme={theme} />
                             <span>上传</span>
                         </div>
 
@@ -217,7 +219,7 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
             </UploadImgBox>
         }
         {
-            item.uploadType === "file" && <UploadFileBox htmlFor={id} onChange={(e) => updateFile(e)}>
+            item.uploadType === "file" && <UploadFileBox htmlFor={id} BgTheme={theme?.toString()} onChange={(e) => updateFile(e)} >
                 <input type="file" id={id} hidden/>
                 <span className="fileBtn">选择文件</span>
                 {

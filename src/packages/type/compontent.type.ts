@@ -16,6 +16,7 @@ export interface ChildProps {
     setValue?:any
     reset?:any
     data?:any
+    theme?:boolean;
     getValues?:any
 }
 
@@ -36,6 +37,7 @@ export interface InputProps{
         properties:PropertiesObj[]
         value?:any
     }
+    theme?:boolean;
     type?:string;
     tableIndex?:number;
     listName?:string;
@@ -75,6 +77,7 @@ export interface UpdateProps{
     tableIndex?:number;
     listName?:string;
     setValue?:any;
+    theme?:boolean;
     getValues?:any;
     register:UseFormRegister<any>
 }
@@ -91,6 +94,7 @@ export interface TableProps{
         name:string;
         value?:any;
     }
+    theme?:boolean;
     type?:string;
     register:UseFormRegister<any>
     control:any

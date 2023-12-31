@@ -29,7 +29,6 @@ const Box = styled.div`
           border-radius: 8px;
           &:focus,&:focus-visible{
               outline: none!important;
-
           }
       }
       [class$="-indicatorSeparator"] {
@@ -39,7 +38,7 @@ const Box = styled.div`
 `
 
 
-const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset,setValue }, ref) => {
+const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset,setValue,theme }, ref) => {
 
     const [prop, setProp] = useState<any>()
 
@@ -82,20 +81,28 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
     const customStyles = {
         control: (provided:any) => ({
             ...provided,
-
-            borderColor: '#f00!important',
+            color: theme?'#fff':'#1A1323',
+            background: theme?'#1A1323':'#fff',
             '&:hover': {
-                borderColor: '#f00!important',
+                background:theme?'#1A1323':'#fff',
             },
+        }),
+        singleValue: (provided:any) => ({
+            ...provided,
+            color: theme?'#fff':'#1A1323',
+        }),
+        menu: (provided:any) => ({
+            ...provided,
+            backgroundColor: theme?'#1A1323':'#fff',
         }),
         option: (provided:any,state:any) => ({
             ...provided,
-            color: '#1A1323',
+            color: theme?'#fff':'#1A1323',
             paddingBlock:"15px",
-            background: state.isSelected ? "#F8F5FF" :'#fff',
+            background: state.isSelected ? (theme?'#1d1230':'rgba(82, 0, 255, 0.08)') :(theme?'#1A1323':'#fff'),
             '&:hover': {
-                color: '#1A1323',
-                background:"#F8F5FF"
+                color: theme?'#fff':'#1A1323',
+                background:theme?'#1A1323':'#fff'
             },
         }),
     };

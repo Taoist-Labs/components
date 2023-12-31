@@ -38,7 +38,7 @@ const ButtonBox = styled.div`
 `
 
 const Box = styled.div`
-    background: #fff;
+    background: #1A1323;
     width: calc(100% - 410px);
     height: 100%;
     display: flex;
@@ -90,7 +90,7 @@ function New() {
                 <button onClick={() => AllSubmit()}>submit</button>
             </ButtonBox>
             <Box>
-                <Template DataSource={DataSource} operate={operate} initialItems={initialItems} BeforeComponent={ <input type="text" onChange={handleInput} />} AfterComponent={<div>-----test add after-----</div>}  ref={childRef} onSubmitData={handleFormSubmit} />
+                <Template theme={true} DataSource={DataSource} operate={operate} initialItems={initialItems} BeforeComponent={ <input type="text" onChange={handleInput} />} AfterComponent={<div>-----test add after-----</div>}  ref={childRef} onSubmitData={handleFormSubmit} />
 
 
             </Box>

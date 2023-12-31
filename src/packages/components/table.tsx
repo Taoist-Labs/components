@@ -10,11 +10,11 @@ import Minus from "../svg/minus";
 import Add from "../svg/add";
 
 
-const Box = styled.div`
+const Box = styled.div<{theme?:string}>`
     display: flex;
   align-items: flex-start;
   flex-direction: column;
-    background: #F8F5FF;
+    background: ${props=> props.theme === 'true'?"#2D2736":"rgba(82, 0, 255, 0.08)"};
     border-radius: 8px;
   table{
     width: 100%;
@@ -44,8 +44,8 @@ const ThBox = styled.th<thProps>`
     width: ${props => props.width+ "%"};
 `
 
-const AddButton = styled.div`
-  background: #fff;
+const AddButton = styled.div<{theme?:string}>`
+    background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
   cursor: pointer;
     width: 40px;
     height: 40px;
@@ -53,13 +53,13 @@ const AddButton = styled.div`
     border-radius: 8px;
 `
 
-const BtmBtn = styled.div`
+const BtmBtn = styled.div<{theme?:string}>`
     height: 36px;
     padding: 0 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
     cursor: pointer;
     border: 1px solid rgba(217, 217, 217, 0.50);
     border-radius: 8px;
@@ -72,7 +72,7 @@ const AddBox = styled.div`
     margin: 20px;
 `
 
-export default function Table({item,register,control,type,setValue,reset,getValues}:TableProps){
+export default function Table({item,register,control,type,setValue,reset,getValues,theme}:TableProps){
 
     const [column,setColumn] = useState(0);
     const [width,setWidth] = useState<number[]>([]);
@@ -139,32 +139,32 @@ export default function Table({item,register,control,type,setValue,reset,getValu
                     {
                         [...Array(column)].map((r,index)=>(<td key={`tbody_${index}`}>
                             {
-                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} reset={reset} setValue={setValue} />
+                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} reset={reset} setValue={setValue} theme={theme} />
                             }
                             {
-                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} />
+                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} />
                             }
 
                             {
-                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} setValue={setValue} reset={reset} getValues={getValues} />
+                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} setValue={setValue} reset={reset} getValues={getValues} theme={theme} />
                             }
                             {
-                                rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} register={register} type={type} reset={reset}  setValue={setValue} getValues={getValues} />
+                                rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} register={register} type={type} reset={reset}  setValue={setValue} getValues={getValues}  theme={theme}/>
                             }
                         </td>))
                     }
                     <td>
 
 
-                            <AddButton onClick={() =>remove(innerIndex)}><Minus /></AddButton>
+                            <AddButton  theme={theme?.toString()} onClick={() =>remove(innerIndex)}><Minus /></AddButton>
                     </td>
                 </tr>))
             }
             </tbody>
         </table>
         <AddBox>
-            <BtmBtn onClick={() => append(dataItem)}>
-                <Add /> <span>添加</span>
+            <BtmBtn onClick={() => append(dataItem)}  theme={theme?.toString()}>
+                <Add theme={theme} /> <span>添加</span>
             </BtmBtn>
         </AddBox>
 
