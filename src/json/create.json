@@ -50,6 +50,72 @@
       ]
     },
     {
+      "type": "input",
+      "inputType": "textarea",
+      "value": "",
+      "name": "description",
+      "properties":[
+        {
+          "name": "title",
+          "value": "项目简介"
+        },
+        {
+          "name": "size",
+          "value": "lg"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "maxLength": 200
+          }
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "uploadType": "image",
+      "value": "",
+      "name": "logo",
+      "properties":[
+        {
+          "name": "title",
+          "value": "项目Logo"
+        },
+        {
+          "name": "size",
+          "value": "md"
+        },
+        {
+          "name": "validate",
+          "value": {
+
+          }
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "uploadType": "file",
+      "value": "",
+      "name": "file",
+      "properties":[
+        {
+          "name": "title",
+          "value": "项目文件"
+        },
+        {
+          "name": "size",
+          "value": "md"
+        },
+        {
+          "name": "validate",
+          "value": {
+
+          }
+        }
+      ]
+    },
+    {
       "type": "table",
       "name": "addList",
       "style": {
@@ -144,74 +210,7 @@
         }
 
       ]
-    },
-    {
-      "type": "input",
-      "inputType": "textarea",
-      "value": "",
-      "name": "description",
-      "properties":[
-        {
-          "name": "title",
-          "value": "项目简介"
-        },
-        {
-          "name": "size",
-          "value": "lg"
-        },
-        {
-          "name": "validate",
-          "value": {
-            "maxLength": 200
-          }
-        }
-      ]
-    },
-    {
-      "type": "file",
-      "uploadType": "image",
-      "value": "",
-      "name": "logo",
-      "properties":[
-        {
-          "name": "title",
-          "value": "项目Logo"
-        },
-        {
-          "name": "size",
-          "value": "md"
-        },
-        {
-          "name": "validate",
-          "value": {
-
-          }
-        }
-      ]
-    },
-    {
-      "type": "file",
-      "uploadType": "file",
-      "value": "",
-      "name": "file",
-      "properties":[
-        {
-          "name": "title",
-          "value": "项目文件"
-        },
-        {
-          "name": "size",
-          "value": "md"
-        },
-        {
-          "name": "validate",
-          "value": {
-
-          }
-        }
-      ]
     }
-
   ]
 }
 
