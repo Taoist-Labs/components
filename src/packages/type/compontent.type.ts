@@ -1,7 +1,7 @@
 import {UseFormRegister } from "react-hook-form";
 import {ForwardedRef} from "react";
 export interface Icomponent {
-    type: string;
+    name: string;
     id: string;
     title:string;
     automation_action:string;
@@ -16,6 +16,7 @@ export interface ChildProps {
     setValue?:any
     reset?:any
     data?:any
+    name?:string
     theme?:boolean;
     language?:string;
     getValues?:any
@@ -112,12 +113,12 @@ export interface ChildMethods {
 
 export interface  Item  {
     id: string;
-    src: string;
+    screenshot_uri: string;
     title: string;
     name: string;
     auto_action?: string;
     dragType?: string;
-    componentData: any;
+    schema: any;
     data?:any;
     value?:any
 };

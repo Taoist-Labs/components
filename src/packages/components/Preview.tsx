@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React,{useEffect, useState} from "react";
 import {thProps} from "../type/compontent.type";
 
-const Box = styled.div<{theme:string}>`
+const Box = styled.div<{theme?:string}>`
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
     font-size: 14px;
   table{

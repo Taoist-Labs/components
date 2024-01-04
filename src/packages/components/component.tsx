@@ -28,22 +28,22 @@ const ContentBox = styled.ul`
   }
 `
 
-const Component = ({listArr,register,control,setValue,reset,data,getValues,theme,language}:ChildProps) =>{
+const Component = ({listArr,register,control,setValue,reset,data,getValues,theme,language,name}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
     const searchParams = new URLSearchParams(window.location.search);
     const operate = searchParams.get('operate');
 
     useEffect(() => {
+
         listArr?.content.map((item:Item)=>{
             if(!!data){
                 item.value = data[item.name];
             }else{
                 item.value = null;
             }
-
-
         })
+        listArr.name = name ?? '';
         setList(listArr)
     }, [listArr,operate]);
 
@@ -55,19 +55,19 @@ const Component = ({listArr,register,control,setValue,reset,data,getValues,theme
                 list?.content?.map((item,index)=>(
                     <li key={`list_${index}`}>
                         {
-                            item.type === "input" && <Input item={item} register={register} type={list?.type} reset={reset} setValue={setValue} theme={theme} />
+                            item.type === "input" && <Input item={item} register={register} type={list?.name} reset={reset} setValue={setValue} theme={theme} />
                         }
                         {
-                            item.type === "select" && <SelectBox item={item} control={control} type={list?.type} reset={reset} setValue={setValue} theme={theme} />
+                            item.type === "select" && <SelectBox item={item} control={control} type={list?.name} reset={reset} setValue={setValue} theme={theme} />
                         }
                         {
-                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.type} setValue={setValue} reset={reset} getValues={getValues} theme={theme} language={language}  />
+                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.name} setValue={setValue} reset={reset} getValues={getValues} theme={theme} language={language}  />
                         }
                         {
-                            item.type === "file" && <File item={item} register={register}  type={list?.type} setValue={setValue} reset={reset} getValues={getValues}  theme={theme} language={language} />
+                            item.type === "file" && <File item={item} register={register}  type={list?.name} setValue={setValue} reset={reset} getValues={getValues}  theme={theme} language={language} />
                         }
                         {
-                            item.type === "checkbox" && <CheckBox item={item} register={register} type={list?.type} reset={reset} setValue={setValue} getValues={getValues} theme={theme}  />
+                            item.type === "checkbox" && <CheckBox item={item} register={register} type={list?.name} reset={reset} setValue={setValue} getValues={getValues} theme={theme}  />
                         }
                     </li>
                 ))

@@ -79,6 +79,9 @@ const ImageBox = styled.div<{theme:string}>`
     }
   img{
     width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center;
       border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
       border-radius: 8px;
       box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
@@ -176,14 +179,20 @@ const DragTips = styled.div<{theme:string}>`
 
     const { register, handleSubmit,control,setValue,reset,getValues } = useForm<any>();
 
-    const [leftItems, setLeftItems] = useState<Item[]>(initialItems);
+    const [leftItems, setLeftItems] = useState<Item[]>([]);
     const [rightItems, setRightItems] = useState<Item[]>([]);
 
     useEffect(() => {
         if(operate === 'edit'){
             init()
+        }else if(operate === "template"){
+            initTemplate()
+        }else{
+            setLeftItems(initialItems);
         }
-    }, [operate]);
+    }, [operate,initialItems]);
+
+
 
     const init = () =>{
         let updateRht:Item[] = [];
@@ -198,6 +207,10 @@ const DragTips = styled.div<{theme:string}>`
         })
         setLeftItems(updateLft);
         setRightItems(updateRht);
+    }
+
+    const initTemplate = () =>{
+        setRightItems(initialItems);
     }
 
     const handleDragEnd = (result: DropResult) => {
@@ -235,7 +248,6 @@ const DragTips = styled.div<{theme:string}>`
             const updatedRightItems = arr.filter((item) => item.id !== itemId);
 
 
-            console.log((arr))
             //
             // const dataIndex = DataSource.findIndex((d)=>d.name === closedItem.name)
             // DataSource.splice(dataIndex,1);
@@ -251,12 +263,12 @@ const DragTips = styled.div<{theme:string}>`
         for(let key in data){
             const cpt = initialItems.filter((item:any)=> item.name === key);
             const id = uuidv4();
-            const {type,automation_action} = cpt[0]?.componentData;
+            // const {type,automation_action} = JSON.parse(cpt[0]?.schema);
             let obj ={
                 id,
-                auto_action:automation_action,
+                // auto_action:automation_action,
                 data:data[key],
-                name:type
+                // name:type
             }
             arr.push(obj)
 
@@ -272,8 +284,7 @@ const DragTips = styled.div<{theme:string}>`
 
     }
 
-    return (<Box theme={theme.toString()}>
-
+    return (<Box theme={theme?.toString()}>
         <DragDropContext onDragEnd={handleDragEnd}>
             <InnerBox>
                 <LftFlex>
@@ -290,11 +301,11 @@ const DragTips = styled.div<{theme:string}>`
                             >
                                 {
                                     rightItems.map((item, index) => (
-                                        <Draggable key={item.id} draggableId={item.id} index={index}>
+                                        <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
 
                                             {(provided) => (
                                                 <FormBox
-                                                    theme={theme.toString()}
+                                                    theme={theme?.toString()}
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
@@ -302,11 +313,14 @@ const DragTips = styled.div<{theme:string}>`
                                                         ...provided.draggableProps.style,
                                                     }}
                                                 >
+
                                                     <div className="close" onClick={() => handleFormClose(item.id)}>
-                                                        <Close/>
+                                                        {
+                                                            showRight &&<Close/>}
                                                     </div>
                                                     <Component
-                                                        listArr={item.componentData}
+                                                        listArr={item.schema}
+                                                        name={item.name}
                                                         getValues={getValues}
                                                         theme={theme}
                                                         language={language}
@@ -320,7 +334,7 @@ const DragTips = styled.div<{theme:string}>`
                                         </Draggable>
                                     ))}
                                 {
-                                    showRight && <DragTips theme={theme.toString()}>
+                                    showRight && <DragTips theme={theme?.toString()}>
                                         <Plus /><span>{Lan[language]?.dragTips}</span>
                                     </DragTips>
                                 }
@@ -345,11 +359,11 @@ const DragTips = styled.div<{theme:string}>`
                                 <RhtBox
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-                                    theme={theme.toString()}
+                                    theme={theme?.toString()}
                                 >
                                     <RhtInner>
-                                        <SearchBox theme={theme.toString()}>
-                                            <SearchInner theme={theme.toString()} >
+                                        <SearchBox theme={theme?.toString()}>
+                                            <SearchInner theme={theme?.toString()} >
                                                 <input type="text" placeholder={Lan[language]?.search} onChange={(e)=>handleSearch(e)} />
                                                 <div>
                                                     <SearcImg/>
@@ -363,10 +377,10 @@ const DragTips = styled.div<{theme:string}>`
 
                                         </SearchBox>
                                         {leftItems.map((item, index) => (
-                                            <Draggable key={item.id} draggableId={item.id} index={index}>
+                                            <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                 {(provided) => (
                                                     <ImageBox
-                                                        theme={theme.toString()}
+                                                        theme={theme?.toString()}
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
@@ -374,9 +388,9 @@ const DragTips = styled.div<{theme:string}>`
                                                             ...provided.draggableProps.style,
                                                         }}
                                                     >
-                                                        <img src={item.src} alt=""/>
+                                                        <img src={item?.screenshot_uri} alt=""/>
                                                         <div className="line">
-                                                            {item.title}
+                                                            {item.schema.title}
                                                         </div>
 
 
