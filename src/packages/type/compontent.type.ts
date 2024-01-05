@@ -20,6 +20,9 @@ export interface ChildProps {
     theme?:boolean;
     language?:string;
     getValues?:any
+    baseUrl?:string
+    token?:string
+    version?:string
 }
 
 interface PropertiesObj{
@@ -105,6 +108,9 @@ export interface TableProps{
     reset?:any
     getValues?:any
     setValue?:any
+    baseUrl?:string
+    token?:string
+    version?:string
 }
 
 export interface ChildMethods {

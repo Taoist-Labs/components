@@ -37,31 +37,53 @@ const Box = styled.div`
 `
 
 
-const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset,setValue,theme }, ref) => {
+const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset,setValue,theme,baseUrl,version,token }, ref) => {
 
-    const [prop, setProp] = useState<any>()
+    const [prop, setProp] = useState<any>();
+    const [dataSource,setDataSource] = useState<any[]>([])
 
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
+    useEffect(() => {
+        console.error(item)
+    }, []);
 
     useEffect(() => {
         if (!item.properties) return;
         let arr: any = {}
         item.properties.map((inner:any) => {
-            arr[inner.name] = inner.value;
+            arr[inner.name] = inner.id;
         })
-        console.log(item.dataList)
+
+        getSource(item.dataList)
         setProp(arr)
 
     }, [item.properties]);
 
+    const getSource = (type:string) =>{
+        const typeStr = type.split('datasrv/')[1]
+
+        fetch(`${baseUrl}/${version}/data_srv/widget_data?type=${typeStr}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            )
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                setDataSource(data.data)
+            })
+            .catch(error => {
+                // 处理错误
+                console.error('Error:', error);
+            });
+    }
+
     useEffect(() => {
         if(tableIndex===undefined){
-            setValue(`${type}.${item?.name}`,item?.value)
+            setValue(`${type}.${item?.name}`,item?.id)
         }
         return () =>{
             reset();
@@ -112,8 +134,6 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
   return(
       <Box>
           <label  className="labelLft">{prop?.title}</label>
-
-
           <div className={prop?.size}>
               <Controller
                   name={tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`}
@@ -122,8 +142,10 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
                       <Select
                           className="innerSelect"
                           {...field}
-                          options={options}
+                          options={dataSource}
                           styles={customStyles}
+                          getOptionLabel={(option) => option.name}
+                          getOptionValue={(option) => option.id}
                           theme={customTheme}
                           isSearchable={false}
                       />

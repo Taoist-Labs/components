@@ -172,7 +172,7 @@ const DragTips = styled.div<{theme:string}>`
     }
 `
 
- const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language}:any,ref) => {
+ const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token}:any,ref) => {
      React.useImperativeHandle(ref, () => ({
          submitForm:handleSubmit(onSubmit),
      }));
@@ -323,6 +323,9 @@ const DragTips = styled.div<{theme:string}>`
                                                         name={item.name}
                                                         getValues={getValues}
                                                         theme={theme}
+                                                        baseUrl={baseUrl}
+                                                        token={token}
+                                                        version={version}
                                                         language={language}
                                                                register={register} control={control} setValue={setValue}
                                                                reset={reset} data={item?.data}/>

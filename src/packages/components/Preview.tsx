@@ -124,18 +124,20 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
     const [list,setList] = useState<any[]>([])
 
     useEffect(() => {
+        if(!DataSource || !initialItems) return;
         let arr:any[]=[];
+
         DataSource.map((d:any)=>{
             initialItems.map((i:any)=>{
+
                 if(i.name === d.name){
                     const {data} = d;
-                   i.componentData.content?.map((inner:any)=>{
+                   i.schema.content?.map((inner:any)=>{
                         inner.pro = {};
                         inner.properties?.map((inn:any)=>{
                             inner.pro[inn.name] = inn.value;
                         })
                         inner.value = (data as any)[inner.name] ?? null;
-
                        if(inner.type === "table"){
                            inner.table = [...Array(inner.value.length)];
                            for (let j = 0; j < inner.value.length; j++) {
@@ -158,11 +160,10 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                        }
                         return inner;
                     })
-                    arr.push(i.componentData)
+                    arr.push(i.schema)
                 }
             })
         })
-
         setList([...arr])
 
 
@@ -213,7 +214,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
                                                                     {
                                                                         rInner.type === "select" && <dl>
-                                                                            <dd>{rInner?.value?.label}</dd>
+                                                                            <dd>{rInner?.value?.name}</dd>
                                                                         </dl>
                                                                     }
                                                                     {
@@ -265,7 +266,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                 {
                                     inner.type === "select" && <dl className="line">
                                         <dt>{inner?.pro?.title}</dt>
-                                        <dd>{inner?.value?.label}</dd>
+                                        <dd>{inner?.value?.name}</dd>
                                     </dl>
                                 }
 

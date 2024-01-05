@@ -73,7 +73,7 @@ const AddBox = styled.div`
     margin: 20px;
 `
 
-export default function Table({item,register,control,type,setValue,reset,getValues,theme,language}:TableProps){
+export default function Table({item,register,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token}:TableProps){
 
     const [column,setColumn] = useState(0);
     const [width,setWidth] = useState<number[]>([]);
@@ -143,7 +143,7 @@ export default function Table({item,register,control,type,setValue,reset,getValu
                                 rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} reset={reset} setValue={setValue} theme={theme} />
                             }
                             {
-                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} />
+                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} />
                             }
 
                             {

@@ -28,7 +28,7 @@ const ContentBox = styled.ul`
   }
 `
 
-const Component = ({listArr,register,control,setValue,reset,data,getValues,theme,language,name}:ChildProps) =>{
+const Component = ({listArr,register,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
     const searchParams = new URLSearchParams(window.location.search);
@@ -58,10 +58,10 @@ const Component = ({listArr,register,control,setValue,reset,data,getValues,theme
                             item.type === "input" && <Input item={item} register={register} type={list?.name} reset={reset} setValue={setValue} theme={theme} />
                         }
                         {
-                            item.type === "select" && <SelectBox item={item} control={control} type={list?.name} reset={reset} setValue={setValue} theme={theme} />
+                            item.type === "select" && <SelectBox item={item} control={control} type={list?.name} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} />
                         }
                         {
-                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.name} setValue={setValue} reset={reset} getValues={getValues} theme={theme} language={language}  />
+                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.name} setValue={setValue} reset={reset} getValues={getValues} theme={theme} language={language} baseUrl={baseUrl} version={version} token={token}  />
                         }
                         {
                             item.type === "file" && <File item={item} register={register}  type={list?.name} setValue={setValue} reset={reset} getValues={getValues}  theme={theme} language={language} />
