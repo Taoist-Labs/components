@@ -81,7 +81,7 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
 
     useEffect(() => {
         if(tableIndex===undefined){
-            setValue(`${type}.${item?.name}`,item?.id)
+            setValue(`${type}.${item?.name}`,item?.value)
         }
         return () =>{
             reset();
