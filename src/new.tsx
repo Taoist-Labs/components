@@ -234,7 +234,7 @@ function New() {
                                   version="v1"
                                   token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDQ0NjUzOTAsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.N8lnbcoTu-Oq-hwza_k6d0YiQUlLOV5BGTcgSUqlrvc"
                                   showRight={true} theme={false}
-                                  DataSource={[{"id":18,"component_id":1,"name":"close_project","schema":"","data":{"project_id":{"id":21,"name":"test pro ject"}},"create_ts":1704432885}]}
+                                  DataSource={[{"id":21,"component_id":1,"name":"create_project","schema":"","data":{"project_name":"ceshi"},"create_ts":1704435062}]}
                                   operate={operate}
                                   initialItems={testFor} BeforeComponent={<input type="text" onChange={handleInput}/>}
                                   AfterComponent={<div>-----test add after-----</div>} ref={childRef}

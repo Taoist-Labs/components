@@ -184,6 +184,7 @@ const DragTips = styled.div<{theme:string}>`
 
     useEffect(() => {
         if(operate === 'edit'){
+            if(!DataSource)return;
             init()
         }else if(operate === "template"){
             initTemplate()
@@ -200,11 +201,11 @@ const DragTips = styled.div<{theme:string}>`
         DataSource.map((dItem:any)=>{
             const cptIndex = initialItems.findIndex((item:any)=> item.name === dItem.name);
             initialItems[cptIndex].data = dItem.data;
-
             updateRht.push({...initialItems[cptIndex],  dragType: 'form'});
-            const cptLft = initialItems.filter((element:any)=> !updateRht.some(e => e.name === element.name));
-            updateLft = [...cptLft];
         })
+
+        const cptLft = initialItems.filter((element:any)=> !updateRht.some(e => e.name === element.name));
+        updateLft = [...cptLft];
         setLeftItems(updateLft);
         setRightItems(updateRht);
     }
