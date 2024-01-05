@@ -215,7 +215,7 @@ const DragTips = styled.div<{theme:string}>`
     }
 
     const handleDragEnd = (result: DropResult) => {
-        if (!result.destination) {
+        if (!result.destination || (result?.destination as any)?.droppableId === "left") {
             return;
         }
 
@@ -223,14 +223,14 @@ const DragTips = styled.div<{theme:string}>`
             const draggedItem = leftItems[result.source.index];
             const updatedLeftItems = leftItems.filter((_, index) => index !== result.source.index);
             const updatedRightItems = [...rightItems];
-            updatedRightItems.splice(result.destination.index, 0, { ...draggedItem, dragType: 'form' });
+            updatedRightItems.splice(result?.destination.index, 0, { ...draggedItem, dragType: 'form' });
 
             setLeftItems([...updatedLeftItems]);
             setRightItems([...updatedRightItems]);
         } else if (result.source.droppableId === 'right') {
             const draggedItem = rightItems[result.source.index];
             const updatedRightItems = rightItems.filter((_, index) => index !== result.source.index);
-            updatedRightItems.splice(result.destination.index, 0, draggedItem);
+            updatedRightItems.splice(result?.destination.index, 0, draggedItem);
 
             setRightItems([...updatedRightItems]);
         }
@@ -247,9 +247,6 @@ const DragTips = styled.div<{theme:string}>`
             arr[closeIndex].data = null;
             const updatedLeftItems = [...leftItems, { ...closedItem, dragType: 'image' }];
             const updatedRightItems = arr.filter((item) => item.id !== itemId);
-
-
-            //
             // const dataIndex = DataSource.findIndex((d)=>d.name === closedItem.name)
             // DataSource.splice(dataIndex,1);
 
