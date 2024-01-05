@@ -43,15 +43,13 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
     const [dataSource,setDataSource] = useState<any[]>([])
 
 
-    useEffect(() => {
-        console.error(item)
-    }, []);
+
 
     useEffect(() => {
         if (!item.properties) return;
         let arr: any = {}
         item.properties.map((inner:any) => {
-            arr[inner.name] = inner.id;
+            arr[inner.name] = inner.value;
         })
 
         getSource(item.dataList)
