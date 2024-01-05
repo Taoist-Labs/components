@@ -280,7 +280,7 @@ const DragTips = styled.div<{theme:string}>`
 
     const handleSearch = (e:ChangeEvent) =>{
         const {value} = e.target as HTMLInputElement;
-        const list = initialItems.filter((op:any)=>op.title.indexOf(value)>-1);
+        const list = initialItems.filter((op:any)=>op?.schema.title?.indexOf(value)>-1);
         setLeftItems(list)
 
     }
