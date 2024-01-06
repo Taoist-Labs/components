@@ -76,6 +76,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 baseUrl={baseUrl}
                                 version={version}
                                 token={token}
+                                getValues={getValues}
                                 errors={errors}
                                 language={language}
                             />

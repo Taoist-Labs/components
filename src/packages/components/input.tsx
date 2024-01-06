@@ -72,22 +72,21 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
             arr[inner.name] = inner.value;
 
 
-            // if(inner.name === "validate" && !inner.value.pattern ){
-            //
-            //     switch(item.inputType){
-            //         case "email":
-            //             inner.value.pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-            //             break;
-            //         case "address":
-            //             inner.value.pattern = /^(0x[a-fA-F0-9]{40}|.*\.seedao)$/
-            //             break;
-            //         case "text":
-            //         default:
-            //             break;
-            //     }
-            // }
+            if(inner.name === "validate" && !inner.value.pattern ){
+
+                switch(item.inputType){
+                    case "email":
+                        inner.value.pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+                        break;
+                    case "address":
+                        inner.value.pattern = /^(0x[a-fA-F0-9]{40}|.*\.seedao)$/
+                        break;
+                    case "text":
+                    default:
+                        break;
+                }
+            }
         })
-        console.log(arr)
         setProp(arr)
     }, [item.properties]);
 

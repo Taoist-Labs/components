@@ -120,12 +120,6 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
         }
     }, []);
 
-    useEffect(() => {
-
-        console.log("====errors======",errors)
-    }, [errors]);
-
-
     if(!item)return null;
     return <Box>
         <table>
@@ -147,10 +141,10 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
                     {
                         [...Array(column)].map((r,index)=>(<td key={`tbody_${index}`}>
                             {
-                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} reset={reset} setValue={setValue} theme={theme}  language={language} control={control}  />
+                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} reset={reset} setValue={setValue} theme={theme}  language={language} control={control} getValues={getValues}  />
                             }
                             {
-                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} errors={errors} language={language} />
+                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} errors={errors} language={language} getValues={getValues} />
                             }
 
                             {

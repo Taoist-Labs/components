@@ -117,7 +117,9 @@ const UlBox = styled.ul`
         //}
     }
 `
-
+const P32 = styled.div`
+    padding-inline: 32px;
+`
 
 export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
 
@@ -176,6 +178,8 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                 BeforeComponent
             }
         </BeforeDiv>
+        <P32>
+
         {
             list.map((item:any,index)=>(<InnerBox key={index}>
                 <TitleBox>{item?.title}</TitleBox>
@@ -302,6 +306,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                 </ContentBox>
             </InnerBox>))
         }
+        </P32>
         <AfterDiv>
             {
                 AfterComponent

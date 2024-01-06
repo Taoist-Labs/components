@@ -171,13 +171,17 @@ const DragTips = styled.div<{theme:string}>`
         margin-left: 8px;
     }
 `
+const P32 = styled.div`
+    padding-inline: 32px;
+`
 
- const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token}:any,ref) => {
+ const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token,onSaveData}:any,ref) => {
      React.useImperativeHandle(ref, () => ({
          submitForm:handleSubmit(onSubmit),
+         saveForm:saveDraft,
      }));
 
-    const { handleSubmit,control,setValue,reset,getValues,  formState: { errors } ,trigger} = useForm<any>({
+    const { handleSubmit,control,setValue,reset,getValues,  formState: { errors } } = useForm<any>({
     });
 
     const [leftItems, setLeftItems] = useState<Item[]>([]);
@@ -257,9 +261,14 @@ const DragTips = styled.div<{theme:string}>`
         }
     };
 
+    const saveDraft = () =>{
+        const formData = getValues();
+        onSaveData && onSaveData(formData)
+    }
+
+
     const onSubmit = async (data:any) =>{
-        await trigger()
-        console.log(trigger)
+
         let arr = [];
         for(let key in data){
             const cpt = initialItems.filter((item:any)=> item.name === key);
@@ -294,60 +303,63 @@ const DragTips = styled.div<{theme:string}>`
                             BeforeComponent
                         }
                     </BeforeDiv>
-                    <Droppable droppableId="right">
-                        {(provided) => (
-                            <LftBox
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                            >
-                                {
-                                    rightItems.map((item, index) => (
-                                        <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                    <P32>
+                        <Droppable droppableId="right">
+                            {(provided) => (
+                                <LftBox
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                >
+                                    {
+                                        rightItems.map((item, index) => (
+                                            <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
 
-                                            {(provided) => (
-                                                <FormBox
-                                                    theme={theme?.toString()}
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    style={{
-                                                        ...provided.draggableProps.style,
-                                                    }}
-                                                >
+                                                {(provided) => (
+                                                    <FormBox
+                                                        theme={theme?.toString()}
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={{
+                                                            ...provided.draggableProps.style,
+                                                        }}
+                                                    >
 
-                                                    <div className="close" onClick={() => handleFormClose(item.id)}>
-                                                        {
-                                                            showRight &&<Close/>}
-                                                    </div>
-                                                    <Component
-                                                        listArr={item.schema}
-                                                        name={item.name}
-                                                        getValues={getValues}
-                                                        theme={theme}
-                                                        baseUrl={baseUrl}
-                                                        token={token}
-                                                        version={version}
-                                                        language={language}
-                                                        errors={errors}
-                                                         control={control} setValue={setValue}
-                                                               reset={reset} data={item?.data}/>
+                                                        <div className="close" onClick={() => handleFormClose(item.id)}>
+                                                            {
+                                                                showRight &&<Close/>}
+                                                        </div>
+                                                        <Component
+                                                            listArr={item.schema}
+                                                            name={item.name}
+                                                            getValues={getValues}
+                                                            theme={theme}
+                                                            baseUrl={baseUrl}
+                                                            token={token}
+                                                            version={version}
+                                                            language={language}
+                                                            errors={errors}
+                                                            control={control} setValue={setValue}
+                                                            reset={reset} data={item?.data}/>
 
 
-                                                </FormBox>
-                                            )}
+                                                    </FormBox>
+                                                )}
 
-                                        </Draggable>
-                                    ))}
-                                {
-                                    showRight && <DragTips theme={theme?.toString()}>
-                                        <Plus /><span>{Lan[language]?.dragTips}</span>
-                                    </DragTips>
-                                }
+                                            </Draggable>
+                                        ))}
+                                    {
+                                        showRight && <DragTips theme={theme?.toString()}>
+                                            <Plus /><span>{Lan[language]?.dragTips}</span>
+                                        </DragTips>
+                                    }
 
-                                {provided.placeholder}
-                            </LftBox>
-                        )}
-                    </Droppable>
+                                    {provided.placeholder}
+                                </LftBox>
+                            )}
+                        </Droppable>
+                    </P32>
+
 
                     <AfterDiv>
                         {

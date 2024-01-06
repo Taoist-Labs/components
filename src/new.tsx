@@ -69,6 +69,17 @@ function New() {
             test
         })
     };
+    const handleSave = (data: any) => {
+        console.log({
+            ...data,
+            test
+        })
+    };
+
+    const saveAll = () =>{
+        (childRef.current as any).saveForm()
+    }
+
 
 
     const AllSubmit = () => {
@@ -129,7 +140,7 @@ function New() {
                 },
                 {
                     "type": "input",
-                    "inputType": "text",
+                    "inputType": "address",
                     "value": "",
                     "name": "address222",
                     "properties":[
@@ -309,6 +320,7 @@ function New() {
                     <ButtonBox>
 
                         <button onClick={() => AllSubmit()}>submit</button>
+                        <button onClick={() => saveAll()}>save</button>
                     </ButtonBox>
                     <Box>
                         <Template
@@ -324,7 +336,9 @@ function New() {
                               BeforeComponent={<input type="text" onChange={handleInput}/>}
                               AfterComponent={<div>-----test add after-----</div>}
                               ref={childRef}
-                              onSubmitData={handleFormSubmit}/>
+                              onSubmitData={handleFormSubmit}
+                            onSaveData={handleSave}
+                        />
 
 
 
