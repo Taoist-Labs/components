@@ -8,6 +8,9 @@ interface Language {
         remove:string;
         upload:string;
         add:string;
+        inputError:string;
+        selectError:string;
+        fileError:string
     };
 }
 
@@ -19,7 +22,10 @@ const Lan:Language = {
         select:"选择文件",
         upload:"上传",
         add:"添加",
-        remove:"删除"
+        remove:"删除",
+        inputError:"请选择正确内容",
+        selectError:"请输入正确内容",
+        fileError:"请选择正确的文件"
     },
     en:{
         dragTips:"Please select the components from the right",
@@ -28,7 +34,10 @@ const Lan:Language = {
         select:"Select File",
         upload:"Upload",
         add:"Add",
-        remove:"Remove"
+        remove:"Remove",
+        inputError:"Please enter the correct content.",
+        selectError:"Please select the correct content",
+        fileError:"Please select the correct file"
     }
 }
 export default Lan

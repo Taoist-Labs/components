@@ -177,7 +177,8 @@ const DragTips = styled.div<{theme:string}>`
          submitForm:handleSubmit(onSubmit),
      }));
 
-    const { register, handleSubmit,control,setValue,reset,getValues } = useForm<any>();
+    const { handleSubmit,control,setValue,reset,getValues,  formState: { errors } ,trigger} = useForm<any>({
+    });
 
     const [leftItems, setLeftItems] = useState<Item[]>([]);
     const [rightItems, setRightItems] = useState<Item[]>([]);
@@ -256,7 +257,9 @@ const DragTips = styled.div<{theme:string}>`
         }
     };
 
-    const onSubmit = (data:any) =>{
+    const onSubmit = async (data:any) =>{
+        await trigger()
+        console.log(trigger)
         let arr = [];
         for(let key in data){
             const cpt = initialItems.filter((item:any)=> item.name === key);
@@ -325,7 +328,8 @@ const DragTips = styled.div<{theme:string}>`
                                                         token={token}
                                                         version={version}
                                                         language={language}
-                                                               register={register} control={control} setValue={setValue}
+                                                        errors={errors}
+                                                         control={control} setValue={setValue}
                                                                reset={reset} data={item?.data}/>
 
 

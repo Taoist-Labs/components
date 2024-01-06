@@ -11,7 +11,6 @@ export interface Icomponent {
 export interface ChildProps {
     forwardedRef?: ForwardedRef<ChildMethods>;
     listArr:any;
-    register:any;
     control:any;
     setValue?:any
     reset?:any
@@ -22,6 +21,8 @@ export interface ChildProps {
     getValues?:any
     baseUrl?:string
     token?:string
+    errors?:any
+    trigger?:any
     version?:string
 }
 
@@ -41,6 +42,7 @@ export interface InputProps{
         inputType: string;
         properties:PropertiesObj[]
         value?:any
+        dataList?:any
     }
     theme?:boolean;
     type?:string;
@@ -49,7 +51,12 @@ export interface InputProps{
     reset?:any;
     getValues?:any;
     setValue?:any
-    register:UseFormRegister<any>
+    trigger?:any
+    control?:any
+    baseUrl?:string
+    language?:string;
+    token?:string
+    version?:string
 }
 export interface SelectProps{
     item:{
@@ -85,7 +92,8 @@ export interface UpdateProps{
     setValue?:any;
     theme?:boolean;
     getValues?:any;
-    register:UseFormRegister<any>
+    control?:any;
+    errors?:any;
 }
 
 export interface TableProps{
@@ -103,12 +111,12 @@ export interface TableProps{
     theme?:boolean;
     type?:string;
     language?:string;
-    register:UseFormRegister<any>
     control:any
     reset?:any
     getValues?:any
     setValue?:any
     baseUrl?:string
+    errors?:string
     token?:string
     version?:string
 }

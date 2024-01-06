@@ -3,6 +3,8 @@ import styled from "styled-components";
 import {ChangeEvent, useEffect, useState} from "react";
 import {InputProps} from "../type/compontent.type";
 import { v4 as uuidv4 } from 'uuid';
+import Lan from "../utils/lan";
+import {Controller} from "react-hook-form";
 
 const Box = styled.div`
     display: flex;
@@ -19,6 +21,12 @@ const UlBox = styled.ul<{theme?:string}>`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+    width: 100%;
+    gap:10px;
+    &.error,&.error:focus{
+        border: 1px solid #FB4E4E!important;
+        border-radius: 8px;
+    }
     input{
         accent-color: #5200ff;
         box-sizing: border-box;
@@ -36,6 +44,7 @@ const UlBox = styled.ul<{theme?:string}>`
       border-radius: 8px;
       padding: 0 12px;
       height: 40px;
+      margin-bottom: 0!important;
     label{
       padding-left: 10px;
     }
@@ -56,19 +65,31 @@ const UlBox = styled.ul<{theme?:string}>`
       width: 100%;
     }
   }
-
 `
 
-export default function Checkbox({item,register,tableIndex,type,listName,reset,setValue,getValues,theme}:InputProps){
+const RhtBox = styled.div`
+    position: relative;
+    flex-grow: 1;
+    
+`
+const ErrorTips = styled.div`
+    position: absolute;
+    color: #FB4E4E;
+    bottom: -15px;
+    font-size: 12px;
+    white-space: nowrap;
+`
+
+export default function Checkbox({item,tableIndex,type,listName,reset,setValue,getValues,theme,language,control,baseUrl,version,token}:InputProps){
 
     const [prop,setProp] = useState<any>()
     const id = uuidv4();
+    const [dataSource,setDataSource] = useState<any[]>([])
+    const [inputName,setInputName] = useState('')
+    const [errorTips,setErrorTips] = useState<any>()
+
+
     const [selectOptions,setSelectOptions] = useState<any[]>([]);
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
 
     useEffect(() => {
         if(!item.properties)return;
@@ -76,14 +97,38 @@ export default function Checkbox({item,register,tableIndex,type,listName,reset,s
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
         })
+        getSource(item.dataList)
         setProp(arr)
 
     }, [item.properties]);
 
+
+    const getSource = (type:string) =>{
+        const typeStr = type.split('datasrv/')[1]
+
+        fetch(`${baseUrl}/${version}/data_srv/widget_data?type=${typeStr}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                setDataSource(data.data)
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
     const returnChecked = (value:string)=>{
 
         if(selectOptions){
-            const slOp = selectOptions?.filter((inner:any)=>inner.value === value);
+            const slOp = selectOptions?.filter((inner:any)=>inner.id === value);
 
             return !!slOp.length
         }else{
@@ -106,42 +151,68 @@ export default function Checkbox({item,register,tableIndex,type,listName,reset,s
     const handleSelect = (e:ChangeEvent) =>{
         const {value} = e.target as HTMLInputElement;
 
-        let arr:string[] = [];
+        let arr:any[] = [];
+
+        const containOption = selectOptions?.some((option) => option?.id == value)
 
 
-
-        const containOption = selectOptions?.some((option) => option?.value === value)
-
-        if (selectOptions!=null && containOption) {
-            arr = selectOptions.filter((option) => option?.value !== value);
+        if (selectOptions!= null && containOption) {
+            arr = selectOptions.filter((option) => option?.id != value);
 
         } else {
-            const op = options.filter((option) => option?.value === value);
+            const op = dataSource.filter((d) => d?.id == value);
             arr =[...(selectOptions??[]), ...op];
         }
-
         setSelectOptions(arr);
 
-        const resultArray = options.filter(obj => arr.includes(obj.value));
-
+        // const resultArray = dataSource.filter(obj => arr.includes(obj));
+        const resultArray = dataSource.filter(item1 => {
+            return arr.some(item2 => item2.id === item1.id);
+        });
 
         setValue(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,resultArray);
+    }
 
+    useEffect(()=>{
+        setInputName(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
+    },[tableIndex,listName,item])
 
+    const returnError = (str:any) =>{
+        setErrorTips(str)
     }
 
     return <Box>
         <label className="labelLft">{prop?.title}</label>
-        <UlBox className={prop?.size} theme={theme?.toString()}>
+        <RhtBox>
 
-            {
-                options.map((inner,index)=>(   <li key={index}>
+            <Controller
+                name={inputName}
+                control={control}
+                rules={prop?.validate}
+                render={({ field,fieldState }) => (
+                    <>
+                        <UlBox className={`${prop?.size} ${!!fieldState.error ?"error":""}`} theme={theme?.toString()}>
+                            {
+                                dataSource.map((inner,index)=>(   <li key={index}>
+                                    <input type="checkbox" id={`${id}_${index}`} value={inner.id} checked={returnChecked(inner.id)} onChange={(e)=>handleSelect(e)} name={`${item?.name}_${index}`}  />
+                                    <label htmlFor={`${id}_${index}`}>{inner.name}</label>
+                                </li>))
+                            }
+                        </UlBox>
 
-                    <input type="checkbox" id={`${id}_${index}`} value={inner.value} checked={returnChecked(inner.value)} onChange={(e)=>handleSelect(e)} name={`${item?.name}_${index}`}  />
-                    <label htmlFor={`${id}_${index}`}>{inner.label}</label>
-                </li>))
-            }
-        </UlBox>
-        <input type="hidden" {...register(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,  prop?.validate)}  />
+                        <input type="hidden"  {...field} value={getValues(inputName) || ''}  />
+                        {
+                            !!fieldState.error &&  <ErrorTips>
+                                {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.inputError}
+                            </ErrorTips>
+                        }
+                    </>
+
+                )}
+            />
+
+
+        </RhtBox>
+
     </Box>
 }

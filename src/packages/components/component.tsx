@@ -28,7 +28,7 @@ const ContentBox = styled.ul`
   }
 `
 
-const Component = ({listArr,register,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token}:ChildProps) =>{
+const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
     const searchParams = new URLSearchParams(window.location.search);
@@ -55,19 +55,70 @@ const Component = ({listArr,register,control,setValue,reset,data,getValues,theme
                 list?.content?.map((item,index)=>(
                     <li key={`list_${index}`}>
                         {
-                            item.type === "input" && <Input item={item} register={register} type={list?.name} reset={reset} setValue={setValue} theme={theme} />
+                            item.type === "input" && <Input
+                                item={item}
+                                control={control}
+                                type={list?.name}
+                                reset={reset}
+                                setValue={setValue}
+                                language={language}
+                                getValues={getValues}
+                                theme={theme} />
                         }
                         {
-                            item.type === "select" && <SelectBox item={item} control={control} type={list?.name} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} />
+                            item.type === "select" && <SelectBox
+                                item={item}
+                                control={control}
+                                type={list?.name}
+                                reset={reset}
+                                setValue={setValue}
+                                theme={theme}
+                                baseUrl={baseUrl}
+                                version={version}
+                                token={token}
+                                errors={errors}
+                                language={language}
+                            />
                         }
                         {
-                            item.type === "table" && <Table item={item} register={register} control={control} type={list?.name} setValue={setValue} reset={reset} getValues={getValues} theme={theme} language={language} baseUrl={baseUrl} version={version} token={token}  />
+                            item.type === "table" && <Table
+                                item={item}
+                                control={control}
+                                type={list?.name}
+                                setValue={setValue}
+                                reset={reset}
+                                getValues={getValues}
+                                theme={theme}
+                                language={language}
+                                baseUrl={baseUrl}
+                                version={version}
+                                token={token}
+                            />
                         }
                         {
-                            item.type === "file" && <File item={item} register={register}  type={list?.name} setValue={setValue} reset={reset} getValues={getValues}  theme={theme} language={language} />
+                            item.type === "file" && <File
+                                item={item}
+                                control={control}
+                                type={list?.name}
+                                setValue={setValue}
+                                reset={reset}
+                                getValues={getValues}
+                                theme={theme}
+                                language={language} />
                         }
                         {
-                            item.type === "checkbox" && <CheckBox item={item} register={register} type={list?.name} reset={reset} setValue={setValue} getValues={getValues} theme={theme}  />
+                            item.type === "checkbox" && <CheckBox
+                                item={item}
+                                control={control}
+                                type={list?.name}
+                                reset={reset}
+                                setValue={setValue}
+                                getValues={getValues}
+                                baseUrl={baseUrl}
+                                version={version}
+                                language={language}
+                                token={token}
+                                theme={theme}  />
                         }
                     </li>
                 ))

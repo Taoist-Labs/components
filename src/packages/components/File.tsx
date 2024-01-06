@@ -6,17 +6,29 @@ import Add from "../svg/add";
 import Del from "../svg/delete";
 import FileImg from "../svg/file";
 import Lan from "../utils/lan";
+import {Controller} from "react-hook-form";
 
 const Box = styled.div`
     display: flex;
   align-items: flex-start;
+    position: relative;
   label{
     margin-right: 10px;
-    line-height: 30px;
     flex-shrink: 0;
+      
   }
+    .innerAll{
+        display: flex;
+        flex-direction: column;
+        margin-right: 0;
+        width: 100%;
+    }
+    input{
+        min-height: 1px;
+    }
   .rht{
     flex-grow: 1;
+
   }
     .inner{
         display: flex;
@@ -32,12 +44,14 @@ const Box = styled.div`
 `
 
 const UploadImgBox = styled.label`
+    display: flex;
+    justify-content: flex-start;
 
 `
 
 const ImgBox = styled.div<{ size: string}>`
-  width: 100%;
-  height: 100%;
+    width: ${props => props.size ==="sm" ? "126px":"224px"};
+    height:126px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,7 +99,9 @@ const UploadBox  = styled.div<{ size: string,theme?:string }>`
     &:hover{
         background: rgba(82, 0, 255, 0.05);
     }
-
+    &.error,&.error:focus{
+        border: 1px solid #FB4E4E!important;
+    }
     
 `
 
@@ -93,6 +109,7 @@ const UploadFileBox = styled.label <{ bgtheme?: string }>`
     //background: #F9F9F9;
     background: ${props=> props.bgtheme === 'true'?"#2D2736":"#F9F9F9"};
     flex-grow: 1;
+    
     display: flex;
     align-items: center;
     padding: 8px;
@@ -111,14 +128,25 @@ const UploadFileBox = styled.label <{ bgtheme?: string }>`
     .block{
         padding-left: 5px; 
     }
+    &.error,&.error:focus{
+        border: 1px solid #FB4E4E!important;
+    }
 `
-export default function File({item,register,tableIndex,listName,type,setValue,reset,getValues,theme,language}:UpdateProps){
+
+const ErrorTips = styled.div`
+    position: absolute;
+    color: #FB4E4E;
+    bottom: -15px;
+    font-size: 12px;
+    white-space: nowrap;
+`
+export default function File({item,tableIndex,listName,type,setValue,reset,getValues,theme,language,errors,control}:UpdateProps){
 
     const [prop,setProp] = useState<any>();
     const id = uuidv4();
-
     const [imageUrl,setImageUrl] = useState('')
     const [fileUrl,setFileUrl] = useState('')
+    const [inputName,setInputName] = useState('')
 
     useEffect(() => {
         if(!item.properties)return;
@@ -188,46 +216,73 @@ export default function File({item,register,tableIndex,listName,type,setValue,re
         }
     }, []);
 
+    useEffect(()=>{
+        setInputName(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
+    },[tableIndex,listName,item])
+
     return <Box>
         <label className="labelLft">{prop?.title}</label>
-        {
-            item.uploadType === "image" && <UploadImgBox  htmlFor={id}  onChange={(e) => updateLogo(e)}>
-                {
-                    !!imageUrl && <ImgBox onClick={() => removeUrl()} size={prop?.size}>
-                        <div className="del">
-                            <div className="inner">
-                                <Del />
-                                <span>{Lan[language??"zh"]?.remove}</span>
-                            </div>
+        <div className="innerAll">
 
-                        </div>
-                        <img src={imageUrl} alt="" />
-                    </ImgBox>
-                }
-                {
-                    !imageUrl && <UploadBox size={prop?.size} theme={theme?.toString()}>
-                        <input type="file" id={id}  hidden accept=".jpg, .jpeg, .png" className={prop?.size}  />
-                        <div className="inner">
-                            <Add theme={theme} />
-                            <span>{Lan[language??"zh"]?.upload}</span>
-                        </div>
+            <Controller
+                name={inputName}
+                control={control}
+                defaultValue=''
+                rules={prop?.validate}
+                render={({ field,fieldState }) => (
+                    <>
+                        {
+                            item.uploadType === "image" && <UploadImgBox  htmlFor={id}  onChange={(e) => updateLogo(e)}>
+                                {
+                                    !!imageUrl && <ImgBox onClick={() => removeUrl()} size={prop?.size}>
+                                        <div className="del">
+                                            <div className="inner">
+                                                <Del />
+                                                <span>{Lan[language??"zh"]?.remove}</span>
+                                            </div>
 
-                    </UploadBox>
-                }
+                                        </div>
+                                        <img src={imageUrl} alt="" />
+                                    </ImgBox>
+                                }
+                                {
+                                    !imageUrl && <UploadBox size={prop?.size} theme={theme?.toString()}  className={ !!fieldState.error ?"error":""}>
+                                        <input type="file" id={id}  hidden accept=".jpg, .jpeg, .png" className={prop?.size}  />
+                                        <div className="inner">
+                                            <Add theme={theme} />
+                                            <span>{Lan[language??"zh"]?.upload}</span>
+                                        </div>
 
-            </UploadImgBox>
-        }
-        {
-            item.uploadType === "file" && <UploadFileBox htmlFor={id} bgtheme={theme?.toString()} onChange={(e) => updateFile(e)} >
-                <input type="file" id={id} hidden/>
-                <span className="fileBtn">{Lan[language??"zh"]?.select}</span>
-                {
-                    !!fileUrl&&  <FileImg />
-                }
+                                    </UploadBox>
+                                }
 
-                <span className="block">{fileUrl}</span>
-            </UploadFileBox>
-        }
-        <input type="hidden" {...register(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,  prop?.validate)}  />
+                            </UploadImgBox>
+                        }
+                        {
+                            item.uploadType === "file" && <UploadFileBox className={ !!fieldState.error ?"error":""} htmlFor={id} bgtheme={theme?.toString()} onChange={(e) => updateFile(e)} >
+                                <input type="file" id={id} hidden/>
+                                <span className="fileBtn">{Lan[language??"zh"]?.select}</span>
+                                {
+                                    !!fileUrl&&  <FileImg />
+                                }
+
+                                <span className="block">{fileUrl}</span>
+                            </UploadFileBox>
+                        }
+                        <input type="hidden"  {...field} value={getValues(inputName) || ''} />
+                        {
+                            !!fieldState.error &&  <ErrorTips>
+                                {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.fileError}
+                            </ErrorTips>
+                        }
+                    </>
+
+                )}
+
+
+
+        />
+        </div>
+
     </Box>
 }

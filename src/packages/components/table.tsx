@@ -73,7 +73,7 @@ const AddBox = styled.div`
     margin: 20px;
 `
 
-export default function Table({item,register,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token}:TableProps){
+export default function Table({item,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token,errors}:TableProps){
 
     const [column,setColumn] = useState(0);
     const [width,setWidth] = useState<number[]>([]);
@@ -83,6 +83,9 @@ export default function Table({item,register,control,type,setValue,reset,getValu
     const { fields, append, remove } = useFieldArray({
         control,
         name: `${type}.${item?.name}`,
+        rules:{
+            required: true
+        },
         shouldUnregister:true
     });
 
@@ -111,13 +114,17 @@ export default function Table({item,register,control,type,setValue,reset,getValu
     }, [item]);
 
 
-
-
     useEffect(() => {
         return () =>{
             reset();
         }
     }, []);
+
+    useEffect(() => {
+
+        console.log("====errors======",errors)
+    }, [errors]);
+
 
     if(!item)return null;
     return <Box>
@@ -140,17 +147,17 @@ export default function Table({item,register,control,type,setValue,reset,getValu
                     {
                         [...Array(column)].map((r,index)=>(<td key={`tbody_${index}`}>
                             {
-                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} reset={reset} setValue={setValue} theme={theme} />
+                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} reset={reset} setValue={setValue} theme={theme}  language={language} control={control}  />
                             }
                             {
-                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} />
+                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} errors={errors} language={language} />
                             }
 
                             {
-                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} register={register} setValue={setValue} reset={reset} getValues={getValues} theme={theme} language={language}/>
+                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} setValue={setValue} reset={reset} getValues={getValues} theme={theme} errors={errors} language={language} control={control}/>
                             }
                             {
-                                rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} register={register} type={type} reset={reset}  setValue={setValue} getValues={getValues}  theme={theme}/>
+                                rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} control={control} type={type} reset={reset}  setValue={setValue} getValues={getValues}  theme={theme} language={language}/>
                             }
                         </td>))
                     }

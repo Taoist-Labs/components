@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React,{forwardRef, useEffect, useState} from "react";
 import {UseFormRegister,Controller} from "react-hook-form";
 import Select from 'react-select';
+import Lan from "../utils/lan";
 
 const Box = styled.div`
     display: flex;
@@ -23,7 +24,12 @@ const Box = styled.div`
     width: 480px;
   }
   .innerSelect{
+      position: relative;
     flex-grow: 1;
+      .error,.error:focus{
+          border: 1px solid #FB4E4E!important;
+          border-radius: 8px;
+      }
       [class$="-control"] {
           border-radius: 8px;
           &:focus,&:focus-visible{
@@ -36,13 +42,20 @@ const Box = styled.div`
   }
 `
 
+const ErrorTips = styled.div`
+    position: absolute;
+    color: #FB4E4E;
+    bottom: -20px;
+    font-size: 12px;
+    white-space: nowrap;
+`
 
-const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset,setValue,theme,baseUrl,version,token }, ref) => {
+
+const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset,setValue,theme,baseUrl,version,token,language,errors }, ref) => {
 
     const [prop, setProp] = useState<any>();
     const [dataSource,setDataSource] = useState<any[]>([])
-
-
+    const [inputName,setInputName] = useState('')
 
 
     useEffect(() => {
@@ -72,9 +85,9 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
             })
             .then(data => {
                 setDataSource(data.data)
+
             })
             .catch(error => {
-                // 处理错误
                 console.error('Error:', error);
             });
     }
@@ -126,6 +139,9 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
             },
         }),
     };
+    useEffect(()=>{
+        setInputName(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
+    },[tableIndex])
 
 
     if(!prop)return null;
@@ -133,22 +149,35 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
       <Box>
           <label  className="labelLft">{prop?.title}</label>
           <div className={prop?.size}>
+
               <Controller
-                  name={tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`}
+                  name={inputName}
                   control={control}
-                  render={({ field }) => (
-                      <Select
-                          className="innerSelect"
-                          {...field}
-                          options={dataSource}
-                          styles={customStyles}
-                          getOptionLabel={(option) => option.name}
-                          getOptionValue={(option) => option.id}
-                          theme={customTheme}
-                          isSearchable={false}
-                      />
+                  defaultValue=''
+                  rules={prop.validate}
+                  render={({ field,fieldState }) => (
+                      <div className="innerSelect">
+                          <Select
+                              {...field}
+                              className={!!fieldState.error?'error':''}
+                              options={dataSource}
+                              styles={customStyles}
+                              getOptionLabel={(option) => option.name}
+                              getOptionValue={(option) => option.id}
+                              theme={customTheme}
+                              isSearchable={false}
+                          />
+                          {
+                              !!fieldState.error &&  <ErrorTips>
+                                  {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.selectError}
+                              </ErrorTips>
+                          }
+                      </div>
+
                   )}
               />
+
+
           </div>
 
       </Box>

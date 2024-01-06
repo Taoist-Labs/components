@@ -80,16 +80,98 @@ function New() {
         "name": "create_project",
         "schema": {
             "title": "创建公共项目申请",
-            "content": [{
-                "type": "input",
-                "inputType": "text",
-                "value": "",
-                "name": "project_name",
-                "properties": [{"name": "title", "value": "项目名称"}, {
-                    "name": "size",
-                    "value": "lg"
-                }, {"name": "validate", "value": {"required": true, "maxLength": 50}}]
-            }]
+            "content": [
+                {
+                    "type": "select",
+                    "dataList": "datasrv/project_list",
+                    "value":"",
+                    "name": "type",
+                    "properties":[
+                        {
+                            "name": "title",
+                            "value": "资产类型"
+                        },
+                        {
+                            "name": "size",
+                            "value": "md"
+                        },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": true,
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "checkbox",
+                    "dataList": "datasrv/project_list",
+                    "name": "delMemeberList",
+                    "value":{
+                    },
+                    "properties":[
+                        {
+                            "name": "title",
+                            "value": "删除成员"
+                        },
+                        {
+                            "name": "size",
+                            "value": "sm"
+                        },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": true,
+                                "maxLength": 50
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "input",
+                    "inputType": "text",
+                    "value": "",
+                    "name": "address222",
+                    "properties":[
+                        {
+                            "name": "title",
+                            "value": "项目成员"
+                        },
+                        {
+                            "name": "size",
+                            "value": "md"
+                        },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": true,
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "file",
+                    "uploadType": "image",
+                    "value": "",
+                    "name": "logo",
+                    "properties":[
+                        {
+                            "name": "title",
+                            "value": "项目Logo"
+                        },
+                        {
+                            "name": "size",
+                            "value": "sm"
+                        },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": "配置错误提示333"
+                            }
+                        }
+                    ]
+                },
+            ]
         },
         "screenshot_uri": ""
     }, {
@@ -121,7 +203,7 @@ function New() {
                 "properties": [{"name": "title", "value": "项目名称"}, {
                     "name": "size",
                     "value": "md"
-                }, {"name": "validate", "value": {"maxLength": 20}}]
+                }, {"name": "validate", "value": {"required": true}}]
             }]
         },
         "screenshot_uri": ""
@@ -137,7 +219,7 @@ function New() {
                 "properties": [{"name": "title", "value": "公会名称"}, {
                     "name": "size",
                     "value": "md"
-                }, {"name": "validate", "value": {"maxLength": 20}}]
+                }, {"name": "validate", "value": {"required": true}}]
             }]
         },
         "screenshot_uri": ""
@@ -229,16 +311,20 @@ function New() {
                         <button onClick={() => AllSubmit()}>submit</button>
                     </ButtonBox>
                     <Box>
-                        <Template language="en"
-                                  baseUrl="https://test-api.seedao.tech"
-                                  version="v1"
-                                  token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDQ0NjUzOTAsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.N8lnbcoTu-Oq-hwza_k6d0YiQUlLOV5BGTcgSUqlrvc"
-                                  showRight={true} theme={false}
-                                  DataSource={[{"id":21,"component_id":1,"name":"create_project","schema":"","data":{"project_name":"ceshi"},"create_ts":1704435062}]}
-                                  operate={operate}
-                                  initialItems={testFor} BeforeComponent={<input type="text" onChange={handleInput}/>}
-                                  AfterComponent={<div>-----test add after-----</div>} ref={childRef}
-                                  onSubmitData={handleFormSubmit}/>
+                        <Template
+                            language="en"
+                              baseUrl="https://test-api.seedao.tech"
+                              version="v1"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDQ2MDY1OTUsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.cN6PGQQjLt708aoYyxkYUITPqKAK7xvPoWEEm82yeA0"
+                              showRight={true}
+                              theme={false}
+                              DataSource={[{"id":21,"component_id":1,"name":"create_project","schema":"","data":{"project_name":""},"create_ts":1704435062}]}
+                              operate={operate}
+                              initialItems={testFor}
+                              BeforeComponent={<input type="text" onChange={handleInput}/>}
+                              AfterComponent={<div>-----test add after-----</div>}
+                              ref={childRef}
+                              onSubmitData={handleFormSubmit}/>
 
 
 

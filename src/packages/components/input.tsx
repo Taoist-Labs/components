@@ -1,11 +1,14 @@
 import {InputProps} from "../type/compontent.type";
 import styled from "styled-components";
-import React,{useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
+import Lan from "../utils/lan";
+import {Controller} from "react-hook-form";
 
 
 const Box = styled.div<{theme?:string}>`
     display: flex;
   align-items: flex-start;
+
     
   label{
     margin-right: 10px;
@@ -42,37 +45,51 @@ const Box = styled.div<{theme?:string}>`
   }
   .rht{
     flex-grow: 1;
+      position: relative;
   }
+    .error,.error:focus{
+        border: 1px solid #FB4E4E;
+    }
 `
 
+const ErrorTips = styled.div`
+    position: absolute;
+    color: #FB4E4E;
+    bottom: -20px;
+    font-size: 12px;
+    white-space: nowrap;
+`
 
-export default function Input({item,register,tableIndex,listName,type,reset,setValue,theme}:InputProps){
+export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues}:InputProps){
 
-    const [prop,setProp] = useState<any>()
+    const [prop,setProp] = useState<any>();
+    const [inputName,setInputName] = useState('')
 
     useEffect(() => {
         if(!item.properties)return;
         let arr:any ={}
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
-            if(inner.name === "validate" && !inner.value.pattern ){
-                switch(item.inputType){
-                    case "email":
-                        inner.value.pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-                        break;
-                    case "address":
-                        inner.value.pattern = /^(0x[a-fA-F0-9]{40}|.*\.seedao)$/
-                        break;
-                    case "text":
-                    default:
-                        break;
-                }
-            }
+
+
+            // if(inner.name === "validate" && !inner.value.pattern ){
+            //
+            //     switch(item.inputType){
+            //         case "email":
+            //             inner.value.pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+            //             break;
+            //         case "address":
+            //             inner.value.pattern = /^(0x[a-fA-F0-9]{40}|.*\.seedao)$/
+            //             break;
+            //         case "text":
+            //         default:
+            //             break;
+            //     }
+            // }
         })
+        console.log(arr)
         setProp(arr)
     }, [item.properties]);
-
-
 
     useEffect(() => {
 
@@ -84,16 +101,46 @@ export default function Input({item,register,tableIndex,listName,type,reset,setV
         }
     }, []);
 
+    useEffect(()=>{
+        setInputName(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
+    },[tableIndex,listName,item])
+
+
   if(!prop)return null;
     return <Box theme={theme?.toString()}>
         <label className="labelLft">{prop?.title}</label>
         <div className="rht">
-            {
-                item.inputType === "textarea" && <textarea className={prop?.size} {...register(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`, prop?.validate)}  />
-            }
-            {
-                item.inputType !== "textarea" && <input className={prop?.size} {...register(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,  prop?.validate)}  />
-            }
+
+                <Controller
+                    name={inputName}
+                    control={control}
+                    rules={prop.validate}
+                    render={({ field,fieldState }) => (
+                        <>
+                            {
+                                item.inputType === "textarea" && <textarea
+                                    {...field}
+                                    value={getValues(inputName) || ''}
+                                    className={`${prop?.size} ${!!fieldState.error?'error':''}`}
+
+                                />
+                            }
+                            {
+                                item.inputType !== "textarea" && <input
+                                    {...field}
+                                    value={getValues(inputName) || ''}
+                                    className={`${prop?.size} ${!!fieldState.error?'error':''}`}/>
+                            }
+
+                            {
+                                !!fieldState.error &&  <ErrorTips>
+                                    {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.inputError}
+                                </ErrorTips>
+                            }
+                        </>
+
+                    )}
+                />
         </div>
     </Box>
 }

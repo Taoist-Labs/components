@@ -148,7 +148,7 @@ function PreviewPage() {
 
     return (
         <Preview DataSource={
-            [{"id":13,"component_id":1,"name":"create_project","schema":"","data":{"project_name":{"id":21,"name":"test pro ject"}},"create_ts":1704421879}]
+            [{"id":13,"component_id":1,"name":"close_project","schema":"","data":{"project_name":{"id":21,"name":"test pro ject"}},"create_ts":1704421879}]
         } initialItems={testFor}  theme={false} BeforeComponent={<div>-----test add after-----</div>} AfterComponent={<div>-----test add after-----</div>} />
     );
 }
