@@ -96,7 +96,7 @@ const BeforeDiv = styled.div`
 `
 
 const AfterDiv = styled.div`
-    margin: 20px 0;
+    margin-bottom: 20px;
 `
 
 const UlBox = styled.ul`
@@ -119,6 +119,7 @@ const UlBox = styled.ul`
 `
 const P32 = styled.div`
     padding-inline: 32px;
+    margin-bottom: 20px;
 `
 
 export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
@@ -173,140 +174,146 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
     return <Box theme={theme?.toString()}>
 
-        <BeforeDiv>
-            {
-                BeforeComponent
-            }
-        </BeforeDiv>
-        <P32>
+        {
+            !!BeforeComponent && <BeforeDiv>
+                {
+                    BeforeComponent
+                }
+            </BeforeDiv>
+        }
 
         {
-            list.map((item:any,index)=>(<InnerBox key={index}>
-                <TitleBox>{item?.title}</TitleBox>
-                <ContentBox theme={theme?.toString()}>
-                    {
-                        item.content.map((inner:any,innerKey:number)=>(
-                            <div key={`component_${innerKey}`}>
-                                {
-                                    inner.type === "table" && <div>
+            !!list.length && <P32>
 
-                                    <table cellPadding="0" cellSpacing="0">
-                                        <thead>
-                                            <tr>
+                {
+                    list.map((item:any,index)=>(<InnerBox key={index}>
+                        <TitleBox>{item?.title}</TitleBox>
+                        <ContentBox theme={theme?.toString()}>
+                            {
+                                item.content.map((inner:any,innerKey:number)=>(
+                                    <div key={`component_${innerKey}`}>
+                                        {
+                                            inner.type === "table" && <div>
 
-                                                {
-                                                    [...Array(inner.rows.length)].map((col,index)=>(<ThBox key={`thead_${index}`} width={inner.style.width[index]}>
+                                                <table cellPadding="0" cellSpacing="0">
+                                                    <thead>
+                                                    <tr>
+
                                                         {
-                                                            inner.style.tHeader[index]
+                                                            [...Array(inner.rows.length)].map((col,index)=>(<ThBox key={`thead_${index}`} width={inner.style.width[index]}>
+                                                                {
+                                                                    inner.style.tHeader[index]
+                                                                }
+                                                            </ThBox>))
                                                         }
-                                                    </ThBox>))
-                                                }
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            {
-                                                inner.table?.map((r:any,rInd:number)=>(
-                                                    <tr key={`tbody_${rInd}`}>
-                                                        {
-                                                            r.map((rInner:any,rIin:number)=>(<td key={`td_${rIin}`}>
-                                                                    {
-                                                                        rInner.type === "input" &&
-                                                                        <span>{rInner?.value}</span>
-
-                                                                    }
-
-                                                                    {
-                                                                        rInner.type === "select" && <dl>
-                                                                            <dd>{rInner?.value?.name}</dd>
-                                                                        </dl>
-                                                                    }
-                                                                    {
-                                                                        rInner.type === "file" && <dl>
-                                                                            {
-                                                                                rInner.uploadType === "image" && <dd><img src={rInner?.value} alt="" className={rInner?.pro?.size} /></dd>
-                                                                            }
-                                                                            {
-                                                                                rInner.uploadType === "file" &&  <dd>{rInner?.value}</dd>
-                                                                            }
-                                                                        </dl>
-                                                                    }
-                                                                    {
-                                                                        rInner.type === "checkbox" && <dl>
-
-                                                                            <dd>
-                                                                                <ul>
-                                                                                    {
-                                                                                        rInner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`}>{ii.value}</li>))
-                                                                                    }
-                                                                                </ul>
-                                                                            </dd>
-
-                                                                        </dl>
-                                                                    }
-                                                                </td>
-
-                                                            ))
-                                                        }
-
                                                     </tr>
+                                                    </thead>
+                                                    <tbody>
 
-                                                ))
-                                            }
+                                                    {
+                                                        inner.table?.map((r:any,rInd:number)=>(
+                                                            <tr key={`tbody_${rInd}`}>
+                                                                {
+                                                                    r.map((rInner:any,rIin:number)=>(<td key={`td_${rIin}`}>
+                                                                            {
+                                                                                rInner.type === "input" &&
+                                                                                <span>{rInner?.value}</span>
 
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                }
+                                                                            }
 
+                                                                            {
+                                                                                rInner.type === "select" && <dl>
+                                                                                    <dd>{rInner?.value?.name}</dd>
+                                                                                </dl>
+                                                                            }
+                                                                            {
+                                                                                rInner.type === "file" && <dl>
+                                                                                    {
+                                                                                        rInner.uploadType === "image" && <dd><img src={rInner?.value} alt="" className={rInner?.pro?.size} /></dd>
+                                                                                    }
+                                                                                    {
+                                                                                        rInner.uploadType === "file" &&  <dd>{rInner?.value}</dd>
+                                                                                    }
+                                                                                </dl>
+                                                                            }
+                                                                            {
+                                                                                rInner.type === "checkbox" && <dl>
 
-                                {
-                                    inner.type === "input" && <dl className="line">
-                                        <dt>{inner?.pro?.title}</dt>
-                                        <dd>{inner?.value}</dd>
-                                    </dl>
-                                }
+                                                                                    <dd>
+                                                                                        <ul>
+                                                                                            {
+                                                                                                rInner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`}>{ii.value}</li>))
+                                                                                            }
+                                                                                        </ul>
+                                                                                    </dd>
 
-                                {
-                                    inner.type === "select" && <dl className="line">
-                                        <dt>{inner?.pro?.title}</dt>
-                                        <dd>{inner?.value?.name}</dd>
-                                    </dl>
-                                }
+                                                                                </dl>
+                                                                            }
+                                                                        </td>
 
-                                {
-                                    inner.type === "file" && <dl className="line">
-                                        <dt>{inner?.pro?.title}</dt>
-                                        {
-                                            inner.uploadType === "image" && <dd><img src={inner?.value} alt="" className={inner?.pro?.size}/></dd>
+                                                                    ))
+                                                                }
+
+                                                            </tr>
+
+                                                        ))
+                                                    }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         }
-                                        {
-                                            inner.uploadType === "file" &&  <dd>{inner?.value}</dd>
-                                        }
-                                    </dl>
-                                }
 
-                                {
-                                    inner.type === "checkbox" && <dl className="line">
-                                        <dt>{inner?.pro?.title}</dt>
-                                        <dd>
-                                            <UlBox>
+
+                                        {
+                                            inner.type === "input" && <dl className="line">
+                                                <dt>{inner?.pro?.title}</dt>
+                                                <dd>{inner?.value}</dd>
+                                            </dl>
+                                        }
+
+                                        {
+                                            inner.type === "select" && <dl className="line">
+                                                <dt>{inner?.pro?.title}</dt>
+                                                <dd>{inner?.value?.name}</dd>
+                                            </dl>
+                                        }
+
+                                        {
+                                            inner.type === "file" && <dl className="line">
+                                                <dt>{inner?.pro?.title}</dt>
                                                 {
-                                                    inner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`} className={inner?.pro?.size}>{ii.value}</li>))
+                                                    inner.uploadType === "image" && <dd><img src={inner?.value} alt="" className={inner?.pro?.size}/></dd>
                                                 }
-                                            </UlBox>
-                                        </dd>
+                                                {
+                                                    inner.uploadType === "file" &&  <dd>{inner?.value}</dd>
+                                                }
+                                            </dl>
+                                        }
 
-                                    </dl>
-                                }
+                                        {
+                                            inner.type === "checkbox" && <dl className="line">
+                                                <dt>{inner?.pro?.title}</dt>
+                                                <dd>
+                                                    <UlBox>
+                                                        {
+                                                            inner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`} className={inner?.pro?.size}>{ii.value}</li>))
+                                                        }
+                                                    </UlBox>
+                                                </dd>
 
-                            </div>
-                        ))
-                    }
-                </ContentBox>
-            </InnerBox>))
+                                            </dl>
+                                        }
+
+                                    </div>
+                                ))
+                            }
+                        </ContentBox>
+                    </InnerBox>))
+                }
+            </P32>
         }
-        </P32>
+
         <AfterDiv>
             {
                 AfterComponent
