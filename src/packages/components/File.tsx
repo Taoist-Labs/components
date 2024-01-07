@@ -1,12 +1,13 @@
 import {UpdateProps} from "../type/compontent.type";
 import styled from "styled-components";
-import React ,{useEffect, useState , FormEvent} from "react";
+import React, {useEffect, useState, FormEvent, ChangeEvent} from "react";
 import { v4 as uuidv4 } from 'uuid';
 import Add from "../svg/add";
 import Del from "../svg/delete";
 import FileImg from "../svg/file";
 import Lan from "../utils/lan";
 import {Controller} from "react-hook-form";
+import Trash from "../svg/trash";
 
 const Box = styled.div`
     display: flex;
@@ -131,6 +132,11 @@ const UploadFileBox = styled.label <{ bgtheme?: string }>`
     &.error,&.error:focus{
         border: 1px solid #FB4E4E!important;
     }
+    .trash{
+        margin:0 0 -5px 5px;
+        cursor: pointer;
+        
+    }
 `
 
 const ErrorTips = styled.div`
@@ -213,8 +219,6 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
     const updateLogo = (e: FormEvent) => {
         const { files } = e.target as any;
         const url = window.URL.createObjectURL(files[0]);
-        console.log(files[0])
-
         getBase64(url);
         UploadFile(files[0])
     };
@@ -222,26 +226,38 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
     const UploadFile = async (file:File) =>{
         setLoading(true)
         try{
-            const formData = new FormData();
-            formData.append('file', file);
+
+            const blob = new Blob([file], { type: file.type });
 
             const params = new URLSearchParams();
             params.append('bucket', "seedao-os-superapp");
-            params.append('filename', `proposal_images/${uuidv4()}`);
-            params.append('content_type', file.type);
+
+            const parts = file.name.split('.');
+
+            const extension = parts[parts.length - 1];
+            params.append('filename', `/proposal_images/${uuidv4()}.${extension}`);
+            params.append('type', file.type);
 
             let rt = await fetch(`${baseUrl}/${version}/url_for_uploading_s3?${params.toString()}`, {
                 method: 'GET',
             })
             const data = await rt.json();
-            console.log(data.data)
 
-            let fileRt = await fetch(data.data, {
-                method: 'POST',
-                body: formData
+            let fileRt=await fetch(data.data, {
+                method: 'PUT',
+                headers:{
+                    'Content-Type':file.type,
+                },
+                body: blob
             });
-            const fileData = await fileRt.json();
-            console.error(fileData)
+
+            if(fileRt.status === 200){
+                let str = data.data.split("?")[0];
+                console.log(str)
+                setValue(inputName,str)
+            }else{
+                throw (new Error("failed"))
+            }
         }catch (e) {
             console.error(e)
             setImageUrl("")
@@ -249,16 +265,11 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
         }finally {
             setLoading(false)
         }
-
     }
-
-
-
     const updateFile = (e: FormEvent) =>{
         const { files } = e.target as any;
-        setFileUrl(files[0].name)
+        setFileUrl(files[0]?.name)
         UploadFile(files[0])
-        // setValue(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,files[0].name)
     }
 
     const getBase64 = (imgUrl: string) => {
@@ -282,8 +293,11 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
 
     };
 
-    const removeUrl = () => {
+    const removeUrl = (e:any) => {
+        e.preventDefault();
         setImageUrl('');
+        setFileUrl('');
+        setValue(inputName,'')
     };
 
 
@@ -292,7 +306,7 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
             setValue(`${type}.${item?.name}`,item?.value)
         }
 
-        let url = getValues(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
+        let url = getValues(inputName)
 
         if(item.uploadType === "image"){
             setImageUrl(url)
@@ -323,7 +337,7 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
                         {
                             item.uploadType === "image" && <UploadImgBox  htmlFor={id}  onChange={(e) => updateLogo(e)}>
                                 {
-                                    !!imageUrl && <ImgBox onClick={() => removeUrl()} size={prop?.size}>
+                                    !!imageUrl && <ImgBox onClick={(e) => removeUrl(e)} size={prop?.size}>
 
                                         {
                                             loading && <Loading>
@@ -362,7 +376,11 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
                                 <input type="file" id={id} hidden/>
                                 <span className="fileBtn">{Lan[language ?? "zh"]?.select}</span>
                                 {
-                                    !!fileUrl && !loading && <><FileImg/><span className="block">{fileUrl}</span></>
+                                    !!fileUrl && !loading && <>
+                                        <FileImg/><span className="block">{fileUrl}</span>
+                                    <div className="trash" onClick={(e) => removeUrl(e)} > <Trash /></div>
+
+                                    </>
                                 }
 
                                 {
