@@ -140,13 +140,63 @@ const ErrorTips = styled.div`
     font-size: 12px;
     white-space: nowrap;
 `
-export default function File({item,tableIndex,listName,type,setValue,reset,getValues,theme,language,errors,control}:UpdateProps){
+
+const Loading = styled.div`
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(255,255,255,0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .loader {
+        width: 50px;
+        padding: 8px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #5200FF;
+        --_m: conic-gradient(#0000 10%,#000),
+                linear-gradient(#000 0 0) content-box;
+        -webkit-mask: var(--_m);
+        mask: var(--_m);
+        -webkit-mask-composite: source-out;
+        mask-composite: subtract;
+        animation: l3 1s infinite linear;
+    }
+    @keyframes l3 {to{transform: rotate(1turn)}}
+`
+const LoadingFile = styled.div`
+    margin-left: 20px;
+    .loader {
+        width: 30px;
+        aspect-ratio: 4;
+        --_g: no-repeat radial-gradient(circle closest-side,#5200FF 90%,#5200FF00);
+        background:
+                var(--_g) 0%   50%,
+                var(--_g) 50%  50%,
+                var(--_g) 100% 50%;
+        background-size: calc(100%/3) 100%;
+        animation: l7 1s infinite linear;
+    }
+    @keyframes l7 {
+        33%{background-size:calc(100%/3) 0%  ,calc(100%/3) 100%,calc(100%/3) 100%}
+        50%{background-size:calc(100%/3) 100%,calc(100%/3) 0%  ,calc(100%/3) 100%}
+        66%{background-size:calc(100%/3) 100%,calc(100%/3) 100%,calc(100%/3) 0%  }
+    }
+`
+
+
+
+export default function File({item,tableIndex,listName,type,setValue,reset,getValues,theme,language,baseUrl,control,version}:UpdateProps){
 
     const [prop,setProp] = useState<any>();
     const id = uuidv4();
     const [imageUrl,setImageUrl] = useState('')
     const [fileUrl,setFileUrl] = useState('')
     const [inputName,setInputName] = useState('')
+    const [loading,setLoading] = useState(false)
 
     useEffect(() => {
         if(!item.properties)return;
@@ -163,13 +213,52 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
     const updateLogo = (e: FormEvent) => {
         const { files } = e.target as any;
         const url = window.URL.createObjectURL(files[0]);
+        console.log(files[0])
+
         getBase64(url);
+        UploadFile(files[0])
     };
+
+    const UploadFile = async (file:File) =>{
+        setLoading(true)
+        try{
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const params = new URLSearchParams();
+            params.append('bucket', "seedao-os-superapp");
+            params.append('filename', `proposal_images/${uuidv4()}`);
+            params.append('content_type', file.type);
+
+            let rt = await fetch(`${baseUrl}/${version}/url_for_uploading_s3?${params.toString()}`, {
+                method: 'GET',
+            })
+            const data = await rt.json();
+            console.log(data.data)
+
+            let fileRt = await fetch(data.data, {
+                method: 'POST',
+                body: formData
+            });
+            const fileData = await fileRt.json();
+            console.error(fileData)
+        }catch (e) {
+            console.error(e)
+            setImageUrl("")
+            setFileUrl("")
+        }finally {
+            setLoading(false)
+        }
+
+    }
+
+
 
     const updateFile = (e: FormEvent) =>{
         const { files } = e.target as any;
         setFileUrl(files[0].name)
-        setValue(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,files[0].name)
+        UploadFile(files[0])
+        // setValue(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,files[0].name)
     }
 
     const getBase64 = (imgUrl: string) => {
@@ -184,7 +273,7 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
                 oFileReader.onloadend = function (e) {
                     const { result } = e.target as any;
                     setImageUrl(result);
-                    setValue(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`,imgUrl)
+
                 };
                 oFileReader.readAsDataURL(blob);
             }
@@ -235,14 +324,22 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
                             item.uploadType === "image" && <UploadImgBox  htmlFor={id}  onChange={(e) => updateLogo(e)}>
                                 {
                                     !!imageUrl && <ImgBox onClick={() => removeUrl()} size={prop?.size}>
-                                        <div className="del">
-                                            <div className="inner">
-                                                <Del />
-                                                <span>{Lan[language??"zh"]?.remove}</span>
-                                            </div>
 
-                                        </div>
-                                        <img src={imageUrl} alt="" />
+                                        {
+                                            loading && <Loading>
+                                                <div className="loader"/>
+                                            </Loading>
+                                        }
+                                        {
+                                            !loading && <div className="del">
+                                                <div className="inner">
+                                                    <Del/>
+                                                    <span>{Lan[language ?? "zh"]?.remove}</span>
+                                                </div>
+
+                                            </div>
+                                        }
+                                        <img src={imageUrl} alt=""/>
                                     </ImgBox>
                                 }
                                 {
@@ -259,14 +356,22 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
                             </UploadImgBox>
                         }
                         {
-                            item.uploadType === "file" && <UploadFileBox className={ !!fieldState.error ?"error":""} htmlFor={id} bgtheme={theme?.toString()} onChange={(e) => updateFile(e)} >
+                            item.uploadType === "file" &&
+                            <UploadFileBox className={!!fieldState.error ? "error" : ""} htmlFor={id}
+                                           bgtheme={theme?.toString()} onChange={(e) => updateFile(e)}>
                                 <input type="file" id={id} hidden/>
-                                <span className="fileBtn">{Lan[language??"zh"]?.select}</span>
+                                <span className="fileBtn">{Lan[language ?? "zh"]?.select}</span>
                                 {
-                                    !!fileUrl&&  <FileImg />
+                                    !!fileUrl && !loading && <><FileImg/><span className="block">{fileUrl}</span></>
                                 }
 
-                                <span className="block">{fileUrl}</span>
+                                {
+                                    loading && <LoadingFile>
+                                        <div className="loader"/>
+                                    </LoadingFile>
+                                }
+
+
                             </UploadFileBox>
                         }
                         <input type="hidden"  {...field} value={getValues(inputName) || ''} />

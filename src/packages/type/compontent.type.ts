@@ -84,6 +84,8 @@ export interface UpdateProps{
         properties:PropertiesObj[]
         value?:any
     }
+    baseUrl?:string
+    version?:string
     type?:string;
     reset?:any;
     tableIndex?:number;

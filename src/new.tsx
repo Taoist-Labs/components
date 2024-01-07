@@ -182,6 +182,28 @@ function New() {
                         }
                     ]
                 },
+                {
+                    "type": "file",
+                    "uploadType": "file",
+                    "value": "",
+                    "name": "fileStr",
+                    "properties":[
+                        {
+                            "name": "title",
+                            "value": "项目Logo"
+                        },
+                        {
+                            "name": "size",
+                            "value": "sm"
+                        },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": "配置错误提示333"
+                            }
+                        }
+                    ]
+                },
             ]
         },
         "screenshot_uri": ""

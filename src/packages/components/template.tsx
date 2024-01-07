@@ -342,7 +342,6 @@ const P32 = styled.div`
                                                                 control={control} setValue={setValue}
                                                                 reset={reset} data={item?.data}/>
 
-
                                                         </FormBox>
                                                     )}
 

@@ -148,7 +148,7 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
                             }
 
                             {
-                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} setValue={setValue} reset={reset} getValues={getValues} theme={theme} errors={errors} language={language} control={control}/>
+                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} setValue={setValue} reset={reset} getValues={getValues} theme={theme} errors={errors} language={language} control={control}  baseUrl={baseUrl} version={version} />
                             }
                             {
                                 rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} control={control} type={type} reset={reset}  setValue={setValue} getValues={getValues}  theme={theme} language={language}/>
