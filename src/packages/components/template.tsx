@@ -89,6 +89,9 @@ const ImageBox = styled.div<{theme:string}>`
       overflow: hidden;
        box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
   }
+    &:hover{
+        border: 1px solid #5200FF;
+    }
 `
 
 const FormBox = styled.div<{theme:string}>`
