@@ -79,12 +79,13 @@ const ImageBox = styled.div<{theme:string}>`
     }
   img{
     width: 100%;
-      height: 200px;
+      box-sizing: border-box;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
       border-radius: 8px;
-      box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
+      overflow: hidden;
+       box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
   }
 `
 
