@@ -74,16 +74,18 @@ const ImageBox = styled.div<{theme:string}>`
   align-items: center;
     flex-direction: column;
     margin-bottom: 24px;
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    border-radius: 8px;
+    background:${props=>props.theme === 'true'?"#1A1323":"#F9F9F9"};
     .line{
-        padding-top: 10px;
+        padding: 20px;
     }
   img{
     width: 100%;
       box-sizing: border-box;
       object-fit: cover;
       object-position: top;
-      border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
-      border-radius: 8px;
+ 
       overflow: hidden;
        box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
   }
@@ -408,7 +410,7 @@ const P32 = styled.div`
                                                             ...provided.draggableProps.style,
                                                         }}
                                                     >
-                                                        <img src={item?.screenshot_uri} alt=""/>
+                                                        {/*<img src={item?.screenshot_uri} alt=""/>*/}
                                                         <div className="line">
                                                             {item.schema.title}
                                                         </div>
