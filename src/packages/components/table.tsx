@@ -21,8 +21,14 @@ const Box = styled.div<{theme?:string}>`
     width: 100%;
     td,th{
       height: 40px;
-      padding: 5px 20px;
+      padding: 5px;
     }
+      td:first-child{
+          padding-left: 20px;
+      }
+      td:last-child{
+          padding-right: 20px;
+      }
       th{
           text-align: center;
       }

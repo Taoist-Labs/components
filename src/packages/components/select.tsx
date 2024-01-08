@@ -39,6 +39,9 @@ const Box = styled.div`
       [class$="-indicatorSeparator"] {
           width: 0;
       }
+        [class$="-ValueContainer"] {
+            padding-block: 0!important;
+      }
   }
 `
 
