@@ -111,7 +111,6 @@ const UlBox = styled.ul`
     }
 `
 const P32 = styled.div`
-    padding-inline: 32px;
     margin-bottom: 20px;
 `
 
