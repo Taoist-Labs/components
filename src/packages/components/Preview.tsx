@@ -5,6 +5,7 @@ import {thProps} from "../type/compontent.type";
 const Box = styled.div<{theme?:string}>`
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
     font-size: 14px;
+    
   table{
     width: 100%;
       margin-bottom: 20px;
@@ -15,11 +16,12 @@ const Box = styled.div<{theme?:string}>`
         line-height: 2em;
     }
       td{
-          border-top: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"}; 
+          border-top: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+          background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
       }
       
       th{
-          padding: 20px;
+          padding:10px 20px;
           background: ${props=>props.theme === 'true'?"#161518":"#f5f5f5"};
       }
     .labelLft{
@@ -29,25 +31,30 @@ const Box = styled.div<{theme?:string}>`
 
 `
 
-const InnerBox = styled.div`
- 
+const InnerBox = styled.div<{theme:string}>`
+    border-radius: 8px;
   padding-top: 20px;
   margin-bottom: 20px;
 
-
+    background: ${props=>props.theme === 'true'?"#161518":"#f8f8f8"};
 `
 
 const TitleBox = styled.div`
-    text-align: center;
+    font-size: 18px;
   font-weight: bold;
   margin-bottom: 20px;
+  padding-left: 20px;
 `
 
 const ContentBox = styled.ul<{theme:string}>`
-    border-radius: 8px;
-    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
-    background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
-    box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
+
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding: 0 15px;
+    
     img{
         object-fit: cover;
         object-position: center;
@@ -62,27 +69,6 @@ const ContentBox = styled.ul<{theme:string}>`
         }
     }
     
-    .line{
-        display: flex;
-        align-items: stretch;
-        line-height: 2em;
-        border-bottom: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
-        dt{
-            padding:10px 24px;
-            box-sizing: border-box;
-            font-weight: bold;
-            margin-right: 10px;
-            width: 200px;
-            background: ${props=>props.theme === 'true'?"#161518":"#f5f5f5"};
-            display: flex;
-            align-items: center;
-        }
-        dd{
-            padding:10px 24px;
-            box-sizing: border-box;
-            flex-grow: 1;
-        }
-    }
     
 `
 
@@ -103,24 +89,85 @@ const UlBox = styled.ul`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    width: 100%;
+    width: calc(100% + 10px);
+    margin:0 -5px;
     li{
-        width: 100%;
-        //&.lg{
-        //    width: 100%;
-        //}
-        //&.md{
-        //    width: 50%;
-        //}
-        //&.sm{
-        //    width: 33.3%;
-        //}
+        padding: 0 5px;
+        box-sizing: border-box;
+        &.sm{
+            width: 33.3333%;
+
+            
+        }
+        &.md{
+            width: 50%;
+        }
+        &.lg,&.lgImg{
+            width: 100%;
+        }
     }
 `
 const P32 = styled.div`
     padding-inline: 32px;
     margin-bottom: 20px;
 `
+
+const WhiteBox = styled.div<{theme:string}>`
+    border-radius: 8px;
+    padding: 10px 12px;
+    min-height: 40px;
+    line-height: 20px;
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
+    box-sizing: border-box;
+  
+`
+
+const LineFlex = styled.div`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 5px 20px;
+    &.sm{
+        width: 33.3333%;
+    }
+    &.md{
+        width: 50%;
+    }
+    &.lg,&.lgImg{
+        width: 100%;
+    }
+
+
+    dt{
+        box-sizing: border-box;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+    }
+    dd{
+        box-sizing: border-box;
+        flex-grow: 1;
+    }
+`
+
+const LineBox = styled.dl`
+    flex-shrink: 0;
+    box-sizing: border-box;
+`
+const TableOuter = styled.div<{theme:string}>`
+    flex-shrink: 0;
+    display: flex;
+    flex-grow: 1;
+    table{
+        border-radius: 8px;overflow: hidden;
+        border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"}; 
+    }
+`
+
 
 export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
 
@@ -186,14 +233,14 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
             !!list.length && <P32>
 
                 {
-                    list.map((item:any,index)=>(<InnerBox key={index}>
+                    list.map((item:any,index)=>(<InnerBox key={index} theme={theme?.toString()}>
                         <TitleBox>{item?.title}</TitleBox>
                         <ContentBox theme={theme?.toString()}>
                             {
                                 item.content.map((inner:any,innerKey:number)=>(
-                                    <div key={`component_${innerKey}`}>
+                                    <LineFlex key={`component_${innerKey}`}  className={(inner.type === "file" && inner.uploadType ==="image" || inner.type === "checkbox")?"lgImg": inner?.pro?.size}>
                                         {
-                                            inner.type === "table" && <div>
+                                            inner.type === "table" && <TableOuter theme={theme?.toString()}>
 
                                                 <table cellPadding="0" cellSpacing="0">
                                                     <thead>
@@ -261,51 +308,55 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
                                                     </tbody>
                                                 </table>
-                                            </div>
+                                            </TableOuter>
                                         }
 
 
                                         {
-                                            inner.type === "input" && <dl className="line">
+                                            inner.type === "input" && <LineBox>
                                                 <dt>{inner?.pro?.title}</dt>
-                                                <dd>{inner?.value}</dd>
-                                            </dl>
+                                                <dd>
+                                                    <WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox>
+
+                                                </dd>
+
+                                            </LineBox>
                                         }
 
                                         {
-                                            inner.type === "select" && <dl className="line">
+                                            inner.type === "select" && <LineBox>
                                                 <dt>{inner?.pro?.title}</dt>
-                                                <dd>{inner?.value?.name}</dd>
-                                            </dl>
+                                                <dd><WhiteBox theme={theme?.toString()}>{inner?.value?.name}</WhiteBox></dd>
+                                            </LineBox>
                                         }
 
                                         {
-                                            inner.type === "file" && <dl className="line">
+                                            inner.type === "file" && <LineBox>
                                                 <dt>{inner?.pro?.title}</dt>
                                                 {
                                                     inner.uploadType === "image" && <dd><img src={inner?.value} alt="" className={inner?.pro?.size}/></dd>
                                                 }
                                                 {
-                                                    inner.uploadType === "file" &&  <dd>{inner?.value}</dd>
+                                                    inner.uploadType === "file" &&  <dd><WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox></dd>
                                                 }
-                                            </dl>
+                                            </LineBox>
                                         }
 
                                         {
-                                            inner.type === "checkbox" && <dl className="line">
+                                            inner.type === "checkbox" && <LineBox>
                                                 <dt>{inner?.pro?.title}</dt>
                                                 <dd>
                                                     <UlBox>
                                                         {
-                                                            inner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`} className={inner?.pro?.size}>{ii.value}</li>))
+                                                            inner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`} className={inner?.pro?.size}><WhiteBox theme={theme?.toString()}>{ii.value}</WhiteBox></li>))
                                                         }
                                                     </UlBox>
                                                 </dd>
 
-                                            </dl>
+                                            </LineBox>
                                         }
 
-                                    </div>
+                                    </LineFlex>
                                 ))
                             }
                         </ContentBox>

@@ -1,7 +1,5 @@
 [
   {
-    "id": "89ef7160-71c1-481c-9bbb-78bbacad8985",
-    "auto_action": "unknown/budget_apply/create_project",
     "name": "create",
     "data": {
       "budget":  {
@@ -36,12 +34,14 @@
     }
   },
   {
-    "id": "a3dc09a3-d8cb-4b79-b47f-bf8196fdcad9",
-    "auto_action": "unknown/budget_apply/create_project",
     "name": "delete",
     "data": {
       "delMemeberList": [
         {"value":"strawberry","label":"Strawberry"},
+        {
+          "value": "chocolate",
+          "label": "Chocolate"
+        },
         {
           "value": "chocolate",
           "label": "Chocolate"
@@ -50,8 +50,6 @@
     }
   },
   {
-    "id": "e5c6c385-03f4-4061-93b9-48c94df53fb5",
-    "auto_action": "unknown/budget_apply/create_project",
     "name": "add",
     "data": {
       "memberList": [

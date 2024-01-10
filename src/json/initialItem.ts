@@ -12,7 +12,7 @@ const initialItems: any[] = [
         src: 'https://mms0.baidu.com/it/u=480006263,2457381717&fm=253&app=138&f=JPEG?w=500&h=500',
         dragType: 'image',
         auto_action:"auto_action1",
-        componentData:AddJson,
+        schema:AddJson,
         name:"add"
     },
     {
@@ -21,7 +21,7 @@ const initialItems: any[] = [
         src: 'https://img0.baidu.com/it/u=1119404505,3019956218&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
         dragType: 'image',
         auto_action:"auto_action2",
-        componentData:ApplyJson,
+        schema:ApplyJson,
         name:"apply"
     },
     {
@@ -30,7 +30,7 @@ const initialItems: any[] = [
         src: 'https://img1.baidu.com/it/u=38051914,745056107&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=802',
         dragType: 'image',
         auto_action:"auto_action3",
-        componentData:CreateJson,
+        schema:CreateJson,
         name:"create"
     },
     {
@@ -39,7 +39,7 @@ const initialItems: any[] = [
         src: 'https://img0.baidu.com/it/u=3979949991,2513156939&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
         dragType: 'image',
         auto_action:"auto_action4",
-        componentData:DelJson,
+        schema:DelJson,
         name:"delete"
     },
     {
@@ -48,7 +48,7 @@ const initialItems: any[] = [
         src: 'https://img0.baidu.com/it/u=46644979,2438128608&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
         dragType: 'image',
         auto_action:"auto_action5",
-        componentData:OtherJson,
+        schema:OtherJson,
         name:"others"
     }
 ];

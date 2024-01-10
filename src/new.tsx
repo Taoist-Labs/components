@@ -142,7 +142,7 @@ function New() {
                     "type": "input",
                     "inputType": "address",
                     "value": "",
-                    "name": "address222",
+                    "name": "address",
                     "properties":[
                         {
                             "name": "title",
@@ -206,7 +206,7 @@ function New() {
                 },
             ]
         },
-        "screenshot_uri": ""
+        "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/f905573f-2c2b-4f87-b802-d77f9c402ad2.png"
     }, {
         "id": 3,
         "name": "create_guild",
@@ -214,16 +214,16 @@ function New() {
             "title": "创建公会申请",
             "content": [{
                 "type": "input",
-                "inputType": "text",
+                "inputType": "address",
                 "value": "",
                 "name": "guild_name",
                 "properties": [{"name": "title", "value": "公会名称"}, {
                     "name": "size",
                     "value": "lg"
-                }, {"name": "validate", "value": {"required": true, "maxLength": 50}}]
+                }, {"name": "validate", "value": {}}]
             }]
         },
-        "screenshot_uri": ""
+        "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/9648bf86-6ab5-4f4b-afaf-38c8deefc73d.png"
     }, {
         "id": 2,
         "name": "close_project",
@@ -239,7 +239,7 @@ function New() {
                 }, {"name": "validate", "value": {"required": true}}]
             }]
         },
-        "screenshot_uri": ""
+        "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/7a938ea1-b65e-42b4-9c36-6f005cd0b614.png"
     }, {
         "id": 4,
         "name": "close_guild",
@@ -255,7 +255,7 @@ function New() {
                 }, {"name": "validate", "value": {"required": true}}]
             }]
         },
-        "screenshot_uri": ""
+        "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/75c024c4-75c9-4ca6-9c6d-c470c3c5b6ef.png"
     }, {
         "id": 5, "name": "new_reward", "schema": {
             "title": "资产申请",
@@ -269,26 +269,30 @@ function New() {
                 }, {"name": "validate", "value": {"maxLength": 20}}]
             }, {
                 "type": "input",
-                "inputType": "text",
+                "inputType": "address",
                 "value": "",
                 "name": "issue",
                 "properties": [{"name": "title", "value": "事项"}, {"name": "size", "value": "lg"}, {
                     "name": "validate",
-                    "value": {"required": true, "maxLength": 50}
+                    "value": {}
                 }]
             }, {
                 "type": "table",
                 "name": "receiverList",
-                "style": {"width": [30, 25, 25], "tHeader": ["接收人", "资产类型", "资产数量", "备注"]},
+                "style": {
+                    "width": [30, 20, 20,30],
+                    "tHeader": ["接收人", "资产类型", "资产数量", "备注"]
+                },
                 "rows": [{
                     "type": "input",
-                    "inputType": "text",
+                    "inputType": "address",
                     "value": "",
                     "name": "address",
                     "properties": [{"name": "title", "value": "接收人"}, {
                         "name": "size",
                         "value": "md"
-                    }, {"name": "validate", "value": {}}]
+                    },
+                        {"name": "validate", "value": { }}]
                 }, {
                     "type": "select",
                     "dataList": "datasrv/asset_type",
@@ -327,7 +331,7 @@ function New() {
                     "value": {"maxLength": 20, "pattern": "/^[A-Za-z]+$/i"}
                 }]
             }]
-        }, "screenshot_uri": ""
+        }, "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/09a775e0-5309-4840-aafe-679b2d7bf1b6.png"
     }]
 
     return (
@@ -349,7 +353,7 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDQ2MDY1OTUsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.cN6PGQQjLt708aoYyxkYUITPqKAK7xvPoWEEm82yeA0"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDQ3NjcyMzksIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.npnzvdmrP8j6AS6FIbO4ab6kk88niXRTUrEUGxoAolY"
                               showRight={true}
                               theme={false}
                               DataSource={[{"id":21,"component_id":1,"name":"create_project","schema":"","data":{"project_name":""},"create_ts":1704435062}]}

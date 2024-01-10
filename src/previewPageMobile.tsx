@@ -1,5 +1,5 @@
 import React from 'react';
-import Preview from "./packages/components/Preview";
+import Preview from "./packages/components/PreviewMobile";
 import initialItems from "./json/initialItem";
 import DataSource from "./json/datasource.json";
 import InitialItem from "./json/initialItem";
@@ -19,7 +19,16 @@ function PreviewPage() {
                 "name": "project_name",
                 "properties": [{"name": "title", "value": "项目名称"}, {
                     "name": "size",
-                    "value": ""
+                    "value": "md"
+                }, {"name": "validate", "value": {"required": true, "maxLength": 50}}]
+            },{
+                "type": "input",
+                "inputType": "text",
+                "value": "",
+                "name": "project_name2",
+                "properties": [{"name": "title", "value": "项目名称fdafdsagdag"}, {
+                    "name": "size",
+                    "value": "md"
                 }, {"name": "validate", "value": {"required": true, "maxLength": 50}}]
             }]
         },
@@ -148,7 +157,7 @@ function PreviewPage() {
     }]
 
     return (
-        <Preview DataSource={DataSource} initialItems={InitialItem}  theme={false} BeforeComponent={<div>-----test add after-----</div>} AfterComponent={<div>-----test add after-----</div>} />
+        <Preview DataSource={DataSource} initialItems={InitialItem}  theme={false}/>
     );
 }
 
