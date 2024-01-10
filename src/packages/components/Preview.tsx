@@ -32,11 +32,14 @@ const Box = styled.div<{theme?:string}>`
 `
 
 const InnerBox = styled.div<{theme:string}>`
-    border-radius: 8px;
   padding-top: 20px;
   margin-bottom: 20px;
-
-    background: ${props=>props.theme === 'true'?"#161518":"#f8f8f8"};
+    padding-bottom: 20px;
+    background: ${props=>props.theme === 'true'?"#161518":"#fff"};
+    border-bottom: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    &:last-child{
+        border-bottom: 0;
+    }
 `
 
 const TitleBox = styled.div`
@@ -118,7 +121,7 @@ const WhiteBox = styled.div<{theme:string}>`
     min-height: 40px;
     line-height: 20px;
     border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
-    background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
+    background: ${props=>props.theme === 'true'?"#1A1323":"#f8f8f8"};
     box-sizing: border-box;
   
 `

@@ -5,13 +5,12 @@ import {thProps} from "../type/compontent.type";
 const Box = styled.div<{theme?:string}>`
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
     font-size: 14px;
-    padding: 0 16px;
   .table{
     width: 100%;
-      margin-bottom: 20px;
+      margin: 20px 0;
     td,th{
- 
-      padding:10px 20px;
+
+        padding:10px 20px;
         text-align: center;
         line-height: 2em;
     }
@@ -20,8 +19,8 @@ const Box = styled.div<{theme?:string}>`
       }
       
       th{
-          padding: 20px;
           background: ${props=>props.theme === 'true'?"#161518":"#f5f5f5"};
+          white-space: nowrap;
       }
     .labelLft{
       display: none;
@@ -30,25 +29,27 @@ const Box = styled.div<{theme?:string}>`
 
 `
 
-const InnerBox = styled.div`
- 
+const InnerBox = styled.div<{theme:string}>`
+    padding-bottom: 20px;
   padding-top: 20px;
   margin-bottom: 20px;
-
+    border-bottom: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    &:last-child{
+        border-bottom: 0;
+    }
 
 `
 
 const TitleBox = styled.div`
-    text-align: center;
+    text-align: left;
+    font-size: 18px;
   font-weight: bold;
   margin-bottom: 20px;
 `
 
 const ContentBox = styled.ul<{theme:string}>`
     border-radius: 8px;
-    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
-    box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
     img{
         object-fit: cover;
         object-position: center;
@@ -65,29 +66,49 @@ const ContentBox = styled.ul<{theme:string}>`
     
     .line{
         display: flex;
-        align-items: stretch;
-        line-height: 2em;
-        border-bottom: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+        flex-direction: column;
+      
         dt{
-            padding:10px 16px;
+            padding:5px 0;
             box-sizing: border-box;
             font-weight: bold;
             margin-right: 10px;
-            background: ${props=>props.theme === 'true'?"#161518":"#f5f5f5"};
+
             display: flex;
             align-items: center;
         }
         dd{
-            padding:10px 16px;
+            padding:5px 0;
             box-sizing: border-box;
             flex-grow: 1;
+            //background: ${props=>props.theme === 'true'?"#161518":"#f5f5f5"};
         }
     }
     
 `
 
+const WhiteBox = styled.div<{theme:string}>`
+    border-radius: 8px;
+    padding: 10px 12px;
+    min-height: 40px;
+    line-height: 20px;
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    background: ${props=>props.theme === 'true'?"#1A1323":"#f8f8f8"};
+    box-sizing: border-box;
+  
+`
+
 const ThBox = styled.th<thProps>`
     width: ${props => props.width+ "%"};
+`
+
+const BeforeDiv = styled.div`
+    margin-bottom: 20px;
+    
+`
+
+const AfterDiv = styled.div`
+    margin-bottom: 20px;
 `
 
 const UlBox = styled.ul`
@@ -97,6 +118,7 @@ const UlBox = styled.ul`
     width: 100%;
     li{
         width: 100%;
+        margin-bottom: 10px;
         //&.lg{
         //    width: 100%;
         //}
@@ -109,20 +131,10 @@ const UlBox = styled.ul`
     }
 `
 const P32 = styled.div`
+    padding-inline: 20px;
     margin-bottom: 20px;
 `
 
-const TableBox = styled.table`
-    width: 100%;
-    
-    &>tr>td{
-        border-bottom: 1px solid #F00;
-        padding: 20px;
-    }
-    .colSpan{
-        padding: 0;
-    }
-`
 const InnerTable = styled.div`
     width: calc(100vw - 2 * 16px);
     display: flex;
@@ -130,7 +142,7 @@ const InnerTable = styled.div`
     margin: 0 auto;
 `
 
-export default function Preview({DataSource,initialItems,theme,padding}:any){
+export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
 
     const [list,setList] = useState<any[]>([])
 
@@ -187,154 +199,136 @@ export default function Preview({DataSource,initialItems,theme,padding}:any){
             !!list.length && <P32>
 
                 {
-                    list.map((item:any,index)=>(<InnerBox key={index}>
+                    list.map((item:any,index)=>(<InnerBox key={index} theme={theme?.toString()}>
                         <TitleBox>{item?.title}</TitleBox>
                         <ContentBox theme={theme?.toString()}>
-                            <TableBox cellPadding="0" cellSpacing="0">
                             {
                                 item.content.map((inner:any,innerKey:number)=>(
-                                    <>
+                                    <div key={`component_${innerKey}`}>
                                         {
-                                            inner.type === "table" && <tr>
-                                                <td colSpan={2} className="colSpan">
-                                                    <InnerTable>
-                                                        <table cellPadding="0" cellSpacing="0" className="table">
-                                                            <thead>
-                                                            <tr>
+                                            inner.type === "table" && <InnerTable>
 
+                                                <table cellPadding="0" cellSpacing="0"  className="table">
+                                                    <thead>
+                                                    <tr>
+
+                                                        {
+                                                            [...Array(inner.rows.length)].map((col,index)=>(<ThBox key={`thead_${index}`} width={inner.style.width[index]}>
                                                                 {
-                                                                    [...Array(inner.rows.length)].map((col, index) => (
-                                                                        <ThBox key={`thead_${index}`}
-                                                                               width={inner.style.width[index]}>
-                                                                            {
-                                                                                inner.style.tHeader[index]
-                                                                            }
-                                                                        </ThBox>))
+                                                                    inner.style.tHeader[index]
                                                                 }
+                                                            </ThBox>))
+                                                        }
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {
+                                                        inner.table?.map((r:any,rInd:number)=>(
+                                                            <tr key={`tbody_${rInd}`}>
+                                                                {
+                                                                    r.map((rInner:any,rIin:number)=>(<td key={`td_${rIin}`}>
+                                                                            {
+                                                                                rInner.type === "input" &&
+                                                                                <span>{rInner?.value}</span>
+
+                                                                            }
+
+                                                                            {
+                                                                                rInner.type === "select" && <dl>
+                                                                                    <dd>{rInner?.value?.name}</dd>
+                                                                                </dl>
+                                                                            }
+                                                                            {
+                                                                                rInner.type === "file" && <dl>
+                                                                                    {
+                                                                                        rInner.uploadType === "image" && <dd><img src={rInner?.value} alt="" className={rInner?.pro?.size} /></dd>
+                                                                                    }
+                                                                                    {
+                                                                                        rInner.uploadType === "file" &&  <dd>{rInner?.value}</dd>
+                                                                                    }
+                                                                                </dl>
+                                                                            }
+                                                                            {
+                                                                                rInner.type === "checkbox" && <dl>
+
+                                                                                    <dd>
+                                                                                        <ul>
+                                                                                            {
+                                                                                                rInner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`}>{ii.value}</li>))
+                                                                                            }
+                                                                                        </ul>
+                                                                                    </dd>
+
+                                                                                </dl>
+                                                                            }
+                                                                        </td>
+
+                                                                    ))
+                                                                }
+
                                                             </tr>
-                                                            </thead>
-                                                            <tbody>
 
-                                                            {
-                                                                inner.table?.map((r: any, rInd: number) => (
-                                                                    <tr key={`tbody_${rInd}`}>
-                                                                        {
-                                                                            r.map((rInner: any, rIin: number) => (
-                                                                                <td key={`td_${rIin}`}>
-                                                                                    {
-                                                                                        rInner.type === "input" &&
-                                                                                        <span>{rInner?.value}</span>
+                                                        ))
+                                                    }
 
-                                                                                    }
-
-                                                                                    {
-                                                                                        rInner.type === "select" && <dl>
-                                                                                            <dd>{rInner?.value?.name}</dd>
-                                                                                        </dl>
-                                                                                    }
-                                                                                    {
-                                                                                        rInner.type === "file" && <dl>
-                                                                                            {
-                                                                                                rInner.uploadType === "image" &&
-                                                                                                <dd><img src={rInner?.value}
-                                                                                                         alt=""
-                                                                                                         className={rInner?.pro?.size}/>
-                                                                                                </dd>
-                                                                                            }
-                                                                                            {
-                                                                                                rInner.uploadType === "file" &&
-                                                                                                <dd>{rInner?.value}</dd>
-                                                                                            }
-                                                                                        </dl>
-                                                                                    }
-                                                                                    {
-                                                                                        rInner.type === "checkbox" &&
-                                                                                        <dl>
-
-                                                                                            <dd>
-                                                                                                <ul>
-                                                                                                    {
-                                                                                                        rInner.value.map((ii: any, iiID: number) => (
-                                                                                                            <li key={`select_${iiID}`}>{ii.value}</li>))
-                                                                                                    }
-                                                                                                </ul>
-                                                                                            </dd>
-
-                                                                                        </dl>
-                                                                                    }
-                                                                                </td>
-
-                                                                            ))
-                                                                        }
-
-                                                                    </tr>
-
-                                                                ))
-                                                            }
-
-                                                            </tbody>
-                                                        </table>
-                                                    </InnerTable>
-
-                                                </td>
-
-
-                                            </tr>
+                                                    </tbody>
+                                                </table>
+                                            </InnerTable>
                                         }
 
 
                                         {
-                                            inner.type === "input" && <tr key={`component_${innerKey}`}>
-                                                <td className="lft">{inner?.pro?.title}</td>
-                                                <td>{inner?.value}</td>
-                                            </tr>
-                                        }
-                                        {
-                                            inner.type === "select" && <tr key={`component_${innerKey}`}>
-                                                <td>{inner?.pro?.title}</td>
-                                                <td>{inner?.value?.name}</td>
-                                            </tr>
+                                            inner.type === "input" && <dl className="line">
+                                                <dt>{inner?.pro?.title}</dt>
+                                                <dd><WhiteBox>{inner?.value}</WhiteBox></dd>
+                                            </dl>
                                         }
 
+                                        {
+                                            inner.type === "select" && <dl className="line">
+                                                <dt>{inner?.pro?.title}</dt>
+                                                <dd><WhiteBox>{inner?.value?.name}</WhiteBox></dd>
+                                            </dl>
+                                        }
 
                                         {
-                                            inner.type === "file" && <tr key={`component_${innerKey}`}>
-                                                <td>{inner?.pro?.title}</td>
+                                            inner.type === "file" && <dl className="line">
+                                                <dt>{inner?.pro?.title}</dt>
                                                 {
-                                                    inner.uploadType === "image" &&
-                                                    <td><img src={inner?.value} alt="" className={inner?.pro?.size}/></td>
+                                                    inner.uploadType === "image" && <dd><img src={inner?.value} alt="" className={inner?.pro?.size}/></dd>
                                                 }
                                                 {
-                                                    inner.uploadType === "file" && <td>{inner?.value}</td>
+                                                    inner.uploadType === "file" &&  <dd><WhiteBox>{inner?.value}</WhiteBox></dd>
                                                 }
-                                            </tr>
+                                            </dl>
                                         }
 
                                         {
-                                            inner.type === "checkbox" && <tr key={`component_${innerKey}`}>
-                                                <td>{inner?.pro?.title}</td>
-                                                <td>
+                                            inner.type === "checkbox" && <dl className="line">
+                                                <dt>{inner?.pro?.title}</dt>
+                                                <dd>
                                                     <UlBox>
                                                         {
-                                                            inner.value.map((ii: any, iiID: number) => (
-                                                                <li key={`select_${iiID}`}
-                                                                    className={inner?.pro?.size}>{ii.value}</li>))
+                                                            inner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`} className={inner?.pro?.size}>
+                                                                <WhiteBox>{ii.value}</WhiteBox>
+                                                                </li>))
                                                         }
                                                     </UlBox>
-                                                </td>
+                                                </dd>
 
-                                            </tr>
+                                            </dl>
                                         }
 
-                                    </>
+                                    </div>
                                 ))
                             }
-                            </TableBox>
                         </ContentBox>
                     </InnerBox>))
                 }
             </P32>
         }
+
 
     </Box>
 }
