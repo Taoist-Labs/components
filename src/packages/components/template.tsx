@@ -26,9 +26,6 @@ const Box = styled.div<{theme:string}>`
     }
 
 `
-const TitleBox = styled.div`
-    padding: 0 20px;
-`
 
 const InnerBox = styled.div`
     position: relative;

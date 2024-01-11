@@ -7,18 +7,20 @@ import {Controller} from "react-hook-form";
 
 const Box = styled.div<{theme?:string}>`
     display: flex;
-  align-items: flex-start;
-
-    
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 5px;
   label{
     margin-right: 10px;
     line-height: 40px;
-    flex-shrink: 0;
+      padding-left: 5px;
 
   }
     input,textarea{
         height: 40px;
         border-radius: 8px;
+        width: 100%;
         border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
         background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
         color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
@@ -34,17 +36,8 @@ const Box = styled.div<{theme?:string}>`
         min-height: 120px;
         padding: 12px;
     }
-  .sm{
-    width: 160px;
-  }
-  .md{
-    width: 240px;
-  }
-  .lg{
-    width: 480px;
-  }
+
   .rht{
-    flex-grow: 1;
       position: relative;
   }
     .error,.error:focus{
@@ -120,7 +113,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                                 item.inputType === "textarea" && <textarea
                                     {...field}
                                     value={getValues(inputName) || ''}
-                                    className={`${prop?.size} ${!!fieldState.error?'error':''}`}
+                                    className={`${!!fieldState.error?'error':''}`}
 
                                 />
                             }
@@ -128,7 +121,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                                 item.inputType !== "textarea" && <input
                                     {...field}
                                     value={getValues(inputName) || ''}
-                                    className={`${prop?.size} ${!!fieldState.error?'error':''}`}/>
+                                    className={`${!!fieldState.error?'error':''}`}/>
                             }
 
                             {

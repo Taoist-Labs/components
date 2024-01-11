@@ -16,15 +16,27 @@ const Box = styled.div`
 const TitleBox = styled.div`
     font-weight: bold;
   padding-bottom: 20px;
-  text-align: center;
     font-size: 16px;
-    margin-top: 44px;
+    margin-top: 10px;
+
+    text-align: left;
 `
 
 const ContentBox = styled.ul`
     padding-top: 10px;
-  li{
+    display: flex;
+    flex-wrap: wrap;
+    &>li{
     margin-bottom: 20px;
+      &.sm{
+          width: 33.3333%;
+      }
+      &.md{
+          width:50%;
+      }
+      &.lg{
+          width: 100%;
+      }
   }
 `
 
@@ -47,13 +59,19 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
         setList(listArr)
     }, [listArr,operate]);
 
+    const returnClass = (item:any) =>{
+        if(item.type === "table")
+        return "lg";
+        const arr = item?.properties.filter((i:any)=>i?.name === "size");
+        return (item.type === "checkbox" || (item.type === "file" && item.uploadType === "image"))?"lg":arr[0]?.value;
+    }
 
     return <Box key={list?.id}>
         <TitleBox>{list?.title}</TitleBox>
         <ContentBox>
             {
                 list?.content?.map((item,index)=>(
-                    <li key={`list_${index}`}>
+                    <li key={`list_${index}`} className={returnClass(item)}>
                         {
                             item.type === "input" && <Input
                                 item={item}

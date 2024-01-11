@@ -13,10 +13,13 @@ const Box = styled.div`
     display: flex;
   align-items: flex-start;
     position: relative;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 5px;
   label{
     margin-right: 10px;
     flex-shrink: 0;
-      
+      line-height: 30px;
   }
     .innerAll{
         display: flex;
@@ -110,7 +113,6 @@ const UploadFileBox = styled.label <{ bgtheme?: string }>`
     //background: #F9F9F9;
     background: ${props=> props.bgtheme === 'true'?"#2D2736":"#F9F9F9"};
     flex-grow: 1;
-    
     display: flex;
     align-items: center;
     padding: 8px;

@@ -6,22 +6,14 @@ import Lan from "../utils/lan";
 
 const Box = styled.div`
     display: flex;
-  align-items: flex-start;
   width: 100%;
-  flex-grow: 1;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0 5px;
   label{
     margin-right: 10px;
     line-height: 40px;
     flex-shrink: 0;
-  }
-  .sm{
-    width: 160px;
-  }
-  .md{
-    width: 240px;
-  }
-  .lg{
-    width: 480px;
   }
   .innerSelect{
       position: relative;
@@ -151,7 +143,7 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
   return(
       <Box>
           <label  className="labelLft">{prop?.title}</label>
-          <div className={prop?.size}>
+          <div>
 
               <Controller
                   name={inputName}

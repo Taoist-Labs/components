@@ -8,21 +8,21 @@ import {Controller} from "react-hook-form";
 
 const Box = styled.div`
     display: flex;
-  align-items: flex-start;
-  label{
-    margin-right: 10px;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 5px;
+  &>label{
     line-height: 30px;
-    flex-shrink: 0;
   }
 `
 
 const UlBox = styled.ul<{theme?:string}>`
-  flex-grow: 1;
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
-    width: 100%;
-    gap:10px;
+    box-sizing: border-box;
+    margin-left: -5px;
+    width: calc(100% + 10px);
     &.error,&.error:focus{
         border: 1px solid #FB4E4E!important;
         border-radius: 8px;
@@ -37,40 +37,45 @@ const UlBox = styled.ul<{theme?:string}>`
         border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     }
   li{
-    display: flex;
-    align-items: center;
-    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
-      background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
-      border-radius: 8px;
-      padding: 0 12px;
-      height: 40px;
-      margin-bottom: 0!important;
+      
+     display: flex;
+     align-items: center;
+       box-sizing: border-box;
+      margin-bottom: 10px;
+      padding: 0 5px;
+
+      &>div{
+          display: flex;
+          align-items: center;
+          height: 40px;
+          border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+          background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
+          width: 100%;
+          padding: 0 16px;
+          border-radius: 8px;
+          box-sizing: border-box;
+      }
+      &.sm{
+          width: 33.3333%
+      }
+      &.md{
+          width:50%;
+      }
+      &.lg{
+          width: 100%;
+      }
     label{
       padding-left: 10px;
     }
-  
+   
   }
-  &.sm{
-    li{
-      width: 33%;
-    }
-  }
-  &.md{
-    li{
-      width: 50%;
-    }
-  }
-  &.lg{
-    li{
-      width: 100%;
-    }
-  }
+ 
 `
 
 const RhtBox = styled.div`
     position: relative;
     flex-grow: 1;
-    
+    width: 100%;
 `
 const ErrorTips = styled.div`
     position: absolute;
@@ -191,19 +196,23 @@ export default function Checkbox({item,tableIndex,type,listName,reset,setValue,g
                 rules={prop?.validate}
                 render={({ field,fieldState }) => (
                     <>
-                        <UlBox className={`${prop?.size} ${!!fieldState.error ?"error":""}`} theme={theme?.toString()}>
+                        <UlBox className={`${!!fieldState.error ?"error":""}`} theme={theme?.toString()}>
                             {
-                                dataSource.map((inner,index)=>(   <li key={index}>
-                                    <input type="checkbox" id={`${id}_${index}`} value={inner.id} checked={returnChecked(inner.id)} onChange={(e)=>handleSelect(e)} name={`${item?.name}_${index}`}  />
-                                    <label htmlFor={`${id}_${index}`}>{inner.name}</label>
+                                dataSource.map((inner,index)=>(   <li key={index} className={prop?.size}>
+                                    <div>
+                                        <input type="checkbox" id={`${id}_${index}`} value={inner.id}
+                                               checked={returnChecked(inner.id)} onChange={(e) => handleSelect(e)}
+                                               name={`${item?.name}_${index}`}/>
+                                        <label htmlFor={`${id}_${index}`}>{inner.name}</label>
+                                    </div>
                                 </li>))
                             }
                         </UlBox>
 
-                        <input type="hidden"  {...field} value={getValues(inputName) || ''}  />
+                        <input type="hidden"  {...field} value={getValues(inputName) || ''}/>
                         {
-                            !!fieldState.error &&  <ErrorTips>
-                                {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.inputError}
+                            !!fieldState.error && <ErrorTips>
+                            {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.inputError}
                             </ErrorTips>
                         }
                     </>

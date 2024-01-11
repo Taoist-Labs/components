@@ -30,8 +30,6 @@ const Box = styled.div<{theme?:string}>`
 `
 
 const InnerBox = styled.div<{theme:string}>`
-    padding-bottom: 20px;
-  padding-top: 20px;
   margin-bottom: 20px;
     border-bottom: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     &:last-child{
@@ -42,9 +40,9 @@ const InnerBox = styled.div<{theme:string}>`
 
 const TitleBox = styled.div`
     text-align: left;
-    font-size: 18px;
+    font-size: 16px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `
 
 const ContentBox = styled.ul<{theme:string}>`

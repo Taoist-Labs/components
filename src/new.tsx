@@ -104,7 +104,7 @@ function New() {
                         },
                         {
                             "name": "size",
-                            "value": "md"
+                            "value": "lg"
                         },
                         {
                             "name": "validate",
@@ -127,7 +127,7 @@ function New() {
                         },
                         {
                             "name": "size",
-                            "value": "sm"
+                            "value": "md"
                         },
                         {
                             "name": "validate",
@@ -151,6 +151,50 @@ function New() {
                         {
                             "name": "size",
                             "value": "md"
+                        },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": true,
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "input",
+                    "inputType": "address",
+                    "value": "",
+                    "name": "address",
+                    "properties":[
+                        {
+                            "name": "title",
+                            "value": "项目成员"
+                        },
+                        {
+                            "name": "size",
+                            "value": "md"
+                        },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": true,
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "input",
+                    "inputType": "address",
+                    "value": "",
+                    "name": "address",
+                    "properties":[
+                        {
+                            "name": "title",
+                            "value": "项目成员"
+                        },
+                        {
+                            "name": "size",
+                            "value": "sm"
                         },
                         {
                             "name": "validate",
@@ -194,7 +238,7 @@ function New() {
                         },
                         {
                             "name": "size",
-                            "value": "sm"
+                            "value": "md"
                         },
                         {
                             "name": "validate",
@@ -204,6 +248,106 @@ function New() {
                         }
                     ]
                 },
+                {
+                    "type": "table",
+                    "name": "receiverList",
+                    "style": {
+                        "width": [30,25,25],
+                        "tHeader": ["接收人","资产类型","资产数量","备注"]
+                    },
+                    "rows": [
+                        {
+                            "type": "input",
+                            "inputType": "text",
+                            "value": "",
+                            "name": "address",
+                            "properties":[
+                                {
+                                    "name": "title",
+                                    "value": "接收人"
+                                },
+                                {
+                                    "name": "size",
+                                    "value": "md"
+                                },
+                                {
+                                    "name": "validate",
+                                    "value": {
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "select",
+                            "dataList": "datasrv/project_list",
+                            "value":"",
+                            "name": "type",
+                            "properties":[
+                                {
+                                    "name": "title",
+                                    "value": "资产类型"
+                                },
+                                {
+                                    "name": "size",
+                                    "value": "md"
+                                },
+                                {
+                                    "name": "validate",
+                                    "value": {
+                                        "maxLength": 20
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "input",
+                            "inputType": "number",
+                            "value": "",
+                            "name": "amount",
+                            "properties":[
+                                {
+                                    "name": "title",
+                                    "value": "资产数量"
+                                },
+                                {
+                                    "name": "size",
+                                    "value": "md"
+                                },
+                                {
+                                    "name": "validate",
+                                    "value": {
+                                        "maxLength": 20,
+                                        "pattern": "/^[A-Za-z]+$/i"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "input",
+                            "inputType": "text",
+                            "value": "",
+                            "name": "memo",
+                            "properties":[
+                                {
+                                    "name": "title",
+                                    "value": "备注"
+                                },
+                                {
+                                    "name": "size",
+                                    "value": "md"
+                                },
+                                {
+                                    "name": "validate",
+                                    "value": {
+                                        "maxLength": 20,
+                                        "pattern": "/^[A-Za-z]+$/i"
+                                    }
+                                }
+                            ]
+                        }
+
+                    ]
+                }
             ]
         },
         "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/f905573f-2c2b-4f87-b802-d77f9c402ad2.png"
@@ -235,7 +379,7 @@ function New() {
                 "name": "project_id",
                 "properties": [{"name": "title", "value": "项目名称"}, {
                     "name": "size",
-                    "value": "md"
+                    "value": "lg"
                 }, {"name": "validate", "value": {"required": true}}]
             }]
         },
@@ -251,7 +395,7 @@ function New() {
                 "name": "guild_id",
                 "properties": [{"name": "title", "value": "公会名称"}, {
                     "name": "size",
-                    "value": "md"
+                    "value": "lg"
                 }, {"name": "validate", "value": {"required": true}}]
             }]
         },
@@ -353,7 +497,7 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDQ3NjcyMzksIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.npnzvdmrP8j6AS6FIbO4ab6kk88niXRTUrEUGxoAolY"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDUwMzcwNDYsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.Bl1CKAYDAlr0IikOIsZWm4gGR9V8MGpdhha7-qlJmOI"
                               showRight={true}
                               theme={false}
                               DataSource={[{"id":21,"component_id":1,"name":"create_project","schema":"","data":{"project_name":""},"create_ts":1704435062}]}

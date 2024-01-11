@@ -21,10 +21,10 @@ const Box = styled.div<{theme?:string}>`
     width: 100%;
     td,th{
       height: 40px;
-      padding: 5px;
+        padding-bottom: 10px;
     }
       td:first-child{
-          padding-left: 20px;
+          padding-left: 15px;
       }
       td:last-child{
           padding-right: 20px;
@@ -76,7 +76,7 @@ const BtmBtn = styled.div<{theme?:string}>`
 `
 
 const AddBox = styled.div`
-    margin: 20px;
+    margin:0 20px 20px;
 `
 
 export default function Table({item,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token,errors}:TableProps){
