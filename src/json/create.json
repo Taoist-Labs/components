@@ -16,7 +16,7 @@
         },
         {
           "name": "size",
-          "value": "lg"
+          "value": "sm"
         },
         {
           "name": "validate",
@@ -38,7 +38,7 @@
         },
         {
           "name": "size",
-          "value": "lg"
+          "value": "sm"
         },
         {
           "name": "validate",
@@ -61,7 +61,7 @@
         },
         {
           "name": "size",
-          "value": "lg"
+          "value": "sm"
         },
         {
           "name": "validate",

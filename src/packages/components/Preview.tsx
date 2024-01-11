@@ -97,9 +97,9 @@ const UlBox = styled.ul`
     li{
         padding: 0 5px;
         box-sizing: border-box;
+        margin-bottom: 10px;
         &.sm{
             width: 33.3333%;
-
             
         }
         &.md{
