@@ -86,7 +86,8 @@ function New() {
         (childRef.current as any).submitForm()
     }
 
-    const testFor: any = [{
+    const testFor: any = [
+        {
         "id": 1,
         "name": "create_project",
         "schema": {
@@ -351,7 +352,8 @@ function New() {
             ]
         },
         "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/f905573f-2c2b-4f87-b802-d77f9c402ad2.png"
-    }, {
+    },
+        {
         "id": 3,
         "name": "create_guild",
         "schema": {
@@ -400,44 +402,64 @@ function New() {
             }]
         },
         "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/75c024c4-75c9-4ca6-9c6d-c470c3c5b6ef.png"
-    }, {
-        "id": 5, "name": "new_reward", "schema": {
+    },
+        {
+            "id": 5,
+            "name": "new_reward",
+            "schema": {
             "title": "资产申请",
-            "content": [{
-                "type": "select",
-                "dataList": "datasrv/entity_list",
-                "name": "budget",
-                "properties": [{"name": "title", "value": "预算来源"}, {
-                    "name": "size",
-                    "value": "md"
-                }, {"name": "validate", "value": {"maxLength": 20}}]
-            }, {
-                "type": "input",
-                "inputType": "address",
-                "value": "",
-                "name": "issue",
-                "properties": [{"name": "title", "value": "事项"}, {"name": "size", "value": "lg"}, {
-                    "name": "validate",
-                    "value": {}
-                }]
-            }, {
+            "content": [
+                {
+                    "type": "select",
+                    "dataList": "datasrv/entity_list",
+                    "name": "budget",
+                    "properties": [
+                        {"name": "title", "value": "预算来源"},
+                        {
+                            "name": "size",
+                            "value": "md"
+                             },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": true
+                            }
+                        }
+                    ]
+                },
+
+                {
                 "type": "table",
                 "name": "receiverList",
                 "style": {
-                    "width": [30, 20, 20,30],
-                    "tHeader": ["接收人", "资产类型", "资产数量", "备注"]
+                    "width": [20, 15, 15,20,30],
+                    "tHeader": ["接收人", "资产类型","资产数量", "事项", "备注"]
                 },
-                "rows": [{
-                    "type": "input",
-                    "inputType": "address",
-                    "value": "",
-                    "name": "address",
-                    "properties": [{"name": "title", "value": "接收人"}, {
-                        "name": "size",
-                        "value": "md"
+                "rows": [
+                    {
+                        "type": "input",
+                        "inputType": "address",
+                        "value": "",
+                        "name": "address",
+                        "properties": [
+                                {
+                                    "name": "title",
+                                    "value": "接收人"
+                                },
+                                {
+                                    "name": "size",
+                                    "value": "md"
+                                },
+                                {
+                                    "name": "validate",
+                                    "value": {
+                                        "required": true
+
+                                        }
+                                }
+                            ]
                     },
-                        {"name": "validate", "value": { }}]
-                }, {
+                    {
                     "type": "select",
                     "dataList": "datasrv/asset_type",
                     "value": "",
@@ -445,8 +467,11 @@ function New() {
                     "properties": [{"name": "title", "value": "资产类型"}, {
                         "name": "size",
                         "value": "md"
-                    }, {"name": "validate", "value": {"maxLength": 20}}]
-                }, {
+                    },
+                        {"name": "validate", "value": {"maxLength": 20}}]
+                },
+
+                {
                     "type": "input",
                     "inputType": "number",
                     "value": "",
@@ -454,8 +479,22 @@ function New() {
                     "properties": [{"name": "title", "value": "资产数量"}, {
                         "name": "size",
                         "value": "md"
-                    }, {"name": "validate", "value": {"maxLength": 20, "pattern": "/^[A-Za-z]+$/i"}}]
-                }, {
+                    }, {"name": "validate", "value": {"required": true}}]
+                },
+                    {
+                    "type": "input",
+                    "inputType": "number",
+                    "value": "",
+                    "name": "amount",
+                    "properties": [
+                        {"name": "title", "value": "事项"},
+                        {
+                            "name": "size",
+                            "value": "md"
+                        },
+                        {"name": "validate", "value": {"required": true}}]
+                },
+                    {
                     "type": "input",
                     "inputType": "text",
                     "value": "",
@@ -463,7 +502,7 @@ function New() {
                     "properties": [{"name": "title", "value": "备注"}, {
                         "name": "size",
                         "value": "md"
-                    }, {"name": "validate", "value": {"maxLength": 20, "pattern": "/^[A-Za-z]+$/i"}}]
+                    }, {"name": "validate", "value": {"required": true}}]
                 }]
             }, {
                 "type": "input",
@@ -472,11 +511,12 @@ function New() {
                 "name": "description",
                 "properties": [{"name": "title", "value": "说明"}, {"name": "size", "value": "lg"}, {
                     "name": "validate",
-                    "value": {"maxLength": 20, "pattern": "/^[A-Za-z]+$/i"}
+                    "value": {"required": true}
                 }]
             }]
         }, "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/09a775e0-5309-4840-aafe-679b2d7bf1b6.png"
-    }]
+    }
+    ]
 
     return (
         <>

@@ -105,7 +105,6 @@ const FormBox = styled.div<{theme:string}>`
       position: absolute;
       top: 20px;
       right: 20px;
-      width: 100%;
       display: flex;
       justify-content: flex-end;
   }

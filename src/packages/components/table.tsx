@@ -17,6 +17,7 @@ const Box = styled.div<{theme?:string}>`
   flex-direction: column;
     background: ${props=> props.theme === 'true'?"#2D2736":"rgba(82, 0, 255, 0.08)"};
     border-radius: 8px;
+    margin: 0 5px;
   table{
     width: 100%;
     td,th{
