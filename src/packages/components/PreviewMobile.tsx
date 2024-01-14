@@ -147,6 +147,81 @@ const InnerTable = styled.div`
     }
 `
 
+const FlexBtm = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+`
+
+const UserBox = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    img{
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 44px;
+    }
+    .name{
+        font-weight: bold;
+    }
+    .time{
+        color:#bbb;
+    }
+    
+`
+const RhtBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap:10px
+`
+
+const TagBox = styled.div<{theme:string}>`
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    font-size: 12px;
+    padding: 5px 15px;
+    border-radius: 4px;
+    box-sizing: border-box;
+`
+
+const StatusBox = styled.div`
+    font-size: 12px;
+    padding: 5px 15px;
+    border-radius: 4px;
+    color: #fff;
+    background: #ddd;
+    box-sizing: border-box;
+    
+    &.approved{
+        background: #1F9E14;
+    }
+    &.rejected{
+        background: #FB4E4E;
+    }
+    &.draft{
+        background: #2F8FFF;
+    }
+    &.pending_submit{
+        background: rgba(9, 171, 207, 0.90);
+    } 
+    &.withdrawn{
+        background: #B0B0B0;
+    }  
+    &.vote_passed{
+        background: #1F9E14;
+    }
+    &.vote_failed{
+        background: #FB4E4E;
+    } 
+    &.voting{
+        background: #F9B617; 
+    }
+`
+
 export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
 
     const [list,setList] = useState<any[]>([])
@@ -220,11 +295,35 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
             !!list.length && <P32>
 
                 {
-                    list.map((item:any,index)=>(<InnerBox key={index} theme={theme?.toString()}>
+                    list.map((item:any,index)=>(<div key={index} >
+
+                            {
+                                item.name_type === "associate_proposal" && <InnerBox>
+                                    <TitleBox>SeeU in Singapore 人工智能线下分享 - 23年12月1号 OGBC新加坡办公室</TitleBox>
+                                    <FlexBtm>
+                                        <UserBox>
+                                            <img src="" alt=""/>
+                                            <div className="rht">
+                                                <div className="name">DDDDM</div>
+                                                <div className="time">May 19,2023 14:40</div>
+                                            </div>
+                                        </UserBox>
+                                        <RhtBox>
+                                            <TagBox theme={theme?.toString()}>三层提案</TagBox>
+                                            <StatusBox className="vote_failed">通过</StatusBox>
+                                        </RhtBox>
+                                    </FlexBtm>
+
+                                </InnerBox>
+                            }
+
+                        {
+                            item.name_type !== "associate_proposal" &&  <InnerBox theme={theme?.toString()}>
                         <TitleBox>{item?.title}</TitleBox>
                         <ContentBox theme={theme?.toString()}>
                             {
                                 item.content.map((inner:any,innerKey:number)=>(
+
                                     <div key={`component_${innerKey}`}>
                                         {
                                             inner.type === "table" && <InnerTable>
@@ -345,7 +444,10 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                 ))
                             }
                         </ContentBox>
-                    </InnerBox>))
+                    </InnerBox>
+                        }
+                        </div>
+                        ))
                 }
             </P32>
         }

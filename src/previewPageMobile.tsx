@@ -489,13 +489,15 @@ function PreviewPage() {
     ]
 
     return (
-        <Preview DataSource={           [{"id":21,"component_id":1,"name":"close_project","schema":"","data":{
+        <Preview DataSource={   [{"id":21,"component_id":1,"name":"associate_proposal","schema":"","data":{
                 "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
-                "project_info": {
+                "project_guild": {
                     "id": 45,
-                    "name": "提案执行组件"
+                    "name": "提案执行组件",
+                    "type": "project"
                 },
-                "proposal_id": "os-266"
+                "proposal": null,
+                "proposal_id": "os-267"
             },"create_ts":1704435062}]} initialItems={testFor}  theme={false}/>
     );
 }
