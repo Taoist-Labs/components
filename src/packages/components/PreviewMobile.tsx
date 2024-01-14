@@ -31,10 +31,11 @@ const Box = styled.div<{theme?:string}>`
 
 const InnerBox = styled.div<{theme:string}>`
   margin-bottom: 20px;
-    border-bottom: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
-    &:last-child{
-        border-bottom: 0;
-    }
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
+    padding: 15px;
+    border-radius: 8px;
+
 
 `
 
@@ -129,15 +130,21 @@ const UlBox = styled.ul`
     }
 `
 const P32 = styled.div`
-    padding-inline: 20px;
+    padding-inline: 17px;
     margin-bottom: 20px;
 `
 
 const InnerTable = styled.div`
-    width: calc(100vw - 2 * 16px);
+    width: calc(100vw - 50px);
     display: flex;
     overflow-x: auto;
     margin: 0 auto;
+    box-sizing: border-box;
+    padding-right: 15px;
+    table{
+        border-radius: 8px;overflow: hidden;
+        border: 1px solid rgba(217, 217, 217, 0.50);
+    }
 `
 
 export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
@@ -181,6 +188,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                        }
                         return inner;
                     })
+                    i.schema.name_type = i.name
                     arr.push(i.schema)
                 }
             })
@@ -189,6 +197,21 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
 
     }, [DataSource,initialItems]);
+
+    const handleLink = (obj:any,value:any) =>{
+        const protocol = window.location.protocol;
+
+        const hostname = window.location.hostname;
+        const port = window.location.port;
+        const link = protocol + '//' + hostname + (port ? ':' + port : '');
+
+        if(obj.name_type === "close_project"){
+            window.open(`${link}/project/info/${value?.id}`)
+        }
+        if(obj.name_type === "close_guild"){
+            window.open(`${link}/guild/info/${value?.id}`)
+        }
+    }
 
     return <Box theme={theme?.toString()}>
 
@@ -284,7 +307,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                         }
 
                                         {
-                                            inner.type === "select" && <dl className="line">
+                                            inner.type === "select" && <dl className="line"  onClick={()=>handleLink(item,inner?.value)}>
                                                 <dt>{inner?.pro?.title}</dt>
                                                 <dd><WhiteBox>{inner?.value?.name}</WhiteBox></dd>
                                             </dl>

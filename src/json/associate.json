@@ -1,0 +1,52 @@
+{
+  "id": 6,
+  "name": "associate",
+  "schema": {
+    "title": "关联提案",
+    "content": [
+      {
+      "type": "select",
+      "dataList": "datasrv/passed_proposals",
+      "name": "proposal",
+      "properties": [
+        {
+          "name": "title",
+          "value": "提案"
+        },
+        {
+          "name": "size",
+           "value": "lg"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "required": true
+          }
+        }
+      ]
+    },
+      {
+      "type": "select",
+      "dataList": "datasrv/entity_list",
+      "name": "project_guild",
+      "properties": [
+        {
+          "name": "title",
+          "value": "项目或公会"
+        },
+        {
+          "name": "size",
+           "value": "lg"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "required": true
+          }
+        }
+      ]
+    }
+    ]
+  },
+  "screenshot_uri": ""
+}

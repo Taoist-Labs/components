@@ -3,34 +3,12 @@
   "content": [
     {
       "type": "select",
-      "dataList": "data/entity_list",
+      "dataList": "datasrv/entity_list",
       "name": "budget",
       "properties": [
         {
           "name": "title",
           "value": "预算来源"
-        },
-        {
-          "name": "size",
-          "value": "lg"
-        },
-        {
-          "name": "validate",
-          "value": {
-            "required": true
-          }
-        }
-      ]
-    },
-    {
-      "type": "input",
-      "inputType": "text",
-      "value": "",
-      "name": "issue",
-      "properties": [
-        {
-          "name": "title",
-          "value": "事项"
         },
         {
           "name": "size",
@@ -66,7 +44,7 @@
       "rows": [
         {
           "type": "input",
-          "inputType": "text",
+          "inputType": "address",
           "value": "",
           "name": "address",
           "properties": [
@@ -88,7 +66,7 @@
         },
         {
           "type": "select",
-          "dataList": "data/asset_type",
+          "dataList": "datasrv/asset_type",
           "value": "",
           "name": "type",
           "properties": [
@@ -103,7 +81,7 @@
             {
               "name": "validate",
               "value": {
-                "required": true
+                "maxLength": 20
               }
             }
           ]
@@ -134,7 +112,7 @@
           "type": "input",
           "inputType": "number",
           "value": "",
-          "name": "amount",
+          "name": "issue",
           "properties": [
             {
               "name": "title",

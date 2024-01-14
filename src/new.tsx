@@ -70,10 +70,10 @@ function New() {
         })
     };
     const handleSave = (data: any) => {
-        console.log({
+        console.log(JSON.stringify({
             ...data,
             test
-        })
+        }))
     };
 
     const saveAll = () =>{
@@ -515,7 +515,48 @@ function New() {
                 }]
             }]
         }, "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/09a775e0-5309-4840-aafe-679b2d7bf1b6.png"
-    }
+    },
+        {
+            "id": 11,
+            "name": "associate_proposal",
+            "schema": {
+                "title": "关联提案",
+                "content": [{
+                    "type": "select",
+                    "dataList": "datasrv/passed_proposals",
+                    "name": "proposal",
+                    "properties": [{
+                        "name": "title",
+                        "value": "提案"
+                    }, {
+                        "name": "size",
+                        "value": "lg"
+                    }, {
+                        "name": "validate",
+                        "value": {
+                            "required": true
+                        }
+                    }]
+                }, {
+                    "type": "select",
+                    "dataList": "datasrv/entity_list",
+                    "name": "project_guild",
+                    "properties": [{
+                        "name": "title",
+                        "value": "项目或公会"
+                    }, {
+                        "name": "size",
+                        "value": "lg"
+                    }, {
+                        "name": "validate",
+                        "value": {
+                            "required": true
+                        }
+                    }]
+                }]
+            },
+            "screenshot_uri": ""
+        }
     ]
 
     return (
@@ -537,10 +578,10 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDUwMzcwNDYsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.Bl1CKAYDAlr0IikOIsZWm4gGR9V8MGpdhha7-qlJmOI"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDUyNDQ4MzIsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.g8Vhq_GowXG9ed1tnbvf8k6oSiqoxaAjf3SQQK39DSk"
                               showRight={true}
                               theme={false}
-                              DataSource={[{"id":21,"component_id":1,"name":"create_project","schema":"","data":{"project_name":""},"create_ts":1704435062}]}
+                              DataSource={[{"id":21,"component_id":1,"name":"associate_proposal","schema":"","data":{"associate_proposal":{"proposal":null,"project_guild":{"id":21,"name":"test pro ject","type":"project"}},"test":""},"create_ts":1704435062}]}
                               operate={operate}
                               initialItems={testFor}
                               BeforeComponent={<input type="text" onChange={handleInput}/>}

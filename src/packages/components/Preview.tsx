@@ -34,10 +34,11 @@ const Box = styled.div<{theme?:string}>`
 const InnerBox = styled.div<{theme:string}>`
   margin-bottom: 20px;
     background: ${props=>props.theme === 'true'?"#161518":"#fff"};
-    border-bottom: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
-    &:last-child{
-        border-bottom: 0;
-    }
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
+    padding:30px 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
 `
 
 const TitleBox = styled.div`
@@ -110,6 +111,7 @@ const UlBox = styled.ul`
 `
 const P32 = styled.div`
     margin-bottom: 20px;
+    padding-inline: 32px;
 `
 
 const WhiteBox = styled.div<{theme:string}>`
@@ -168,6 +170,81 @@ const TableOuter = styled.div<{theme:string}>`
     }
 `
 
+const FlexBtm = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+`
+
+const UserBox = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    img{
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 44px;
+    }
+    .name{
+        font-weight: bold;
+    }
+    .time{
+        color:#bbb;
+    }
+    
+`
+const RhtBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap:10px
+`
+
+const TagBox = styled.div<{theme:string}>`
+    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    font-size: 12px;
+    padding: 5px 15px;
+    border-radius: 4px;
+    box-sizing: border-box;
+`
+
+const StatusBox = styled.div`
+    font-size: 12px;
+    padding: 5px 15px;
+    border-radius: 4px;
+    color: #fff;
+    background: #ddd;
+    box-sizing: border-box;
+    
+    &.approved{
+        background: #1F9E14;
+    }
+    &.rejected{
+        background: #FB4E4E;
+    }
+    &.draft{
+        background: #2F8FFF;
+    }
+    &.pending_submit{
+        background: rgba(9, 171, 207, 0.90);
+    } 
+    &.withdrawn{
+        background: #B0B0B0;
+    }  
+    &.vote_passed{
+        background: #1F9E14;
+    }
+    &.vote_failed{
+        background: #FB4E4E;
+    } 
+    &.voting{
+        background: #F9B617; 
+    }
+`
+
 
 export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
 
@@ -210,6 +287,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                        }
                         return inner;
                     })
+                    i.schema.name_type = i.name
                     arr.push(i.schema)
                 }
             })
@@ -218,6 +296,21 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
 
     }, [DataSource,initialItems]);
+
+    const handleLink = (obj:any,value:any) =>{
+        const protocol = window.location.protocol;
+
+        const hostname = window.location.hostname;
+        const port = window.location.port;
+        const link = protocol + '//' + hostname + (port ? ':' + port : '');
+
+        if(obj.name_type === "close_project"){
+            window.open(`${link}/project/info/${value?.id}`)
+        }
+        if(obj.name_type === "close_guild"){
+            window.open(`${link}/guild/info/${value?.id}`)
+        }
+    }
 
     return <Box theme={theme?.toString()}>
 
@@ -233,134 +326,162 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
             !!list.length && <P32>
 
                 {
-                    list.map((item:any,index)=>(<InnerBox key={index} theme={theme?.toString()}>
-                        <TitleBox>{item?.title}</TitleBox>
-                        <ContentBox theme={theme?.toString()}>
+                    list.map((item:any,index)=>(<div key={index}>
                             {
-                                item.content.map((inner:any,innerKey:number)=>(
-                                    <LineFlex key={`component_${innerKey}`}  className={(inner.type === "file" && inner.uploadType ==="image" || inner.type === "checkbox")?"lgImg": inner?.pro?.size}>
+                                item.name_type === "associate_proposal" && <InnerBox>
+                                    <TitleBox>SeeU in Singapore 人工智能线下分享 - 23年12月1号 OGBC新加坡办公室</TitleBox>
+                                    <FlexBtm>
+                                        <UserBox>
+                                            <img src="" alt=""/>
+                                            <div className="rht">
+                                                <div className="name">DDDDM</div>
+                                                <div className="time">May 19,2023 14:40</div>
+                                            </div>
+                                        </UserBox>
+                                        <RhtBox>
+                                            <TagBox theme={theme?.toString()}>三层提案</TagBox>
+                                            <StatusBox className="vote_failed">通过</StatusBox>
+                                        </RhtBox>
+                                    </FlexBtm>
+
+                                </InnerBox>
+                            }
+
+                            {
+                                item.name_type !== "associate_proposal" && <InnerBox key={index} theme={theme?.toString()}>
+
+
+                                    <TitleBox>{item?.title}</TitleBox>
+                                    <ContentBox theme={theme?.toString()}>
                                         {
-                                            inner.type === "table" && <TableOuter theme={theme?.toString()}>
-
-                                                <table cellPadding="0" cellSpacing="0">
-                                                    <thead>
-                                                    <tr>
-
-                                                        {
-                                                            [...Array(inner.rows.length)].map((col,index)=>(<ThBox key={`thead_${index}`} width={inner.style.width[index]}>
-                                                                {
-                                                                    inner.style.tHeader[index]
-                                                                }
-                                                            </ThBox>))
-                                                        }
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-
+                                            item.content.map((inner:any,innerKey:number)=>(
+                                                <LineFlex key={`component_${innerKey}`}  className={(inner.type === "file" && inner.uploadType ==="image" || inner.type === "checkbox")?"lgImg": inner?.pro?.size}>
                                                     {
-                                                        inner.table?.map((r:any,rInd:number)=>(
-                                                            <tr key={`tbody_${rInd}`}>
+                                                        inner.type === "table" && <TableOuter theme={theme?.toString()}>
+
+                                                            <table cellPadding="0" cellSpacing="0">
+                                                                <thead>
+                                                                <tr>
+
+                                                                    {
+                                                                        [...Array(inner.rows.length)].map((col,index)=>(<ThBox key={`thead_${index}`} width={inner.style.width[index]}>
+                                                                            {
+                                                                                inner.style.tHeader[index]
+                                                                            }
+                                                                        </ThBox>))
+                                                                    }
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+
                                                                 {
-                                                                    r.map((rInner:any,rIin:number)=>(<td key={`td_${rIin}`}>
+                                                                    inner.table?.map((r:any,rInd:number)=>(
+                                                                        <tr key={`tbody_${rInd}`}>
                                                                             {
-                                                                                rInner.type === "input" &&
-                                                                                <span>{rInner?.value}</span>
+                                                                                r.map((rInner:any,rIin:number)=>(<td key={`td_${rIin}`}>
+                                                                                        {
+                                                                                            rInner.type === "input" &&
+                                                                                            <span>{rInner?.value}</span>
 
+                                                                                        }
+
+                                                                                        {
+                                                                                            rInner.type === "select" && <dl>
+                                                                                                <dd>{rInner?.value?.name}</dd>
+                                                                                            </dl>
+                                                                                        }
+                                                                                        {
+                                                                                            rInner.type === "file" && <dl>
+                                                                                                {
+                                                                                                    rInner.uploadType === "image" && <dd><img src={rInner?.value} alt="" className={rInner?.pro?.size} /></dd>
+                                                                                                }
+                                                                                                {
+                                                                                                    rInner.uploadType === "file" &&  <dd>{rInner?.value}</dd>
+                                                                                                }
+                                                                                            </dl>
+                                                                                        }
+                                                                                        {
+                                                                                            rInner.type === "checkbox" && <dl>
+
+                                                                                                <dd>
+                                                                                                    <ul>
+                                                                                                        {
+                                                                                                            rInner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`}>{ii.value}</li>))
+                                                                                                        }
+                                                                                                    </ul>
+                                                                                                </dd>
+
+                                                                                            </dl>
+                                                                                        }
+                                                                                    </td>
+
+                                                                                ))
                                                                             }
 
-                                                                            {
-                                                                                rInner.type === "select" && <dl>
-                                                                                    <dd>{rInner?.value?.name}</dd>
-                                                                                </dl>
-                                                                            }
-                                                                            {
-                                                                                rInner.type === "file" && <dl>
-                                                                                    {
-                                                                                        rInner.uploadType === "image" && <dd><img src={rInner?.value} alt="" className={rInner?.pro?.size} /></dd>
-                                                                                    }
-                                                                                    {
-                                                                                        rInner.uploadType === "file" &&  <dd>{rInner?.value}</dd>
-                                                                                    }
-                                                                                </dl>
-                                                                            }
-                                                                            {
-                                                                                rInner.type === "checkbox" && <dl>
-
-                                                                                    <dd>
-                                                                                        <ul>
-                                                                                            {
-                                                                                                rInner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`}>{ii.value}</li>))
-                                                                                            }
-                                                                                        </ul>
-                                                                                    </dd>
-
-                                                                                </dl>
-                                                                            }
-                                                                        </td>
+                                                                        </tr>
 
                                                                     ))
                                                                 }
 
-                                                            </tr>
-
-                                                        ))
+                                                                </tbody>
+                                                            </table>
+                                                        </TableOuter>
                                                     }
 
-                                                    </tbody>
-                                                </table>
-                                            </TableOuter>
+
+                                                    {
+                                                        inner.type === "input" && <LineBox>
+                                                            <dt>{inner?.pro?.title}</dt>
+                                                            <dd>
+                                                                <WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox>
+
+                                                            </dd>
+
+                                                        </LineBox>
+                                                    }
+
+                                                    {
+                                                        inner.type === "select" && <LineBox onClick={()=>handleLink(item,inner?.value)}>
+                                                            <dt>{inner?.pro?.title}</dt>
+                                                            <dd><WhiteBox theme={theme?.toString()}>{inner?.value?.name}</WhiteBox></dd>
+                                                        </LineBox>
+                                                    }
+
+                                                    {
+                                                        inner.type === "file" && <LineBox>
+                                                            <dt>{inner?.pro?.title}</dt>
+                                                            {
+                                                                inner.uploadType === "image" && <dd><img src={inner?.value} alt="" className={inner?.pro?.size}/></dd>
+                                                            }
+                                                            {
+                                                                inner.uploadType === "file" &&  <dd><WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox></dd>
+                                                            }
+                                                        </LineBox>
+                                                    }
+
+                                                    {
+                                                        inner.type === "checkbox" && <LineBox>
+                                                            <dt>{inner?.pro?.title}</dt>
+                                                            <dd>
+                                                                <UlBox>
+                                                                    {
+                                                                        inner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`} className={inner?.pro?.size}><WhiteBox theme={theme?.toString()}>{ii.value}</WhiteBox></li>))
+                                                                    }
+                                                                </UlBox>
+                                                            </dd>
+
+                                                        </LineBox>
+                                                    }
+
+                                                </LineFlex>
+                                            ))
                                         }
-
-
-                                        {
-                                            inner.type === "input" && <LineBox>
-                                                <dt>{inner?.pro?.title}</dt>
-                                                <dd>
-                                                    <WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox>
-
-                                                </dd>
-
-                                            </LineBox>
-                                        }
-
-                                        {
-                                            inner.type === "select" && <LineBox>
-                                                <dt>{inner?.pro?.title}</dt>
-                                                <dd><WhiteBox theme={theme?.toString()}>{inner?.value?.name}</WhiteBox></dd>
-                                            </LineBox>
-                                        }
-
-                                        {
-                                            inner.type === "file" && <LineBox>
-                                                <dt>{inner?.pro?.title}</dt>
-                                                {
-                                                    inner.uploadType === "image" && <dd><img src={inner?.value} alt="" className={inner?.pro?.size}/></dd>
-                                                }
-                                                {
-                                                    inner.uploadType === "file" &&  <dd><WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox></dd>
-                                                }
-                                            </LineBox>
-                                        }
-
-                                        {
-                                            inner.type === "checkbox" && <LineBox>
-                                                <dt>{inner?.pro?.title}</dt>
-                                                <dd>
-                                                    <UlBox>
-                                                        {
-                                                            inner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`} className={inner?.pro?.size}><WhiteBox theme={theme?.toString()}>{ii.value}</WhiteBox></li>))
-                                                        }
-                                                    </UlBox>
-                                                </dd>
-
-                                            </LineBox>
-                                        }
-
-                                    </LineFlex>
-                                ))
+                                    </ContentBox>
+                                </InnerBox>
                             }
-                        </ContentBox>
-                    </InnerBox>))
+
+                        </div>
+                        ))
                 }
             </P32>
         }

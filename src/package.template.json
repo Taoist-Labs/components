@@ -1,6 +1,6 @@
 {
-    "name": "@seedao/components",
-    "version": "0.0.27",
+    "name": "@taoist-labs/components",
+    "version": "0.1.2",
     "description": "components",
     "main": "index.js",
     "repository": "",
