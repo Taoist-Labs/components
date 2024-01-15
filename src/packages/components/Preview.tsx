@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React,{useEffect, useState} from "react";
 import {thProps} from "../type/compontent.type";
+import sns from '@seedao/sns-js';
 
 const Box = styled.div<{theme?:string}>`
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
@@ -181,6 +182,7 @@ const UserBox = styled.div`
     display: flex;
     align-items: center;
     gap: 12px;
+    font-size: 12px;
     img{
         width: 44px;
         height: 44px;
@@ -190,6 +192,7 @@ const UserBox = styled.div`
     }
     .name{
         font-weight: bold;
+        margin-bottom:3px;
     }
     .time{
         color:#bbb;
@@ -249,17 +252,19 @@ const StatusBox = styled.div`
 export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
 
     const [list,setList] = useState<any[]>([])
+    const [address,setAddress] = useState('');
+    const [snsStr,setSnsStr] = useState('')
 
     useEffect(() => {
         if(!DataSource || !initialItems) return;
         let arr:any[]=[];
 
         DataSource.map((d:any)=>{
-            initialItems.map((i:any)=>{
+            initialItems.map( async(i:any)=>{
 
                 if(i.name === d.name){
                     const {data} = d;
-                   i.schema.content?.map((inner:any)=>{
+                   i.schema.content?.map( (inner:any)=>{
                         inner.pro = {};
                         inner.properties?.map((inn:any)=>{
                             inner.pro[inn.name] = inn.value;
@@ -287,7 +292,11 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                        }
                         return inner;
                     })
-                    i.schema.name_type = i.name
+                    i.schema.name_type = i.name;
+                   if(i.name==="associate_proposal"){
+                       i.schema.proposal = d.data.proposal;
+                       setAddress(d.data.applicant)
+                   }
                     arr.push(i.schema)
                 }
             })
@@ -296,6 +305,10 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
 
     }, [DataSource,initialItems]);
+    useEffect(() => {
+        if(!address)return;
+        returnSNS();
+    }, [address]);
 
     const handleLink = (obj:any,value:any) =>{
         const protocol = window.location.protocol;
@@ -310,6 +323,26 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
         if(obj.name_type === "close_guild"){
             window.open(`${link}/guild/info/${value?.id}`)
         }
+    }
+
+    const  formatTimestamp = (timestamp:number) =>{
+        const date = new Date(timestamp * 1000);
+
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        const hours = ('0' + date.getHours()).slice(-2);
+        const minutes = ('0' + date.getMinutes()).slice(-2);
+        const seconds = ('0' + date.getSeconds()).slice(-2);
+
+        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
+    }
+
+    const returnSNS = async () =>{
+        const _wallet = address.toLocaleLowerCase();
+        const rt = await sns.name(_wallet);
+        setSnsStr( rt || address)
     }
 
     return <Box theme={theme?.toString()}>
@@ -329,18 +362,20 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                     list.map((item:any,index)=>(<div key={index}>
                             {
                                 item.name_type === "associate_proposal" && <InnerBox>
-                                    <TitleBox>SeeU in Singapore 人工智能线下分享 - 23年12月1号 OGBC新加坡办公室</TitleBox>
+                                    <TitleBox>{item?.proposal?.name}</TitleBox>
                                     <FlexBtm>
                                         <UserBox>
                                             <img src="" alt=""/>
                                             <div className="rht">
-                                                <div className="name">DDDDM</div>
-                                                <div className="time">May 19,2023 14:40</div>
+                                                <div className="name">{snsStr}</div>
+                                                <div className="time">{formatTimestamp(item?.proposal?.create_ts)}</div>
                                             </div>
                                         </UserBox>
                                         <RhtBox>
-                                            <TagBox theme={theme?.toString()}>三层提案</TagBox>
-                                            <StatusBox className="vote_failed">通过</StatusBox>
+                                            <TagBox theme={theme?.toString()}>{item?.proposal?.proposal_category_name}</TagBox>
+                                            {
+                                                item?.proposal?.proposal_state && <StatusBox className={item?.proposal?.proposal_state}>{item?.proposal?.proposal_state}</StatusBox>
+                                            }
                                         </RhtBox>
                                     </FlexBtm>
 

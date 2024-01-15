@@ -496,8 +496,13 @@ function PreviewPage() {
                     "name": "提案执行组件",
                     "type": "project"
                 },
-                "proposal": null,
-                "proposal_id": "os-267"
+                "proposal": {
+                    "create_ts": 1704696005,
+                    "id": 215,
+                    "name": "[BetaTest] 测试项目",
+                    "proposal_category_name": "TestAddCategoriesAdd"
+                },
+                "proposal_id": "os-276"
             },"create_ts":1704435062}]} initialItems={testFor}  theme={false}/>
     );
 }

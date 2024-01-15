@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React,{useEffect, useState} from "react";
 import {thProps} from "../type/compontent.type";
+import sns from "@seedao/sns-js";
 
 const Box = styled.div<{theme?:string}>`
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
@@ -158,6 +159,7 @@ const UserBox = styled.div`
     display: flex;
     align-items: center;
     gap: 12px;
+    font-size: 12px;
     img{
         width: 44px;
         height: 44px;
@@ -167,6 +169,7 @@ const UserBox = styled.div`
     }
     .name{
         font-weight: bold;
+        margin-bottom: 3px;
     }
     .time{
         color:#bbb;
@@ -176,55 +179,70 @@ const UserBox = styled.div`
 const RhtBox = styled.div`
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap:10px
 `
 
 const TagBox = styled.div<{theme:string}>`
-    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    border:1px solid #7E7B88;
     font-size: 12px;
-    padding: 5px 15px;
+    padding: 0 6px;
+    line-height: 20px;
+    height: 20px;
+    box-sizing: border-box;
     border-radius: 4px;
     box-sizing: border-box;
 `
 
 const StatusBox = styled.div`
     font-size: 12px;
-    padding: 5px 15px;
+    padding: 0 6px;
+    line-height: 20px;
+    height: 20px;
     border-radius: 4px;
-    color: #fff;
-    background: #ddd;
+    color: #7E7B88;
+    border:1px solid #7E7B88;
     box-sizing: border-box;
     
     &.approved{
-        background: #1F9E14;
+        border-color: #1F9E14;
+       color: #1F9E14;
     }
     &.rejected{
-        background: #FB4E4E;
+        border-color: #FB4E4E;
+        color: #FB4E4E;
     }
     &.draft{
-        background: #2F8FFF;
+        border-color: #2F8FFF;
+        color: #2F8FFF;
     }
     &.pending_submit{
-        background: rgba(9, 171, 207, 0.90);
+        border-color: rgba(9, 171, 207, 0.90);
+        color: rgba(9, 171, 207, 0.90);
     } 
     &.withdrawn{
-        background: #B0B0B0;
+        border-color:#B0B0B0;
+        color: #B0B0B0;
     }  
     &.vote_passed{
-        background: #1F9E14;
+        border-color:#1F9E14;
+        color: #1F9E14;
     }
     &.vote_failed{
-        background: #FB4E4E;
+        border-color:#FB4E4E;
+        color: #FB4E4E;
     } 
     &.voting{
-        background: #F9B617; 
+        border-color:#F9B617;
+        color: #F9B617;
     }
 `
 
 export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
 
     const [list,setList] = useState<any[]>([])
+    const [address,setAddress] = useState('');
+    const [snsStr,setSnsStr] = useState('')
 
     useEffect(() => {
         if(!DataSource || !initialItems) return;
@@ -264,6 +282,10 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                         return inner;
                     })
                     i.schema.name_type = i.name
+                    if(i.name==="associate_proposal"){
+                        i.schema.proposal = d.data.proposal;
+                        setAddress(d.data.applicant)
+                    }
                     arr.push(i.schema)
                 }
             })
@@ -288,6 +310,31 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
         }
     }
 
+    useEffect(() => {
+        if(!address)return;
+        returnSNS();
+    }, [address]);
+
+    const returnSNS = async () =>{
+        const _wallet = address.toLocaleLowerCase();
+        const rt = await sns.name(_wallet);
+        setSnsStr( rt || address)
+    }
+
+    const  formatTimestamp = (timestamp:number) =>{
+        const date = new Date(timestamp * 1000);
+
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        const hours = ('0' + date.getHours()).slice(-2);
+        const minutes = ('0' + date.getMinutes()).slice(-2);
+        const seconds = ('0' + date.getSeconds()).slice(-2);
+
+        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
+    }
+
     return <Box theme={theme?.toString()}>
 
 
@@ -299,19 +346,23 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
                             {
                                 item.name_type === "associate_proposal" && <InnerBox>
-                                    <TitleBox>SeeU in Singapore 人工智能线下分享 - 23年12月1号 OGBC新加坡办公室</TitleBox>
+                                    <TitleBox>{item?.proposal?.name}</TitleBox>
+                                    <RhtBox>
+                                        {
+                                            item?.proposal?.proposal_state && <StatusBox className={item?.proposal?.proposal_state}>{item?.proposal?.proposal_state || ""}</StatusBox>
+                                        }
+                                        <TagBox theme={theme?.toString()}>{item?.proposal?.proposal_category_name}</TagBox>
+
+                                    </RhtBox>
                                     <FlexBtm>
                                         <UserBox>
                                             <img src="" alt=""/>
                                             <div className="rht">
-                                                <div className="name">DDDDM</div>
-                                                <div className="time">May 19,2023 14:40</div>
+                                                <div className="name">{snsStr}</div>
+                                                <div className="time">{formatTimestamp(item?.proposal?.create_ts)}</div>
                                             </div>
                                         </UserBox>
-                                        <RhtBox>
-                                            <TagBox theme={theme?.toString()}>三层提案</TagBox>
-                                            <StatusBox className="vote_failed">通过</StatusBox>
-                                        </RhtBox>
+
                                     </FlexBtm>
 
                                 </InnerBox>

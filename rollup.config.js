@@ -62,7 +62,7 @@ export default [
         'react-hook-form',
         'react-select',
         'uuid',
-
+        '@seedao/sns-js'
     ],
 },
     {
