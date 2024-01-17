@@ -492,6 +492,7 @@ function PreviewPage() {
         <Preview DataSource={
             [{"id":21,"component_id":1,"name":"associate_proposal","schema":"","data":{
                     "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                    "applicant_avatar": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/user_avatars/0xd85c413da833cebd8338138ccefa04979df70e8e_1701618164546.jpg",
                     "project_guild": {
                         "id": 45,
                         "name": "提案执行组件",
@@ -501,11 +502,12 @@ function PreviewPage() {
                         "create_ts": 1704696005,
                         "id": 215,
                         "name": "[BetaTest] 测试项目",
-                        "proposal_category_name": "TestAddCategoriesAdd"
+                        "proposal_category_name": "TestAddCategoriesAdd",
+                        "state": "vote_passed"
                     },
                     "proposal_id": "os-276"
                 },"create_ts":1704435062}]
-        } initialItems={testFor}  theme={false} BeforeComponent={<div>-----test add after-----</div>} AfterComponent={<div>-----test add after-----</div>} />
+        } language="zh" initialItems={testFor}  theme={false} BeforeComponent={<div>-----test add after-----</div>} AfterComponent={<div>-----test add after-----</div>} />
     );
 }
 

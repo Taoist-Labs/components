@@ -11,6 +11,7 @@ interface Language {
         inputError:string;
         selectError:string;
         fileError:string
+        status:string
     };
 }
 
@@ -25,7 +26,8 @@ const Lan:Language = {
         remove:"删除",
         inputError:"请选择正确内容",
         selectError:"请输入正确内容",
-        fileError:"请选择正确的文件"
+        fileError:"请选择正确的文件",
+        status:"已通过"
     },
     en:{
         dragTips:"Please select the components from the right",
@@ -37,7 +39,8 @@ const Lan:Language = {
         remove:"Remove",
         inputError:"Please enter the correct content.",
         selectError:"Please select the correct content",
-        fileError:"Please select the correct file"
+        fileError:"Please select the correct file",
+        status:"Passed"
     }
 }
 export default Lan

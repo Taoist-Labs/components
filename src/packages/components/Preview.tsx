@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React,{useEffect, useState} from "react";
 import {thProps} from "../type/compontent.type";
 import sns from '@seedao/sns-js';
+import Lan from "../utils/lan";
 
 const Box = styled.div<{theme?:string}>`
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
@@ -249,7 +250,7 @@ const StatusBox = styled.div`
 `
 
 
-export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent}:any){
+export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent,language}:any){
 
     const [list,setList] = useState<any[]>([])
     const [address,setAddress] = useState('');
@@ -295,6 +296,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                     i.schema.name_type = i.name;
                    if(i.name==="associate_proposal"){
                        i.schema.proposal = d.data.proposal;
+                       i.schema.applicant_avatar = d.data.applicant_avatar;
                        setAddress(d.data.applicant)
                    }
                     arr.push(i.schema)
@@ -365,7 +367,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                     <TitleBox>{item?.proposal?.name}</TitleBox>
                                     <FlexBtm>
                                         <UserBox>
-                                            <img src="" alt=""/>
+                                            <img src={item?.applicant_avatar} alt=""/>
                                             <div className="rht">
                                                 <div className="name">{snsStr}</div>
                                                 <div className="time">{formatTimestamp(item?.proposal?.create_ts)}</div>
@@ -374,7 +376,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                         <RhtBox>
                                             <TagBox theme={theme?.toString()}>{item?.proposal?.proposal_category_name}</TagBox>
                                             {
-                                                item?.proposal?.proposal_state && <StatusBox className={item?.proposal?.proposal_state}>{item?.proposal?.proposal_state}</StatusBox>
+                                                item?.proposal?.state === "vote_passed" && <StatusBox className="approved">{Lan[language ?? "zh"]?.status}</StatusBox>
                                             }
                                         </RhtBox>
                                     </FlexBtm>
