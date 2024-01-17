@@ -239,6 +239,10 @@ const StatusBox = styled.div`
     }
 `
 
+const TitleBox2 = styled(TitleBox)`
+    padding-left: 0;
+`
+
 export default function Preview({DataSource,initialItems,theme,language}:any){
 
     const [list,setList] = useState<any[]>([])
@@ -348,7 +352,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
                             {
                                 item.name_type === "associate_proposal" && <InnerBox>
-                                    <TitleBox>{item?.proposal?.name}</TitleBox>
+                                    <TitleBox2>{item?.proposal?.name}</TitleBox2>
                                     <RhtBox>
                                         {
                                             item?.proposal?.state === "vote_passed" && <StatusBox className="approved">{Lan[language ?? "zh"]?.status}</StatusBox>

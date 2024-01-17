@@ -249,6 +249,10 @@ const StatusBox = styled.div`
     }
 `
 
+const TitleBox2 = styled(TitleBox)`
+    padding-left: 0;
+`
+
 
 export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent,language}:any){
 
@@ -364,7 +368,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                     list.map((item:any,index)=>(<div key={index}>
                             {
                                 item.name_type === "associate_proposal" && <InnerBox>
-                                    <TitleBox>{item?.proposal?.name}</TitleBox>
+                                    <TitleBox2>{item?.proposal?.name}</TitleBox2>
                                     <FlexBtm>
                                         <UserBox>
                                             <img src={item?.applicant_avatar} alt=""/>
