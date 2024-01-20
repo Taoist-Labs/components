@@ -249,6 +249,12 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
     const [address,setAddress] = useState('');
     const [snsStr,setSnsStr] = useState('')
 
+    const protocol = window.location.protocol;
+
+    const hostname = window.location.hostname;
+    const port = window.location.port;
+    const link = protocol + '//' + hostname + (port ? ':' + port : '');
+
     useEffect(() => {
         if(!DataSource || !initialItems) return;
         let arr:any[]=[];
@@ -302,11 +308,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
     }, [DataSource,initialItems]);
 
     const handleLink = (obj:any,value:any) =>{
-        const protocol = window.location.protocol;
 
-        const hostname = window.location.hostname;
-        const port = window.location.port;
-        const link = protocol + '//' + hostname + (port ? ':' + port : '');
 
         if(obj.name_type === "close_project"){
             window.open(`${link}/project/info/${value?.id}`)
@@ -341,6 +343,10 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
     }
 
+    const togo =(id:string) =>{
+        window.open(`${link}/proposal/thread/${id}`)
+    }
+
     return <Box theme={theme?.toString()}>
 
 
@@ -351,7 +357,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                     list.map((item:any,index)=>(<div key={index} >
 
                             {
-                                item.name_type === "associate_proposal" && <InnerBox>
+                                item.name_type === "associate_proposal" && <InnerBox onClick={()=>togo(item?.proposal.id)}>
                                     <TitleBox2>{item?.proposal?.name}</TitleBox2>
                                     <RhtBox>
                                         {
