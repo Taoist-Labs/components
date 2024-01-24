@@ -3,7 +3,8 @@ import ApplyJson from "./apply.json";
 import CreateJson from "./create.json";
 import DelJson from "./delMember.json";
 import OtherJson from "./other.json";
-
+import DateJson from "./date.json";
+import RichTJson from "./richText.json";
 
 const initialItems: any[] = [
     {
@@ -50,6 +51,25 @@ const initialItems: any[] = [
         auto_action:"auto_action5",
         schema:OtherJson,
         name:"others"
+    },
+    {
+        id: '6',
+        title:"测试",
+        src: 'https://img0.baidu.com/it/u=46644979,2438128608&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+        dragType: 'image',
+        auto_action:"auto_action5",
+        schema:DateJson,
+        "noTitle": false,
+        name:"date"
+    },
+    {
+        id: '7',
+        title:"富文本",
+        src: 'https://img0.baidu.com/it/u=46644979,2438128608&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+        dragType: 'image',
+        auto_action:"auto_action5",
+        schema:RichTJson,
+        name:"rich"
     }
 ];
 export default initialItems;

@@ -7,6 +7,8 @@ import SelectBox from "./select";
 import Table from "./table";
 import File from "./File";
 import CheckBox from "./checkbox"
+import DateTime from "./dateTime";
+import RichText from "./richText";
 
 
 const Box = styled.div`
@@ -82,6 +84,30 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 language={language}
                                 getValues={getValues}
                                 theme={theme} />
+                        }
+                        {
+                            item.type === "datepicker" && <DateTime
+                                item={item}
+                                control={control}
+                                type={list?.name}
+                                reset={reset}
+                                setValue={setValue}
+                                language={language}
+                                getValues={getValues}
+                                theme={theme}
+                            />
+                        }
+                        {
+                            item.type === "richText" && <RichText
+                                item={item}
+                                control={control}
+                                type={list?.name}
+                                reset={reset}
+                                setValue={setValue}
+                                language={language}
+                                getValues={getValues}
+                                theme={theme}
+                            />
                         }
                         {
                             item.type === "select" && <SelectBox

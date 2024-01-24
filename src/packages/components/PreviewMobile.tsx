@@ -33,11 +33,24 @@ const Box = styled.div<{theme?:string}>`
 
 const InnerBox = styled.div<{theme:string}>`
   margin-bottom: 20px;
-    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
-    box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
-    padding: 15px;
-    border-radius: 8px;
+    // border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+    // box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
+    // padding: 15px;
+    // border-radius: 8px;
+    &.noBorder{
+        margin: 0 -17px;
+        width: calc( 100% + 34px);
+    }
 
+    &.borderBox{
+        background: ${props=>props.theme === 'true'?"#161518":"#fff"};
+        border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+        box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
+        padding:15px;
+        box-sizing: border-box;
+        border-radius: 8px;
+    }
+    
 
 `
 
@@ -292,7 +305,8 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                        }
                         return inner;
                     })
-                    i.schema.name_type = i.name
+                    i.schema.name_type = i.name;
+                    i.schema.noTitle = i.noTitle;
                     if(i.name==="associate_proposal"){
                         i.schema.proposal = d.data.proposal;
                         i.schema.applicant_avatar = d.data.applicant_avatar;
@@ -347,6 +361,17 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
         window.open(`${link}/proposal/thread/${id}`)
     }
 
+    const dateFormat = (dateF:string) =>{
+
+        const date = new Date(dateF);
+
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        return year + '-' + month + '-' + day;
+
+    }
+
     return <Box theme={theme?.toString()}>
 
 
@@ -357,7 +382,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                     list.map((item:any,index)=>(<div key={index} >
 
                             {
-                                item.name_type === "associate_proposal" && <InnerBox onClick={()=>togo(item?.proposal.id)}>
+                                item.name_type === "associate_proposal" && <InnerBox  onClick={()=>togo(item?.proposal.id)}>
                                     <TitleBox2>{item?.proposal?.name}</TitleBox2>
                                     <RhtBox>
                                         {
@@ -381,8 +406,10 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                             }
 
                         {
-                            item.name_type !== "associate_proposal" &&  <InnerBox theme={theme?.toString()}>
-                        <TitleBox>{item?.title}</TitleBox>
+                            item.name_type !== "associate_proposal" &&  <InnerBox className={item.noTitle?"noBorder":"borderBox"} theme={theme?.toString()}>
+                                {
+                                    !item.noTitle &&<TitleBox>{item?.title}</TitleBox>
+                                }
                         <ContentBox theme={theme?.toString()}>
                             {
                                 item.content.map((inner:any,innerKey:number)=>(
@@ -463,21 +490,30 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
                                         {
                                             inner.type === "input" && <dl className="line">
-                                                <dt>{inner?.pro?.title}</dt>
+                                                {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
                                                 <dd><WhiteBox>{inner?.value}</WhiteBox></dd>
                                             </dl>
                                         }
+                                        {
+                                            inner.type === "datepicker" && <dl className="line">
+                                                {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
+                                                <dd>
+                                                    <WhiteBox theme={theme?.toString()}>{dateFormat(inner?.value)}</WhiteBox>
 
+                                                </dd>
+
+                                            </dl>
+                                        }
                                         {
                                             inner.type === "select" && <dl className="line"  onClick={()=>handleLink(item,inner?.value)}>
-                                                <dt>{inner?.pro?.title}</dt>
+                                                {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
                                                 <dd><WhiteBox>{inner?.value?.name}</WhiteBox></dd>
                                             </dl>
                                         }
 
                                         {
                                             inner.type === "file" && <dl className="line">
-                                                <dt>{inner?.pro?.title}</dt>
+                                                {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
                                                 {
                                                     inner.uploadType === "image" && <dd><img src={inner?.value} alt="" className={inner?.pro?.size}/></dd>
                                                 }
@@ -489,7 +525,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
                                         {
                                             inner.type === "checkbox" && <dl className="line">
-                                                <dt>{inner?.pro?.title}</dt>
+                                                {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
                                                 <dd>
                                                     <UlBox>
                                                         {

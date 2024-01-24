@@ -116,6 +116,27 @@ function New() {
                     ]
                 },
                 {
+                    "type":"datepicker",
+                    "value":"",
+                    "name":"test",
+                    "properties":[
+                        {
+                            "name": "title",
+                            "value": "日期选择"
+                        },
+                        {
+                            "name": "size",
+                            "value": "lg"
+                        },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": true,
+                            }
+                        }
+                    ]
+                },
+                {
                     "type": "checkbox",
                     "dataList": "datasrv/project_list",
                     "name": "delMemeberList",
@@ -183,6 +204,7 @@ function New() {
                         }
                     ]
                 },
+
                 {
                     "type": "input",
                     "inputType": "address",
@@ -578,12 +600,15 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDUyNDQ4MzIsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.g8Vhq_GowXG9ed1tnbvf8k6oSiqoxaAjf3SQQK39DSk"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDYxNjEzNzEsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.RluKTIAM8yUr9GArr3AAuphINqY5oEG3FRVnGM7rsxY"
                               showRight={true}
                               theme={false}
-                              DataSource={[{"id":21,"component_id":1,"name":"associate_proposal","schema":"","data":{"associate_proposal":{"proposal":null,"project_guild":{"id":21,"name":"test pro ject","type":"project"}},"test":""},"create_ts":1704435062}]}
-                              operate={operate}
-                              initialItems={testFor}
+                              DataSource={[{"id":21,"component_id":1,"name":"rich","schema":"",
+                                  "data":{
+                                      "rich":"**fda**\n<u>afdaf</u>\n*fdas*\n"
+                                  },"create_ts":1704435062}]}
+                            operate={operate}
+                              initialItems={initialItems}
                               BeforeComponent={<input type="text" onChange={handleInput}/>}
                               AfterComponent={<div>-----test add after-----</div>}
                               ref={childRef}

@@ -62,6 +62,8 @@ export default [
         'react-hook-form',
         'react-select',
         'uuid',
+        "react-datepicker",
+        "md-editor-rt",
         '@seedao/sns-js'
     ],
 },

@@ -11,6 +11,7 @@ const Box = styled.div<{theme?:string}>`
   table{
     width: 100%;
       margin-bottom: 20px;
+
     td,th{
  
       padding:10px 20px;
@@ -35,12 +36,19 @@ const Box = styled.div<{theme?:string}>`
 
 const InnerBox = styled.div<{theme:string}>`
   margin-bottom: 20px;
-    background: ${props=>props.theme === 'true'?"#161518":"#fff"};
-    border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
-    box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
-    padding:30px 20px;
-    box-sizing: border-box;
-    border-radius: 8px;
+    &.noBorder{
+        margin: 0 -32px;
+        width: calc( 100% + 64px);
+    }
+    
+    &.borderBox{
+        background: ${props=>props.theme === 'true'?"#161518":"#fff"};
+        border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
+        box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
+        padding:30px 20px;
+        box-sizing: border-box;
+        border-radius: 8px;
+    }
 `
 
 const TitleBox = styled.div`
@@ -114,6 +122,7 @@ const UlBox = styled.ul`
 const P32 = styled.div`
     margin-bottom: 20px;
     padding-inline: 32px;
+    
 `
 
 const WhiteBox = styled.div<{theme:string}>`
@@ -168,6 +177,7 @@ const TableOuter = styled.div<{theme:string}>`
     flex-grow: 1;
     table{
         border-radius: 8px;overflow: hidden;
+        border-collapse: separate;
         border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"}; 
     }
 `
@@ -302,6 +312,8 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                         return inner;
                     })
                     i.schema.name_type = i.name;
+
+                    i.schema.noTitle = i.noTitle;
                    if(i.name==="associate_proposal"){
                        i.schema.proposal = d.data.proposal;
                        i.schema.applicant_avatar = d.data.applicant_avatar;
@@ -354,6 +366,17 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
         window.open(`${link}/proposal/thread/${id}`)
     }
 
+    const dateFormat = (dateF:string) =>{
+
+        const date = new Date(dateF);
+
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        return year + '-' + month + '-' + day;
+
+    }
+
     return <Box theme={theme?.toString()}>
 
         {
@@ -392,10 +415,12 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                             }
 
                             {
-                                item.name_type !== "associate_proposal" && <InnerBox key={index} theme={theme?.toString()}>
+                                item.name_type !== "associate_proposal" && <InnerBox className={item.noTitle?"noBorder":"borderBox"} key={index} theme={theme?.toString()}>
 
+                                    {
+                                        !item.noTitle &&<TitleBox>{item?.title}</TitleBox>
+                                    }
 
-                                    <TitleBox>{item?.title}</TitleBox>
                                     <ContentBox theme={theme?.toString()}>
                                         {
                                             item.content.map((inner:any,innerKey:number)=>(
@@ -475,9 +500,19 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
                                                     {
                                                         inner.type === "input" && <LineBox>
-                                                            <dt>{inner?.pro?.title}</dt>
+                                                            {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
                                                             <dd>
                                                                 <WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox>
+
+                                                            </dd>
+
+                                                        </LineBox>
+                                                    }
+                                                    {
+                                                        inner.type === "datepicker" && <LineBox>
+                                                            {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
+                                                            <dd>
+                                                                <WhiteBox theme={theme?.toString()}>{dateFormat(inner?.value)}</WhiteBox>
 
                                                             </dd>
 
@@ -486,14 +521,14 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
                                                     {
                                                         inner.type === "select" && <LineBox onClick={()=>handleLink(item,inner?.value)}>
-                                                            <dt>{inner?.pro?.title}</dt>
+                                                            {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
                                                             <dd><WhiteBox theme={theme?.toString()}>{inner?.value?.name}</WhiteBox></dd>
                                                         </LineBox>
                                                     }
 
                                                     {
                                                         inner.type === "file" && <LineBox>
-                                                            <dt>{inner?.pro?.title}</dt>
+                                                            {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
                                                             {
                                                                 inner.uploadType === "image" && <dd><img src={inner?.value} alt="" className={inner?.pro?.size}/></dd>
                                                             }
@@ -505,7 +540,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
                                                     {
                                                         inner.type === "checkbox" && <LineBox>
-                                                            <dt>{inner?.pro?.title}</dt>
+                                                            {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
                                                             <dd>
                                                                 <UlBox>
                                                                     {

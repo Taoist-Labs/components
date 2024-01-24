@@ -1,0 +1,28 @@
+{
+  "title": "测试时间",
+  "type": "date",
+  "noTitle": true,
+  "content": [
+    {
+      "type":"datepicker",
+      "value":"",
+      "name":"testDate",
+      "properties":[
+        {
+          "name": "title",
+          "value": "日期选择"
+        },
+        {
+          "name": "size",
+          "value": "lg"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "required": true
+          }
+        }
+      ]
+    }
+  ]
+}

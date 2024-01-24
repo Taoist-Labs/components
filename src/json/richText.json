@@ -1,0 +1,27 @@
+{
+  "title": "富文本",
+  "type": "rich",
+  "content": [
+    {
+      "type":"richText",
+      "value":"",
+      "name":"rich",
+      "properties":[
+        {
+          "name": "title",
+          "value": "日期选择"
+        },
+        {
+          "name": "size",
+          "value": "lg"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "required": true
+          }
+        }
+      ]
+    }
+  ]
+}
