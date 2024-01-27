@@ -3,6 +3,7 @@ import React,{useEffect, useState} from "react";
 import {thProps} from "../type/compontent.type";
 import sns from '@seedao/sns-js';
 import Lan from "../utils/lan";
+import { MdPreview } from 'md-editor-rt';
 
 const Box = styled.div<{theme?:string}>`
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
@@ -133,6 +134,10 @@ const WhiteBox = styled.div<{theme:string}>`
     border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
     background: ${props=>props.theme === 'true'?"#1A1323":"#f8f8f8"};
     box-sizing: border-box;
+  
+`
+const WhiteBox2 = styled(WhiteBox)`
+  background: transparent;
   
 `
 
@@ -496,7 +501,18 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                                             </table>
                                                         </TableOuter>
                                                     }
+                                                    {
+                                                        inner.type === "richText" && <LineBox>
+                                                            <dd>
+                                                                <WhiteBox2>
+                                                                    <MdPreview theme={theme ? 'dark' : 'light'} modelValue={inner?.value || ''} />
+                                                                </WhiteBox2>
+                                                                {/*<WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox>*/}
 
+
+                                                            </dd>
+                                                        </LineBox>
+                                                    }
 
                                                     {
                                                         inner.type === "input" && <LineBox>

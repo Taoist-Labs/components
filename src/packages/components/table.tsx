@@ -10,6 +10,9 @@ import Minus from "../svg/minus";
 import Add from "../svg/add";
 import Lan from "../utils/lan";
 
+const OuterBox = styled.div`
+`
+
 
 const Box = styled.div<{theme?:string}>`
     display: flex;
@@ -80,6 +83,12 @@ const AddBox = styled.div`
     margin:0 20px 20px;
 `
 
+const Tips = styled.div`
+    margin-bottom: 20px;
+    font-size: 12px;
+    opacity: 0.6;
+`
+
 export default function Table({item,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token,errors}:TableProps){
 
     const [column,setColumn] = useState(0);
@@ -128,9 +137,14 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
     }, []);
 
     if(!item)return null;
-    return <Box>
-        <table>
-            <thead>
+    return <OuterBox>
+        <Tips>
+            {item?.desc}
+        </Tips>
+        <Box>
+
+            <table>
+                <thead>
                 <tr>
                     {
                         [...Array(column)].map((col,index)=>(<ThBox key={`thead_${index}`} width={width[index]}>
@@ -141,44 +155,46 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
                     }
                     <th></th>
                 </tr>
-            </thead>
-            <tbody>
-            {
-                fields.map((field,innerIndex)=>( <tr key={field.id}>
-                    {
-                        [...Array(column)].map((r,index)=>(<td key={`tbody_${index}`}>
-                            {
-                                rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} reset={reset} setValue={setValue} theme={theme}  language={language} control={control} getValues={getValues}  />
-                            }
-                            {
-                                rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} errors={errors} language={language} getValues={getValues} />
-                            }
+                </thead>
+                <tbody>
+                {
+                    fields.map((field,innerIndex)=>( <tr key={field.id}>
+                        {
+                            [...Array(column)].map((r,index)=>(<td key={`tbody_${index}`}>
+                                {
+                                    rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} reset={reset} setValue={setValue} theme={theme}  language={language} control={control} getValues={getValues}  />
+                                }
+                                {
+                                    rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} errors={errors} language={language} getValues={getValues} />
+                                }
 
-                            {
-                                rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} setValue={setValue} reset={reset} getValues={getValues} theme={theme} errors={errors} language={language} control={control}  baseUrl={baseUrl} version={version} />
-                            }
-                            {
-                                rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} control={control} type={type} reset={reset}  setValue={setValue} getValues={getValues}  theme={theme} language={language}/>
-                            }
-                        </td>))
-                    }
-                    <td>
+                                {
+                                    rows[index].type === "file" && <File item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} setValue={setValue} reset={reset} getValues={getValues} theme={theme} errors={errors} language={language} control={control}  baseUrl={baseUrl} version={version} />
+                                }
+                                {
+                                    rows[index].type === "checkbox" && <CheckBox item={rows[index]} listName={item?.name} tableIndex={innerIndex} control={control} type={type} reset={reset}  setValue={setValue} getValues={getValues}  theme={theme} language={language}/>
+                                }
+                            </td>))
+                        }
+                        <td>
 
 
                             <AddButton  theme={theme?.toString()} onClick={() =>remove(innerIndex)}><Minus /></AddButton>
-                    </td>
-                </tr>))
-            }
-            </tbody>
-        </table>
-        <AddBox>
-            <BtmBtn onClick={() => append(dataItem)}  theme={theme?.toString()}>
-                <Add theme={theme} /> <span>{Lan[language??"zh"]?.add}</span>
-            </BtmBtn>
-        </AddBox>
+                        </td>
+                    </tr>))
+                }
+                </tbody>
+            </table>
+            <AddBox>
+                <BtmBtn onClick={() => append(dataItem)}  theme={theme?.toString()}>
+                    <Add theme={theme} /> <span>{Lan[language??"zh"]?.add}</span>
+                </BtmBtn>
+            </AddBox>
 
 
 
 
-    </Box>
+        </Box>
+
+    </OuterBox>
 }

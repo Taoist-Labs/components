@@ -106,6 +106,7 @@ export interface TableProps{
             width: number[],
             tHeader: string[]
         }
+        desc?:string;
         rows:any;
         name:string;
         value?:any;

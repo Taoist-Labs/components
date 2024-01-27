@@ -64,7 +64,8 @@ export default [
         'uuid',
         "react-datepicker",
         "md-editor-rt",
-        '@seedao/sns-js'
+        '@seedao/sns-js',
+        "axios"
     ],
 },
     {

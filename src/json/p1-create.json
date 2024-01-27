@@ -1,0 +1,21 @@
+[
+  {
+    "title": "标题",
+    "content": "",
+    "hint": "Background of the proposal"
+  },
+  {
+    "title": "背景",
+    "content": "",
+    "hint": "Background of the proposal"
+  },
+  {
+    "title":"立项信息",
+    "type":"components",
+    "name":["create_project","Deliverables"]
+  },
+  {
+    "title": "备注",
+    "content": "",
+    "hint": "Content of the proposal"
+  }]

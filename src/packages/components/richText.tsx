@@ -88,7 +88,7 @@ export default function RichText({item,tableIndex,listName,type,reset,setValue,t
 
 
     return <Box theme={theme?.toString()}>
-        <label className="labelLft">{prop?.title}</label>
+        {/*<label className="labelLft">{prop?.title}</label>*/}
         <div className="rht">
             <Controller
                 control={control}

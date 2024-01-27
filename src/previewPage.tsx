@@ -3,7 +3,12 @@ import Preview from "./packages/components/Preview";
 import initialItems from "./json/initialItem";
 import DataSource from "./json/datasource.json";
 import InitialItem from "./json/initialItem";
+import styled from "styled-components";
 
+const Box = styled.div`
+    background: #f00;
+    padding: 10px;
+`
 
 function PreviewPage() {
 
@@ -125,6 +130,7 @@ function PreviewPage() {
                             }
                         ]
                     },
+
                     {
                         "type": "input",
                         "inputType": "address",
@@ -320,19 +326,11 @@ function PreviewPage() {
                 "content": [{
                     "type": "select",
                     "dataList": "datasrv/project_list",
-                    "name": "project_info",
-                    "properties": [{
-                        "name": "title",
-                        "value": "项目名称"
-                    }, {
+                    "name": "project_id",
+                    "properties": [{"name": "title", "value": "项目名称"}, {
                         "name": "size",
                         "value": "lg"
-                    }, {
-                        "name": "validate",
-                        "value": {
-                            "maxLength": 20
-                        }
-                    }]
+                    }, {"name": "validate", "value": {"required": true}}]
                 }]
             },
             "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/7a938ea1-b65e-42b4-9c36-6f005cd0b614.png"
@@ -506,19 +504,170 @@ function PreviewPage() {
                 }]
             },
             "screenshot_uri": ""
+        },{
+            "id": 12,
+            "name": "budget",
+            "schema": {
+                "type": "budget",
+                "title": "预算申请",
+                "content": [
+                    {
+                        "type": "table",
+                        "name": "budgetList",
+                        "style": {
+                            "width": [20,20,20,40],
+                            "tHeader": ["申请数额","资产类型","预付比例(0-50%)","预付需求说明"]
+                        },
+                        "rows": [
+
+                            {
+                                "type": "input",
+                                "inputType": "text",
+                                "value": "",
+                                "name": "amount",
+                                "properties":[
+                                    {
+                                        "name": "title",
+                                        "value": "申请数额"
+                                    },
+                                    {
+                                        "name": "size",
+                                        "value": "md"
+                                    },
+                                    {
+                                        "name": "validate",
+                                        "value": {
+                                            "required": true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "select",
+                                "dataList": "datasrv/asset_type",
+                                "value":"",
+                                "name": "typeTest",
+                                "properties":[
+                                    {
+                                        "name": "title",
+                                        "value": "资产类型"
+                                    },
+                                    {
+                                        "name": "size",
+                                        "value": "md"
+                                    },
+                                    {
+                                        "name": "validate",
+                                        "value": {
+                                            "required": true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "input",
+                                "inputType": "text",
+                                "value": "",
+                                "name": "proportion",
+                                "properties":[
+                                    {
+                                        "name": "title",
+                                        "value": "预付比例"
+                                    },
+                                    {
+                                        "name": "size",
+                                        "value": "md"
+                                    },
+                                    {
+                                        "name": "validate",
+                                        "value": {
+                                            "required": true
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "input",
+                                "inputType": "text",
+                                "value": "",
+                                "name": "description",
+                                "properties":[
+                                    {
+                                        "name": "title",
+                                        "value": "预付需求说明"
+                                    },
+                                    {
+                                        "name": "size",
+                                        "value": "md"
+                                    },
+                                    {
+                                        "name": "validate",
+                                        "value": {
+                                            "required": true
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+
+            }
+            ,
+            "screenshot_uri": ""
+        },
+        {
+            "id": 13,
+            "name": "deliverables",
+            "schema": {"type":"Deliverables","title":"交付物","content":[{"type":"richText","value":"","name":"description","properties":[{"name":"title","value":"交付物"},{"name":"size","value":"lg"},{"name":"validate","value":{"required":true}}]}]}
+
+            ,
+            "screenshot_uri": ""
+        },
+        {
+            "id": 14,
+            "name": "deadline",
+            "schema": {
+                "type": "deadline",
+                "title": "计划完成时限",
+                "content": [
+                    {
+                        "type": "datepicker",
+                        "value": "",
+                        "name": "description",
+                        "properties":[
+                            {
+                                "name": "title",
+                                "value": "日期选择"
+                            },
+                            {
+                                "name": "size",
+                                "value": "lg"
+                            },
+                            {
+                                "name": "validate",
+                                "value": {
+                                    "maxLength": 200
+                                }
+                            }
+                        ]
+                    },
+                ]
+
+            }
+
+            ,
+            "screenshot_uri": ""
         }
     ]
+        // <Preview DataSource={[{"id":171,"component_id":13,"name":"deliverables","schema":"",
+        //     "data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"编辑立项信息交付物","proposal_id":"os-327"},"create_ts":1704435062}]} language="zh" initialItems={testFor}  theme={false} BeforeComponent={<div>-----test add after-----</div>} AfterComponent={<div>-----test add after-----</div>} />
 
     return (
-        <Preview DataSource={
-            [{"id":21,"component_id":1,
-                "name": "date",
-                "schema":"",
-                "noTitle":true,
-                "data":{
-                    "testDate": "2024-01-04T16:00:00.000Z"
-                },"create_ts":1704435062}]
-        } language="zh" initialItems={InitialItem}  theme={false} BeforeComponent={<div>-----test add after-----</div>} AfterComponent={<div>-----test add after-----</div>} />
+        <Box>
+            <Preview DataSource={null} language="zh" initialItems={testFor}  theme={false}  />
+        </Box>
+
     );
 }
 

@@ -34,7 +34,6 @@ const InnerBox = styled.div`
 
 const LftBox = styled.div`
     padding-top: 10px;
-
 `
 
 const RhtBox = styled.div<{theme:string}>`
@@ -117,11 +116,11 @@ const LftFlex = styled.div`
 `
 
 const BeforeDiv = styled.div`
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
 `
 
 const AfterDiv = styled.div`
-    margin: 20px 0;
+    //margin: 20px 0;
 `
 
 const RhtFlex = styled.div`
@@ -168,12 +167,13 @@ const DragTips = styled.div<{theme:string}>`
     align-items: center;
     justify-content: center;
     color: #BBB;
+    margin-bottom: 20px;
     span{
         margin-left: 8px;
     }
 `
 const P32 = styled.div`
-    padding-inline: 32px;
+    padding-inline: 32px;;
 `
 
  const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token,onSaveData}:any,ref) => {
@@ -299,77 +299,84 @@ const P32 = styled.div`
         <DragDropContext onDragEnd={handleDragEnd}>
             <InnerBox>
                 <LftFlex>
-                    <BeforeDiv>
-                        {
-                            BeforeComponent
-                        }
-                    </BeforeDiv>
-                    <P32>
-                        <Droppable droppableId="right">
-                            {(provided) => (
-                                <>
-                                    <LftBox
-                                        ref={provided.innerRef}
-                                        {...provided.droppableProps}
-                                    >
+                    {
+                        !!BeforeComponent &&<BeforeDiv>
+                            {
+                                BeforeComponent
+                            }
+                        </BeforeDiv>
+                    }
+                    {
+                        (!!rightItems.length || operate === 'new' ) &&  <P32>
+                            <Droppable droppableId="right">
+                                {(provided) => (
+                                    <>
+                                        <LftBox
+                                            ref={provided.innerRef}
+                                            {...provided.droppableProps}
+                                        >
+                                            {
+                                                rightItems.map((item, index) => (
+                                                    <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+
+                                                        {(provided) => (
+                                                            <FormBox
+                                                                theme={theme?.toString()}
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                {...provided.dragHandleProps}
+                                                                style={{
+                                                                    ...provided.draggableProps.style,
+                                                                }}
+                                                            >
+
+                                                                <div className="close" onClick={() => handleFormClose(item.id)}>
+                                                                    {
+                                                                        showRight &&<Close/>}
+                                                                </div>
+                                                                <Component
+                                                                    listArr={item.schema}
+                                                                    name={item.name}
+                                                                    getValues={getValues}
+                                                                    theme={theme}
+                                                                    baseUrl={baseUrl}
+                                                                    token={token}
+                                                                    version={version}
+                                                                    language={language}
+                                                                    errors={errors}
+                                                                    control={control} setValue={setValue}
+                                                                    reset={reset} data={item?.data}/>
+
+                                                            </FormBox>
+                                                        )}
+
+                                                    </Draggable>
+                                                ))}
+
+                                            {provided.placeholder}
+                                        </LftBox>
                                         {
-                                            rightItems.map((item, index) => (
-                                                <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                                            showRight && <DragTips theme={theme?.toString()}>
+                                                <Plus /><span>{Lan[language]?.dragTips}</span>
+                                            </DragTips>
+                                        }
 
-                                                    {(provided) => (
-                                                        <FormBox
-                                                            theme={theme?.toString()}
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={{
-                                                                ...provided.draggableProps.style,
-                                                            }}
-                                                        >
+                                    </>
 
-                                                            <div className="close" onClick={() => handleFormClose(item.id)}>
-                                                                {
-                                                                    showRight &&<Close/>}
-                                                            </div>
-                                                            <Component
-                                                                listArr={item.schema}
-                                                                name={item.name}
-                                                                getValues={getValues}
-                                                                theme={theme}
-                                                                baseUrl={baseUrl}
-                                                                token={token}
-                                                                version={version}
-                                                                language={language}
-                                                                errors={errors}
-                                                                control={control} setValue={setValue}
-                                                                reset={reset} data={item?.data}/>
-
-                                                        </FormBox>
-                                                    )}
-
-                                                </Draggable>
-                                            ))}
-
-                                        {provided.placeholder}
-                                    </LftBox>
-                                    {
-                                        showRight && <DragTips theme={theme?.toString()}>
-                                            <Plus /><span>{Lan[language]?.dragTips}</span>
-                                        </DragTips>
-                                    }
-
-                                </>
-
-                            )}
-                        </Droppable>
-                    </P32>
+                                )}
+                            </Droppable>
+                        </P32>
+                    }
 
 
-                    <AfterDiv>
-                        {
-                            AfterComponent
-                        }
-                    </AfterDiv>
+                    {
+                        !!AfterComponent &&<AfterDiv>
+                            {
+                                AfterComponent
+                            }
+                        </AfterDiv>
+                    }
+
                 </LftFlex>
 
                 {
