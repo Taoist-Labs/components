@@ -103,6 +103,7 @@ export default function RichText({item,tableIndex,listName,type,reset,setValue,t
                             editorId={`md_${id}`}
                             onChange={handleEditorChange}
                             theme={theme ? 'dark' : 'light'}
+                            placeholder={prop?.hint}
                         />
                         {
                             !!fieldState.error && <ErrorTips>

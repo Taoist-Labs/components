@@ -698,7 +698,24 @@ function New() {
         {
             "id": 13,
             "name": "deliverables",
-            "schema": {"type":"Deliverables","title":"交付物","content":[{"type":"richText","value":"","name":"description","properties":[{"name":"title","value":"交付物"},{"name":"size","value":"lg"},{"name":"validate","value":{"required":true}}]}]}
+            "schema": {
+                "type": "Deliverables",
+                "title": "交付物",
+                "content": [{
+                    "type": "richText",
+                    "value": "",
+                    "name": "description",
+                    "properties": [
+                        {"name": "title", "value": "交付物"},
+                        {"name": "hint",
+                            "value":"交付物 提示"
+                        },
+                        {
+                        "name": "size",
+                        "value": "lg"
+                    }, {"name": "validate", "value": {"required": true}}]
+                }]
+            }
 
             ,
             "screenshot_uri": ""
