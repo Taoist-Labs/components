@@ -3,7 +3,7 @@ import React ,{useEffect, useState} from "react";
 import {TableProps, thProps} from "../type/compontent.type";
 import Input from "./input";
 import SelectBox from "./select";
-import { useFieldArray } from 'react-hook-form';
+import { useFieldArray,Controller } from 'react-hook-form';
 import File from "./File";
 import CheckBox from "./checkbox";
 import Minus from "../svg/minus";
@@ -176,9 +176,8 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
                                 }
                             </td>))
                         }
+
                         <td>
-
-
                             <AddButton  theme={theme?.toString()} onClick={() =>remove(innerIndex)}><Minus /></AddButton>
                         </td>
                     </tr>))

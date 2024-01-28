@@ -737,6 +737,117 @@ function New() {
 
             ,
             "screenshot_uri": ""
+        },
+        {
+            "id": 15,
+            "name": "reject",
+            "schema": {
+                "type": "reject",
+                "title": "否决提案",
+                "content": [
+                    {
+                        "type": "select",
+                        "dataList": "datasrv/can_be_vetoed_proposals",
+                        "name": "guild_id",
+                        "properties": [{"name": "title", "value": "提案名称"}, {
+                            "name": "size",
+                            "value": "lg"
+                        }, {"name": "validate", "value": {"required": true}}]
+                    }
+                ]
+
+            }
+            ,
+            "screenshot_uri": ""
+        },
+        {
+            "id": 16,
+            "name": "relate",
+            "schema": {
+            "title": "立项提案",
+            "type": "relate",
+            "content": [
+                {
+                    "type": "input",
+                    "inputType": "text",
+                    "value": "",
+                    "name": "relate",
+                    "properties":[
+                        {
+                            "name": "title",
+                            "value": "关联提案"
+                        },
+                        {
+                            "name": "size",
+                            "value": "lg"
+                        },
+                        {
+                            "name": "validate",
+                            "value": {
+                                "required": true,
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+            "screenshot_uri": ""
+        },
+        {
+            "id": 17,
+            "name": "budget_p1",
+            "schema": {
+                "title": "预算申请(P1)",
+                "type": "budget_p1",
+                "desc": "P1 提案可申请不超过 20000 SCR 的激励",
+                "content": [
+                    {
+                        "type": "input",
+                        "inputType": "text",
+                        "value": "",
+                        "name": "amount",
+                        "properties":[
+                            {
+                                "name": "title",
+                                "value": "数额"
+                            },
+                            {
+                                "name": "size",
+                                "value": "md"
+                            },
+                            {
+                                "name": "validate",
+                                "value": {
+                                    "required": true
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "select",
+                        "dataList": "datasrv/asset_type",
+                        "value":"",
+                        "name": "typeTest",
+                        "properties":[
+                            {
+                                "name": "title",
+                                "value": "资产类型"
+                            },
+                            {
+                                "name": "size",
+                                "value": "md"
+                            },
+                            {
+                                "name": "validate",
+                                "value": {
+                                    "required": true
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "screenshot_uri": ""
         }
     ]
 
@@ -759,11 +870,10 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDYxNjEzNzEsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.RluKTIAM8yUr9GArr3AAuphINqY5oEG3FRVnGM7rsxY"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDY1MTU1NzgsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.w8mC6yXY1aUCEDEhz_ytpns8BYuzOvlhX1_U7bNVoQc"
                               showRight={true}
                               theme={false}
-                              DataSource={[{"id":171,"component_id":13,"name":"deliverables","schema":"",
-                                  "data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"编辑立项信息交付物","proposal_id":"os-327"},"create_ts":1704435062}]}
+                              DataSource={[{"component_id":16,"name":"relate","schema":"","data":{"relate":"公共项目申请"}},{"id":181,"component_id":12,"name":"budget","schema":"","data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","budgetList":[{"amount":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"测试预付","proportion":"80","typeTest":{"id":1,"name":"SCR"}}],"proposal_id":"os-333"},"create_ts":1706340166},{"id":182,"component_id":13,"name":"deliverables","schema":"","data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"公共项目申请 交付物","proposal_id":"os-333"},"create_ts":1706340166},{"id":183,"component_id":14,"name":"deadline","schema":"","data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"2024-02-02T16:00:00.000Z","proposal_id":"os-333"},"create_ts":1706340166}]}
                             operate={operate}
                               initialItems={testFor}
                               BeforeComponent={

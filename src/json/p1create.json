@@ -1,0 +1,52 @@
+{
+  "title": "预算申请(P1)",
+  "type": "budget_p1",
+  "desc": "P1 提案可申请不超过 20000 SCR 的激励",
+  "content": [
+
+    {
+      "type": "input",
+      "inputType": "text",
+      "value": "",
+      "name": "amount",
+      "properties":[
+        {
+          "name": "title",
+          "value": "数额"
+        },
+        {
+          "name": "size",
+          "value": "md"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "dataList": "datasrv/asset_type",
+      "value":"",
+      "name": "typeTest",
+      "properties":[
+        {
+          "name": "title",
+          "value": "资产类型"
+        },
+        {
+          "name": "size",
+          "value": "md"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "required": true
+          }
+        }
+      ]
+    }
+  ]
+}

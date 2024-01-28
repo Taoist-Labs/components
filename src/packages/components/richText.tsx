@@ -2,7 +2,7 @@ import {InputProps} from "../type/compontent.type";
 import styled from "styled-components";
 import React, {useEffect, useState} from "react";
 import {Controller} from "react-hook-form";
-import "react-datepicker/dist/react-datepicker.css";
+
 import Lan from "../utils/lan";
 import { MdEditor } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';

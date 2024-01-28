@@ -1,0 +1,28 @@
+{
+  "title": "立项提案",
+  "type": "relate",
+  "content": [
+    {
+      "type": "input",
+      "inputType": "text",
+      "value": "",
+      "name": "relate",
+      "properties":[
+        {
+          "name": "title",
+          "value": "关联提案"
+        },
+        {
+          "name": "size",
+          "value": "lg"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "required": true,
+          }
+        }
+      ]
+    }
+  ]
+}

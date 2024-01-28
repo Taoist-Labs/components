@@ -6,7 +6,6 @@ import InitialItem from "./json/initialItem";
 import styled from "styled-components";
 
 const Box = styled.div`
-    background: #f00;
     padding: 10px;
 `
 
@@ -22,9 +21,9 @@ function PreviewPage() {
                     {
                         "type": "select",
                         "dataList": "datasrv/project_list",
-                        "value":"",
+                        "value": "",
                         "name": "type",
-                        "properties":[
+                        "properties": [
                             {
                                 "name": "title",
                                 "value": "资产类型"
@@ -42,10 +41,10 @@ function PreviewPage() {
                         ]
                     },
                     {
-                        "type":"datepicker",
-                        "value":"",
-                        "name":"test",
-                        "properties":[
+                        "type": "datepicker",
+                        "value": "",
+                        "name": "test",
+                        "properties": [
                             {
                                 "name": "title",
                                 "value": "日期选择"
@@ -66,9 +65,8 @@ function PreviewPage() {
                         "type": "checkbox",
                         "dataList": "datasrv/project_list",
                         "name": "delMemeberList",
-                        "value":{
-                        },
-                        "properties":[
+                        "value": {},
+                        "properties": [
                             {
                                 "name": "title",
                                 "value": "删除成员"
@@ -91,7 +89,7 @@ function PreviewPage() {
                         "inputType": "address",
                         "value": "",
                         "name": "address",
-                        "properties":[
+                        "properties": [
                             {
                                 "name": "title",
                                 "value": "项目成员"
@@ -113,7 +111,7 @@ function PreviewPage() {
                         "inputType": "address",
                         "value": "",
                         "name": "address",
-                        "properties":[
+                        "properties": [
                             {
                                 "name": "title",
                                 "value": "项目成员"
@@ -136,7 +134,7 @@ function PreviewPage() {
                         "inputType": "address",
                         "value": "",
                         "name": "address",
-                        "properties":[
+                        "properties": [
                             {
                                 "name": "title",
                                 "value": "项目成员"
@@ -158,7 +156,7 @@ function PreviewPage() {
                         "uploadType": "image",
                         "value": "",
                         "name": "logo",
-                        "properties":[
+                        "properties": [
                             {
                                 "name": "title",
                                 "value": "项目Logo"
@@ -180,7 +178,7 @@ function PreviewPage() {
                         "uploadType": "file",
                         "value": "",
                         "name": "fileStr",
-                        "properties":[
+                        "properties": [
                             {
                                 "name": "title",
                                 "value": "项目Logo"
@@ -201,8 +199,8 @@ function PreviewPage() {
                         "type": "table",
                         "name": "receiverList",
                         "style": {
-                            "width": [30,25,25],
-                            "tHeader": ["接收人","资产类型","资产数量","备注"]
+                            "width": [30, 25, 25],
+                            "tHeader": ["接收人", "资产类型", "资产数量", "备注"]
                         },
                         "rows": [
                             {
@@ -210,7 +208,7 @@ function PreviewPage() {
                                 "inputType": "text",
                                 "value": "",
                                 "name": "address",
-                                "properties":[
+                                "properties": [
                                     {
                                         "name": "title",
                                         "value": "接收人"
@@ -221,17 +219,16 @@ function PreviewPage() {
                                     },
                                     {
                                         "name": "validate",
-                                        "value": {
-                                        }
+                                        "value": {}
                                     }
                                 ]
                             },
                             {
                                 "type": "select",
                                 "dataList": "datasrv/project_list",
-                                "value":"",
+                                "value": "",
                                 "name": "type",
-                                "properties":[
+                                "properties": [
                                     {
                                         "name": "title",
                                         "value": "资产类型"
@@ -253,7 +250,7 @@ function PreviewPage() {
                                 "inputType": "number",
                                 "value": "",
                                 "name": "amount",
-                                "properties":[
+                                "properties": [
                                     {
                                         "name": "title",
                                         "value": "资产数量"
@@ -276,7 +273,7 @@ function PreviewPage() {
                                 "inputType": "text",
                                 "value": "",
                                 "name": "memo",
-                                "properties":[
+                                "properties": [
                                     {
                                         "name": "title",
                                         "value": "备注"
@@ -380,8 +377,8 @@ function PreviewPage() {
                         "type": "table",
                         "name": "receiverList",
                         "style": {
-                            "width": [20, 15, 15,20,30],
-                            "tHeader": ["接收人", "资产类型","资产数量", "事项", "备注"]
+                            "width": [20, 15, 15, 20, 30],
+                            "tHeader": ["接收人", "资产类型", "资产数量", "事项", "备注"]
                         },
                         "rows": [
                             {
@@ -462,7 +459,8 @@ function PreviewPage() {
                             "value": {"required": true}
                         }]
                     }]
-            }, "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/09a775e0-5309-4840-aafe-679b2d7bf1b6.png"
+            },
+            "screenshot_uri": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/proposal_images/09a775e0-5309-4840-aafe-679b2d7bf1b6.png"
         },
         {
             "id": 11,
@@ -504,7 +502,7 @@ function PreviewPage() {
                 }]
             },
             "screenshot_uri": ""
-        },{
+        }, {
             "id": 12,
             "name": "budget",
             "schema": {
@@ -515,8 +513,8 @@ function PreviewPage() {
                         "type": "table",
                         "name": "budgetList",
                         "style": {
-                            "width": [20,20,20,40],
-                            "tHeader": ["申请数额","资产类型","预付比例(0-50%)","预付需求说明"]
+                            "width": [20, 20, 20, 40],
+                            "tHeader": ["申请数额", "资产类型", "预付比例(0-50%)", "预付需求说明"]
                         },
                         "rows": [
 
@@ -525,7 +523,7 @@ function PreviewPage() {
                                 "inputType": "text",
                                 "value": "",
                                 "name": "amount",
-                                "properties":[
+                                "properties": [
                                     {
                                         "name": "title",
                                         "value": "申请数额"
@@ -545,9 +543,9 @@ function PreviewPage() {
                             {
                                 "type": "select",
                                 "dataList": "datasrv/asset_type",
-                                "value":"",
+                                "value": "",
                                 "name": "typeTest",
-                                "properties":[
+                                "properties": [
                                     {
                                         "name": "title",
                                         "value": "资产类型"
@@ -569,7 +567,7 @@ function PreviewPage() {
                                 "inputType": "text",
                                 "value": "",
                                 "name": "proportion",
-                                "properties":[
+                                "properties": [
                                     {
                                         "name": "title",
                                         "value": "预付比例"
@@ -591,7 +589,7 @@ function PreviewPage() {
                                 "inputType": "text",
                                 "value": "",
                                 "name": "description",
-                                "properties":[
+                                "properties": [
                                     {
                                         "name": "title",
                                         "value": "预付需求说明"
@@ -619,7 +617,19 @@ function PreviewPage() {
         {
             "id": 13,
             "name": "deliverables",
-            "schema": {"type":"Deliverables","title":"交付物","content":[{"type":"richText","value":"","name":"description","properties":[{"name":"title","value":"交付物"},{"name":"size","value":"lg"},{"name":"validate","value":{"required":true}}]}]}
+            "schema": {
+                "type": "Deliverables",
+                "title": "交付物",
+                "content": [{
+                    "type": "richText",
+                    "value": "",
+                    "name": "description",
+                    "properties": [{"name": "title", "value": "交付物"}, {
+                        "name": "size",
+                        "value": "lg"
+                    }, {"name": "validate", "value": {"required": true}}]
+                }]
+            }
 
             ,
             "screenshot_uri": ""
@@ -635,7 +645,7 @@ function PreviewPage() {
                         "type": "datepicker",
                         "value": "",
                         "name": "description",
-                        "properties":[
+                        "properties": [
                             {
                                 "name": "title",
                                 "value": "日期选择"
@@ -660,12 +670,66 @@ function PreviewPage() {
             "screenshot_uri": ""
         }
     ]
-        // <Preview DataSource={[{"id":171,"component_id":13,"name":"deliverables","schema":"",
-        //     "data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"编辑立项信息交付物","proposal_id":"os-327"},"create_ts":1704435062}]} language="zh" initialItems={testFor}  theme={false} BeforeComponent={<div>-----test add after-----</div>} AfterComponent={<div>-----test add after-----</div>} />
+    // <Preview DataSource={[{"id":171,"component_id":13,"name":"deliverables","schema":"",
+    //     "data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"编辑立项信息交付物","proposal_id":"os-327"},"create_ts":1704435062}]} language="zh" initialItems={testFor}  theme={false} BeforeComponent={<div>-----test add after-----</div>} AfterComponent={<div>-----test add after-----</div>} />
+
+
 
     return (
         <Box>
-            <Preview DataSource={null} language="zh" initialItems={testFor}  theme={false}  />
+            <Preview DataSource={[{
+                "component_id": 16,
+                "name": "relate",
+                "schema": "",
+                "data": {"relate": "公共项目申请"}
+            }, {
+                "id": 181,
+                "component_id": 12,
+                "name": "budget",
+                "schema": "",
+                "data": {
+                    "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                    "budgetList": [{
+                        "amount": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                        "description": "测试预付",
+                        "proportion": "80",
+                        "typeTest": {"id": 1, "name": "SCR"}
+                    }],
+                    "proposal_id": "os-333"
+                },
+                "create_ts": 1706340166
+            }, {
+                "id": 182,
+                "component_id": 13,
+                "name": "deliverables",
+                "schema": "",
+                "data": {
+                    "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                    "description": "公共项目申请 交付物",
+                    "proposal_id": "os-333"
+                },
+                "create_ts": 1706340166
+            }, {
+                "id": 183,
+                "component_id": 14,
+                "name": "deadline",
+                "schema": "",
+                "data": {
+                    "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                    "description": "2024-02-02T16:00:00.000Z",
+                    "proposal_id": "os-333"
+                },
+                "create_ts": 1706340166
+            }]} language="zh" initialItems={testFor} theme={false} key="preview_main"
+
+                     BeforeComponent={
+                        <div>
+                            <Preview  key="preview_inner" DataSource={[{"id":219,"component_id":13,"name":"deliverables","schema":"","data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"交付物","proposal_id":"os-345"},"create_ts":1706424321},{"id":220,"component_id":12,"name":"budget","schema":"","data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","budgetList":[{"typeTest":""}],"proposal_id":"os-345"},"create_ts":1706424321},{"id":221,"component_id":14,"name":"deadline","schema":"","data":{"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","proposal_id":"os-345"},"create_ts":1706424321}]} language="zh" initialItems={testFor} theme={false} />
+                            <hr/>
+                        </div>
+
+                     }
+            />
         </Box>
 
     );

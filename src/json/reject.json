@@ -1,0 +1,16 @@
+{
+  "title": "否决提案",
+  "type": "reject",
+  "noTitle": true,
+  "content": [
+    {
+      "type": "select",
+      "dataList": "datasrv/can_be_vetoed_proposals",
+      "name": "guild_id",
+      "properties": [{"name": "title", "value": "提案名称"}, {
+        "name": "size",
+        "value": "lg"
+      }, {"name": "validate", "value": {"required": true}}]
+    }
+  ]
+}

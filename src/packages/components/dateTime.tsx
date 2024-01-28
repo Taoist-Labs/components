@@ -3,7 +3,6 @@ import styled from "styled-components";
 import React, {useEffect, useState} from "react";
 import {Controller} from "react-hook-form";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import Lan from "../utils/lan";
 
 const Box = styled.div<{theme?:string}>`

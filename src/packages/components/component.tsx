@@ -42,6 +42,11 @@ const ContentBox = styled.ul`
   }
 `
 
+const Tips = styled.div`
+    font-size: 12px;
+    opacity: 0.6;
+`
+
 const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
@@ -70,6 +75,9 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
 
     return <Box key={list?.id}>
         <TitleBox>{list?.title}</TitleBox>
+        {
+            !!list?.desc &&  <Tips>{list?.desc}</Tips>
+        }
         <ContentBox>
             {
                 list?.content?.map((item,index)=>(

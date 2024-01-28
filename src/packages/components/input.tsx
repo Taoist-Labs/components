@@ -83,15 +83,15 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
         setProp(arr)
     }, [item.properties]);
 
-    useEffect(() => {
-
-        if(tableIndex===undefined){
-            setValue(`${type}.${item?.name}`,item?.value)
-        }
-        return () =>{
-            reset();
-        }
-    }, []);
+    // useEffect(() => {
+    //
+    //     if(tableIndex===undefined){
+    //         setValue(`${type}.${item?.name}`,item?.value)
+    //     }
+    //     return () =>{
+    //         reset();
+    //     }
+    // }, []);
 
     useEffect(()=>{
         setInputName(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)

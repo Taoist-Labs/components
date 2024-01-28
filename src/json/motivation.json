@@ -20,7 +20,7 @@
               "type": "input",
               "inputType": "address",
               "value": "",
-              "name": "amount",
+              "name": "address",
               "properties":[
                 {
                   "name": "title",

@@ -143,14 +143,14 @@ export default function Checkbox({item,tableIndex,type,listName,reset,setValue,g
 
     useEffect(() => {
 
-        if(tableIndex===undefined){
-            setValue(`${type}.${item?.name}`,item?.value)
-        }
+        // if(tableIndex===undefined){
+        //     setValue(`${type}.${item?.name}`,item?.value)
+        // }
         let selectOp = getValues(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`);
         setSelectOptions(selectOp?selectOp:[])
-        return () =>{
-            reset();
-        }
+        // return () =>{
+        //     reset();
+        // }
     }, []);
 
     const handleSelect = (e:ChangeEvent) =>{

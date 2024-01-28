@@ -4,6 +4,7 @@ import {thProps} from "../type/compontent.type";
 import sns from '@seedao/sns-js';
 import Lan from "../utils/lan";
 import { MdPreview } from 'md-editor-rt';
+import { v4 as uuidv4 } from 'uuid';
 
 const Box = styled.div<{theme?:string}>`
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
@@ -269,7 +270,7 @@ const TitleBox2 = styled(TitleBox)`
 `
 
 
-export default function Preview({DataSource,initialItems,theme,BeforeComponent,AfterComponent,language}:any){
+export default function Preview({DataSource,innerData,initialItems,theme,BeforeComponent,AfterComponent,language}:any){
 
     const [list,setList] = useState<any[]>([])
     const [address,setAddress] = useState('');
@@ -280,7 +281,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
     const link = protocol + '//' + hostname + (port ? ':' + port : '');
 
     useEffect(() => {
-        if(!DataSource || !initialItems) return;
+        if(!DataSource  || !initialItems) return;
         let arr:any[]=[];
 
         DataSource.map((d:any)=>{
@@ -382,21 +383,22 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
     }
 
-    return <Box theme={theme?.toString()}>
+    return <Box theme={theme?.toString()} key={`box_${uuidv4()}`} id={`box_${uuidv4()}`}>
 
         {
-            !!BeforeComponent && <BeforeDiv>
+            !!BeforeComponent && <BeforeDiv  key={`before_${uuidv4()}`}>
                 {
                     BeforeComponent
                 }
             </BeforeDiv>
         }
 
+
         {
-            !!list.length && <P32>
+            !!list.length && <P32 key={`proposal_${uuidv4()}`}>
 
                 {
-                    list.map((item:any,index)=>(<div key={index}>
+                    list.map((item:any,index)=>(<div key={`preview_${index}_${uuidv4()}`}>
                             {
                                 item.name_type === "associate_proposal" && <InnerBox onClick={()=>togo(item?.proposal.id)}>
                                     <TitleBox2>{item?.proposal?.name}</TitleBox2>
@@ -420,7 +422,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                             }
 
                             {
-                                item.name_type !== "associate_proposal" && <InnerBox className={item.noTitle?"noBorder":"borderBox"} key={index} theme={theme?.toString()}>
+                                item.name_type !== "associate_proposal" && <InnerBox className={item.noTitle?"noBorder":"borderBox"} key={`proposal_${uuidv4()}`} theme={theme?.toString()}>
 
                                     {
                                         !item.noTitle &&<TitleBox>{item?.title}</TitleBox>
@@ -429,7 +431,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                     <ContentBox theme={theme?.toString()}>
                                         {
                                             item.content.map((inner:any,innerKey:number)=>(
-                                                <LineFlex key={`component_${innerKey}`}  className={(inner.type === "file" && inner.uploadType ==="image" || inner.type === "checkbox")?"lgImg": inner?.pro?.size}>
+                                                <LineFlex key={`component_${innerKey}_${uuidv4()}`}  className={(inner.type === "file" && inner.uploadType ==="image" || inner.type === "checkbox")?"lgImg": inner?.pro?.size}>
                                                     {
                                                         inner.type === "table" && <TableOuter theme={theme?.toString()}>
 
@@ -438,7 +440,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                                                 <tr>
 
                                                                     {
-                                                                        [...Array(inner.rows.length)].map((col,index)=>(<ThBox key={`thead_${index}`} width={inner.style.width[index]}>
+                                                                        [...Array(inner.rows.length)].map((col,index)=>(<ThBox key={`thead_${index}}_${uuidv4()}`} width={inner.style.width[index]}>
                                                                             {
                                                                                 inner.style.tHeader[index]
                                                                             }
@@ -450,9 +452,9 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
 
                                                                 {
                                                                     inner.table?.map((r:any,rInd:number)=>(
-                                                                        <tr key={`tbody_${rInd}`}>
+                                                                        <tr key={`tbody_${rInd}_${uuidv4()}`}>
                                                                             {
-                                                                                r.map((rInner:any,rIin:number)=>(<td key={`td_${rIin}`}>
+                                                                                r.map((rInner:any,rIin:number)=>(<td key={`td_${rIin}_${uuidv4()}`}>
                                                                                         {
                                                                                             rInner.type === "input" &&
                                                                                             <span>{rInner?.value}</span>
@@ -480,7 +482,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                                                                                 <dd>
                                                                                                     <ul>
                                                                                                         {
-                                                                                                            rInner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`}>{ii.value}</li>))
+                                                                                                            rInner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}}_${uuidv4()}`}>{ii.value}</li>))
                                                                                                         }
                                                                                                     </ul>
                                                                                                 </dd>
@@ -560,7 +562,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
                                                             <dd>
                                                                 <UlBox>
                                                                     {
-                                                                        inner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}`} className={inner?.pro?.size}><WhiteBox theme={theme?.toString()}>{ii.value}</WhiteBox></li>))
+                                                                        inner.value.map((ii:any,iiID:number)=>( <li key={`select_${iiID}_${uuidv4()}`} className={inner?.pro?.size}><WhiteBox theme={theme?.toString()}>{ii.value}</WhiteBox></li>))
                                                                     }
                                                                 </UlBox>
                                                             </dd>
@@ -581,7 +583,7 @@ export default function Preview({DataSource,initialItems,theme,BeforeComponent,A
             </P32>
         }
 
-        <AfterDiv>
+        <AfterDiv key={`after_${uuidv4()}`}>
             {
                 AfterComponent
             }

@@ -4,6 +4,7 @@ export interface Icomponent {
     name: string;
     id: string;
     title:string;
+    desc:string;
     automation_action:string;
     content:any[]
 }
