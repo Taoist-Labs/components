@@ -75,13 +75,14 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
 
     return <Box key={list?.id}>
         <TitleBox>{list?.title}</TitleBox>
-        {
-            !!list?.desc &&  <Tips>{list?.desc}</Tips>
-        }
+        {/*{*/}
+        {/*    !!list?.desc &&  <Tips>{list?.desc}</Tips>*/}
+        {/*}*/}
         <ContentBox>
             {
                 list?.content?.map((item,index)=>(
                     <li key={`list_${index}`} className={returnClass(item)}>
+
                         {
                             item.type === "input" && <Input
                                 item={item}

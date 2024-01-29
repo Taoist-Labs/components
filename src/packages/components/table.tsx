@@ -83,11 +83,11 @@ const AddBox = styled.div`
     margin:0 20px 20px;
 `
 
-const Tips = styled.div`
-    margin-bottom: 20px;
-    font-size: 12px;
-    opacity: 0.6;
-`
+// const Tips = styled.div`
+//     margin-bottom: 20px;
+//     font-size: 12px;
+//     opacity: 0.6;
+// `
 
 export default function Table({item,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token,errors}:TableProps){
 
@@ -138,9 +138,9 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
 
     if(!item)return null;
     return <OuterBox>
-        <Tips>
-            {item?.desc}
-        </Tips>
+        {/*<Tips>*/}
+        {/*    {item?.desc}*/}
+        {/*</Tips>*/}
         <Box>
 
             <table>

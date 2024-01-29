@@ -528,7 +528,7 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                                     }
                                                     {
                                                         inner.type === "datepicker" && <LineBox>
-                                                            {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
+                                                            {/*{!item.noTitle && <dt>{inner?.pro?.title}</dt>}*/}
                                                             <dd>
                                                                 <WhiteBox theme={theme?.toString()}>{dateFormat(inner?.value)}</WhiteBox>
 

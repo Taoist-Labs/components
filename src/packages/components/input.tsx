@@ -17,6 +17,14 @@ const Box = styled.div<{theme?:string}>`
       padding-left: 5px;
 
   }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
     input,textarea{
         height: 40px;
         border-radius: 8px;
@@ -64,8 +72,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
 
-
-            if(inner.name === "validate" && !inner.value.pattern ){
+            if(inner.name === "validate"){
 
                 switch(item.inputType){
                     case "email":
@@ -76,6 +83,9 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                         break;
                     case "text":
                     default:
+                        if(inner.value.pattern){
+                            inner.value.pattern = new RegExp(inner.value.pattern);
+                        }
                         break;
                 }
             }
@@ -83,15 +93,15 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
         setProp(arr)
     }, [item.properties]);
 
-    // useEffect(() => {
-    //
-    //     if(tableIndex===undefined){
-    //         setValue(`${type}.${item?.name}`,item?.value)
-    //     }
-    //     return () =>{
-    //         reset();
-    //     }
-    // }, []);
+    useEffect(() => {
+
+        if(tableIndex===undefined){
+            setValue(`${type}.${item?.name}`,item?.value)
+        }
+        // return () =>{
+        //     reset();
+        // }
+    }, []);
 
     useEffect(()=>{
         setInputName(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
@@ -102,11 +112,10 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
     return <Box theme={theme?.toString()}>
         <label className="labelLft">{prop?.title}</label>
         <div className="rht">
-
                 <Controller
                     name={inputName}
                     control={control}
-                    rules={prop.validate}
+                    rules={prop?.validate}
                     render={({ field,fieldState }) => (
                         <>
                             {
@@ -119,6 +128,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                             }
                             {
                                 item.inputType !== "textarea" && <input
+                                    type={item.inputType==="number"?"number":"text"}
                                     {...field}
                                     value={getValues(inputName) || ''}
                                     className={`${!!fieldState.error?'error':''}`}/>

@@ -132,6 +132,7 @@ export interface ChildMethods {
 export interface  Item  {
     id: string;
     screenshot_uri: string;
+    is_hidden: boolean;
     title: string;
     name: string;
     auto_action?: string;

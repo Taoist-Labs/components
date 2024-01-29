@@ -72,7 +72,8 @@
             {
               "name": "validate",
               "value": {
-                "required": true
+                "required": true,
+                "pattern": "^(?:[1-9]|[1-4]\\d|50|0)$"
               }
             }
           ]

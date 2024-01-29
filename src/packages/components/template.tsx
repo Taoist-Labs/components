@@ -189,13 +189,16 @@ const P32 = styled.div`
     const [rightItems, setRightItems] = useState<Item[]>([]);
 
     useEffect(() => {
+        if(!initialItems?.length)return;
         if(operate === 'edit'){
             if(!DataSource)return;
             init()
         }else if(operate === "template"){
             initTemplate()
         }else{
-            setLeftItems(initialItems);
+
+            const rtArr = initialItems.filter((i:Item)=>!i.is_hidden);
+            setLeftItems(rtArr);
         }
     }, [operate,initialItems]);
 
@@ -204,15 +207,22 @@ const P32 = styled.div`
     const init = () =>{
         let updateRht:Item[] = [];
         let updateLft = [...leftItems];
+
+
         DataSource.map((dItem:any)=>{
             const cptIndex = initialItems.findIndex((item:any)=> item.name === dItem.name);
-            initialItems[cptIndex].data = dItem.data;
+
+            initialItems[cptIndex].data = dItem?.data ;
+
             updateRht.push({...initialItems[cptIndex],  dragType: 'form'});
         })
 
         const cptLft = initialItems.filter((element:any)=> !updateRht.some(e => e.name === element.name));
         updateLft = [...cptLft];
-        setLeftItems(updateLft);
+
+        const rtArr = updateLft.filter(i=>!i.is_hidden);
+
+        setLeftItems(rtArr);
         setRightItems(updateRht);
     }
 

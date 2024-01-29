@@ -304,9 +304,9 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
 
 
     useEffect(() => {
-        // if(tableIndex===undefined){
-        //     setValue(`${type}.${item?.name}`,item?.value)
-        // }
+        if(tableIndex===undefined){
+            setValue(`${type}.${item?.name}`,item?.value)
+        }
 
         let url = getValues(inputName)
 
