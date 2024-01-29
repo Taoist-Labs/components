@@ -328,7 +328,9 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                    }
                    if(i.name==="relate"){
                         i.schema.proposal_id = d.data.proposal_id;
-
+                   }
+                   if(i.name==="relate"){
+                        i.schema.proposal_id = d.data.proposal_id?.split("os-")[1];
                    }
                     arr.push(i.schema)
                 }
@@ -424,7 +426,8 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                     </FlexBtm>
 
                                 </InnerBox>
-                            }{
+                            }
+                            {
                                 item.name_type === "relate" && <InnerBox className="borderBox"  theme={theme?.toString()}  onClick={()=>togo(item?.proposal_id)}>
                                 <TitleBox>{item?.title}</TitleBox>
                                 <ContentBox theme={theme?.toString()}>
@@ -436,9 +439,21 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                 </ContentBox>
                             </InnerBox>
                             }
+                            {
+                                item.name_type === "reject" && <InnerBox className="borderBox"  theme={theme?.toString()}  onClick={()=>togo(item?.proposal_id)}>
+                                <TitleBox>{item?.title}</TitleBox>
+                                <ContentBox theme={theme?.toString()}>
+                                <LineBox>
+                                    <dd>
+                                        <WhiteBox theme={theme?.toString()}>{item.content[0]?.value?.name}</WhiteBox>
+                                    </dd>
+                                </LineBox>
+                                </ContentBox>
+                            </InnerBox>
+                            }
 
                             {
-                                item.name_type !== "associate_proposal" && item.name_type !== "relate" && <InnerBox className={item.noTitle?"noBorder":"borderBox"} key={`proposal_${uuidv4()}`} theme={theme?.toString()}>
+                                item.name_type !== "associate_proposal" && item.name_type !== "relate"&& item.name_type !== "reject" && <InnerBox className={item.noTitle?"noBorder":"borderBox"} key={`proposal_${uuidv4()}`} theme={theme?.toString()}>
 
                                     {
                                         !item.noTitle &&<TitleBox>{item?.title}</TitleBox>
