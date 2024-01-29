@@ -329,8 +329,8 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                    if(i.name==="relate"){
                         i.schema.proposal_id = d.data.proposal_id;
                    }
-                   if(i.name==="relate"){
-                        i.schema.proposal_id = d.data.proposal_id?.split("os-")[1];
+                   if(i.name==="reject"){
+                        i.schema.proposal_id = d.data?.proposal_info?.id;
                    }
                     arr.push(i.schema)
                 }
