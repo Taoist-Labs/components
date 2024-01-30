@@ -178,7 +178,7 @@ const P32 = styled.div`
 
  const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token,onSaveData}:any,ref) => {
      React.useImperativeHandle(ref, () => ({
-         submitForm:handleSubmit(onSubmit),
+         submitForm:handleSubmit(onSubmit,onError),
          saveForm:saveDraft,
      }));
 
@@ -300,6 +300,14 @@ const P32 = styled.div`
     }
 
 
+     const onError = async (error:any) =>{
+
+
+         onSubmitData && onSubmitData(false,error);
+
+     }
+
+
     const onSubmit = async (data:any) =>{
 
 
@@ -318,7 +326,7 @@ const P32 = styled.div`
         //     arr.push(obj)
         // }
         let formData = formatDAllData(data)
-        onSubmitData && onSubmitData(formData);
+        onSubmitData && onSubmitData(true,formData);
 
     }
 

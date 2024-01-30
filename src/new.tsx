@@ -69,7 +69,9 @@ function New() {
         setTest(value)
     }
 
-    const handleFormSubmit = (data: any) => {
+    const handleFormSubmit = (success:boolean,data:any) => {
+
+        console.log(success,data)
         // console.error(data)
         // console.log({
         //     ...data,

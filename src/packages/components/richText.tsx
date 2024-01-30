@@ -5,7 +5,6 @@ import {Controller} from "react-hook-form";
 
 import Lan from "../utils/lan";
 import { MdEditor } from 'md-editor-rt';
-import 'md-editor-rt/lib/style.css';
 import { v4 as uuidv4 } from 'uuid';
 
 
