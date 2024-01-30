@@ -274,15 +274,22 @@ const P32 = styled.div`
     };
 
     const formatDAllData = (data:any) =>{
-        let obj:any={};
-        for(let key in data){
+        let arr:any[]=[];
 
-            const select = rightItems.filter((item:any)=> item.name === key);
-            if(select.length){
-                obj[key] = data[key]
+        rightItems.map((item,index)=>{
+            for(let key in data){
+
+                if(item.name === key){
+                    arr.push({
+                        name: key,
+                        data: data[key],
+                    })
+                }
+
             }
-        }
-        return obj
+
+        })
+        return arr
 
     }
 
@@ -296,20 +303,20 @@ const P32 = styled.div`
     const onSubmit = async (data:any) =>{
 
 
-        let arr = [];
-        for(let key in data){
-            const cpt = initialItems.filter((item:any)=> item.name === key);
-            const id = uuidv4();
-
-            // const {type,automation_action} = JSON.parse(cpt[0]?.schema);
-            let obj ={
-                id,
-                // auto_action:automation_action,
-                data:data[key],
-                // name:type
-            }
-            arr.push(obj)
-        }
+        // let arr = [];
+        // for(let key in data){
+        //     const cpt = initialItems.filter((item:any)=> item.name === key);
+        //     const id = uuidv4();
+        //
+        //     // const {type,automation_action} = JSON.parse(cpt[0]?.schema);
+        //     let obj ={
+        //         id,
+        //         // auto_action:automation_action,
+        //         data:data[key],
+        //         // name:type
+        //     }
+        //     arr.push(obj)
+        // }
         let formData = formatDAllData(data)
         onSubmitData && onSubmitData(formData);
 

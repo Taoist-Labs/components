@@ -70,16 +70,18 @@ function New() {
     }
 
     const handleFormSubmit = (data: any) => {
-        console.log({
-            ...data,
-            test
-        })
+        // console.error(data)
+        // console.log({
+        //     ...data,
+        //     test
+        // })
     };
     const handleSave = (data: any) => {
-        console.log(JSON.stringify({
-            ...data,
-            test
-        }))
+        console.error(data)
+        // console.log(JSON.stringify({
+        //     ...data,
+        //     test
+        // }))
     };
 
     const saveAll = () =>{
