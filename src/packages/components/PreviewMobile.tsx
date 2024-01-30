@@ -4,6 +4,7 @@ import {thProps} from "../type/compontent.type";
 import sns from "@seedao/sns-js";
 import Lan from "../utils/lan";
 import {MdPreview} from "md-editor-rt";
+import { v4 as uuidv4 } from 'uuid';
 
 const Box = styled.div<{theme?:string}>`
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
@@ -317,6 +318,12 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                         i.schema.applicant_avatar = d.data.applicant_avatar;
                         setAddress(d.data.applicant)
                     }
+                    if(i.name==="relate"){
+                        i.schema.proposal_id = d.data.proposal_id;
+                    }
+                    if(i.name==="reject"){
+                        i.schema.proposal_id = d.data?.proposal_info?.id;
+                    }
                     arr.push(i.schema)
                 }
             })
@@ -363,6 +370,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
     }
 
     const togo =(id:string) =>{
+        console.log("====togo")
         window.open(`${link}/proposal/thread/${id}`)
     }
 
@@ -377,11 +385,11 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
     }
 
-    return <Box theme={theme?.toString()}>
+    return <Box theme={theme?.toString()} key={`box_${uuidv4()}`} >
 
 
         {
-            !!list.length && <P32>
+            !!list.length && <P32 key={`proposal_${uuidv4()}`}>
 
                 {
                     list.map((item:any,index)=>(<div key={index} >
@@ -410,8 +418,33 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                                 </InnerBox>
                             }
 
+                            {
+                                item.name_type === "relate" && <InnerBox className="borderBox"  theme={theme?.toString()}  onClick={()=>togo(item?.proposal_id)}>
+                                    <TitleBox>{item?.title}</TitleBox>
+                                    <ContentBox theme={theme?.toString()}>
+                                        <dl className="line">
+                                            <dd>
+                                                <WhiteBox theme={theme?.toString()}>{item.content[0]?.value}</WhiteBox>
+                                            </dd>
+                                        </dl>
+                                    </ContentBox>
+                                </InnerBox>
+                            }
+                            {
+                                item.name_type === "reject" && <InnerBox className="borderBox"  theme={theme?.toString()}  onClick={()=>togo(item?.proposal_id)}>
+                                    <TitleBox>{item?.title}</TitleBox>
+                                    <ContentBox theme={theme?.toString()}>
+                                        <dl className="line">
+                                            <dd>
+                                                <WhiteBox theme={theme?.toString()}>{item.content[0]?.value?.name}</WhiteBox>
+                                            </dd>
+                                        </dl>
+                                    </ContentBox>
+                                </InnerBox>
+                            }
+
                         {
-                            item.name_type !== "associate_proposal" &&  <InnerBox className={item.noTitle?"noBorder":"borderBox"} theme={theme?.toString()}>
+                            item.name_type !== "associate_proposal" && item.name_type !== "relate"&& item.name_type !== "reject" &&  <InnerBox className={item.noTitle?"noBorder":"borderBox"} theme={theme?.toString()}>
                                 {
                                     !item.noTitle &&<TitleBox>{item?.title}</TitleBox>
                                 }
@@ -512,7 +545,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                                         }
                                         {
                                             inner.type === "datepicker" && <dl className="line">
-                                                {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
+                                                {/*{!item.noTitle && <dt>{inner?.pro?.title}</dt>}*/}
                                                 <dd>
                                                     <WhiteBox theme={theme?.toString()}>{dateFormat(inner?.value)}</WhiteBox>
 

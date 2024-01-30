@@ -390,7 +390,7 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
 
     }
 
-    return <Box theme={theme?.toString()} key={`box_${uuidv4()}`} id={`box_${uuidv4()}`}>
+    return <Box theme={theme?.toString()} key={`box_${uuidv4()}`} >
 
         {
             !!BeforeComponent && <BeforeDiv  key={`before_${uuidv4()}`}>
