@@ -89,7 +89,7 @@ const AddBox = styled.div`
 //     opacity: 0.6;
 // `
 
-export default function Table({item,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token,errors}:TableProps){
+export default function Table({item,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token,errors,watch}:TableProps){
 
     const [column,setColumn] = useState(0);
     const [width,setWidth] = useState<number[]>([]);
@@ -162,7 +162,7 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
                         {
                             [...Array(column)].map((r,index)=>(<td key={`tbody_${index}`}>
                                 {
-                                    rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} reset={reset} setValue={setValue} theme={theme}  language={language} control={control} getValues={getValues}  />
+                                    rows[index].type === "input" && <Input item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} reset={reset} setValue={setValue} theme={theme}  language={language} control={control} getValues={getValues} watch={watch}  />
                                 }
                                 {
                                     rows[index].type === "select" && <SelectBox item={rows[index]} type={type} listName={item?.name} tableIndex={innerIndex} control={control} reset={reset} setValue={setValue} theme={theme} baseUrl={baseUrl} version={version} token={token} errors={errors} language={language} getValues={getValues} />

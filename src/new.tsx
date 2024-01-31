@@ -79,7 +79,7 @@ function New() {
         // })
     };
     const handleSave = (data: any) => {
-        console.error(data)
+        console.log(data)
         // console.log(JSON.stringify({
         //     ...data,
         //     test
@@ -132,7 +132,7 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDY2MDIwNDIsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.K3fImmqZ_kE0V07ZjbipTifhIr2fztGRv_UTe1p0AaI"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDY4MDAyMjMsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.sMkTR5hZXbLgf1JzNEyB98CRpcCsmBQiKklcgDFz1Wc"
                               showRight={true}
                               theme={false}
                             DataSource={[

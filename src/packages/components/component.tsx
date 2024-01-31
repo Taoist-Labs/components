@@ -47,7 +47,7 @@ const Tips = styled.div`
     opacity: 0.6;
 `
 
-const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors}:ChildProps) =>{
+const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
     const searchParams = new URLSearchParams(window.location.search);
@@ -89,6 +89,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 control={control}
                                 type={list?.name}
                                 reset={reset}
+                                watch={watch}
                                 setValue={setValue}
                                 language={language}
                                 getValues={getValues}
@@ -143,6 +144,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 reset={reset}
                                 getValues={getValues}
                                 theme={theme}
+                                watch={watch}
                                 language={language}
                                 baseUrl={baseUrl}
                                 version={version}

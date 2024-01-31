@@ -173,7 +173,10 @@ const DragTips = styled.div<{theme:string}>`
     }
 `
 const P32 = styled.div`
-    padding-inline: 32px;;
+   
+    &.p32Width{
+        padding-inline: 32px;
+    }
 `
 
  const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token,onSaveData}:any,ref) => {
@@ -182,7 +185,7 @@ const P32 = styled.div`
          saveForm:saveDraft,
      }));
 
-    const { handleSubmit,control,setValue,reset,getValues,  formState: { errors } } = useForm<any>({
+    const { handleSubmit,control,setValue,reset,getValues,watch,  formState: { errors } } = useForm<any>({
     });
 
     const [leftItems, setLeftItems] = useState<Item[]>([]);
@@ -265,8 +268,6 @@ const P32 = styled.div`
             const updatedRightItems = arr.filter((item) => item.id !== itemId);
             // const dataIndex = DataSource.findIndex((d)=>d.name === closedItem.name)
             // DataSource.splice(dataIndex,1);
-
-
             setLeftItems([...updatedLeftItems]);
             setRightItems([...updatedRightItems]);
 
@@ -278,14 +279,12 @@ const P32 = styled.div`
 
         rightItems.map((item,index)=>{
             for(let key in data){
-
                 if(item.name === key){
                     arr.push({
                         name: key,
                         data: data[key],
                     })
                 }
-
             }
 
         })
@@ -301,30 +300,12 @@ const P32 = styled.div`
 
 
      const onError = async (error:any) =>{
-
-
          onSubmitData && onSubmitData(false,error);
-
      }
 
 
     const onSubmit = async (data:any) =>{
 
-
-        // let arr = [];
-        // for(let key in data){
-        //     const cpt = initialItems.filter((item:any)=> item.name === key);
-        //     const id = uuidv4();
-        //
-        //     // const {type,automation_action} = JSON.parse(cpt[0]?.schema);
-        //     let obj ={
-        //         id,
-        //         // auto_action:automation_action,
-        //         data:data[key],
-        //         // name:type
-        //     }
-        //     arr.push(obj)
-        // }
         let formData = formatDAllData(data)
         onSubmitData && onSubmitData(true,formData);
 
@@ -349,7 +330,7 @@ const P32 = styled.div`
                         </BeforeDiv>
                     }
                     {
-                        (!!rightItems.length || operate === 'new' ) &&  <P32>
+                        (!!rightItems.length || operate === 'new' || showRight ) &&  <P32 className="p32Width">
                             <Droppable droppableId="right">
                                 {(provided) => (
                                     <>
@@ -381,6 +362,7 @@ const P32 = styled.div`
                                                                     name={item.name}
                                                                     getValues={getValues}
                                                                     theme={theme}
+                                                                    watch={watch}
                                                                     baseUrl={baseUrl}
                                                                     token={token}
                                                                     version={version}

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import Lan from "../utils/lan";
 import {Controller} from "react-hook-form";
+import sns from "@seedao/sns-js";
 
 
 const Box = styled.div<{theme?:string}>`
@@ -61,10 +62,11 @@ const ErrorTips = styled.div`
     white-space: nowrap;
 `
 
-export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues}:InputProps){
+export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues,watch}:InputProps){
 
     const [prop,setProp] = useState<any>();
     const [inputName,setInputName] = useState('')
+    const [inputValue,setInputValue]= useState('')
 
     useEffect(() => {
         if(!item.properties)return;
@@ -97,15 +99,51 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
 
         if(tableIndex===undefined){
             setValue(`${type}.${item?.name}`,item?.value)
+            setInputValue(item?.value)
         }
         // return () =>{
         //     reset();
         // }
     }, []);
 
+
+
+
     useEffect(()=>{
         setInputName(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
     },[tableIndex,listName,item])
+
+    let timeoutId:any;
+    let value = watch(inputName);
+    useEffect(() => {
+        if(!value)return;
+
+        console.log(value,inputValue,value === inputValue)
+        if(value === inputValue && value.indexOf("seedao")>-1){
+            console.error(inputValue)
+
+            getAddr()
+        }
+
+
+    }, [item.inputType,inputValue,value]);
+
+    const getAddr = async () =>{
+        let rt = await sns.resolve(value);
+        setValue(inputName,rt)
+    }
+
+
+    const handleInput = (e:ChangeEvent) =>{
+        const {value} = e.target as HTMLInputElement;
+        setInputValue(value);
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            setValue(inputName,value)
+        }, 300);
+
+
+    }
 
 
   if(!prop)return null;
@@ -127,11 +165,25 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                                 />
                             }
                             {
-                                item.inputType !== "textarea" && <input
-                                    type={item.inputType==="number"?"number":"text"}
-                                    {...field}
-                                    value={getValues(inputName) || ''}
-                                    className={`${!!fieldState.error?'error':''}`}/>
+                                item.inputType !== "textarea" && prop?.needParseSNS && <>
+                                    <input
+                                        type={item.inputType==="number"?"number":"text"}
+                                        onChange={(e)=>handleInput(e)}
+                                        value={inputValue}
+                                        className={`${!!fieldState.error?'error':''}`}/>
+
+                                    <input type="hidden" {...field} readOnly={true} value={getValues(inputName) || ''} />
+
+                                </>
+                            }
+                            {
+                                item.inputType !== "textarea" && !prop?.needParseSNS && <>
+                                    <input
+                                        {...field}
+                                        type={item.inputType==="number"?"number":"text"}
+                                        value={getValues(inputName) || ''}
+                                        className={`${!!fieldState.error?'error':''}`}/>
+                                </>
                             }
 
                             {

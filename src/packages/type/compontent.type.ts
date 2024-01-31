@@ -16,6 +16,7 @@ export interface ChildProps {
     setValue?:any
     reset?:any
     data?:any
+    watch:any
     name?:string
     theme?:boolean;
     language?:string;
@@ -50,6 +51,7 @@ export interface InputProps{
     tableIndex?:number;
     listName?:string;
     reset?:any;
+    watch?:any;
     getValues?:any;
     setValue?:any
     trigger?:any
@@ -116,6 +118,7 @@ export interface TableProps{
     type?:string;
     language?:string;
     control:any
+    watch:any
     reset?:any
     getValues?:any
     setValue?:any
