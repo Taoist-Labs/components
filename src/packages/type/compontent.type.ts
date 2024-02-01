@@ -14,7 +14,9 @@ export interface ChildProps {
     listArr:any;
     control:any;
     setValue?:any
+    setError?:any
     reset?:any
+    clearErrors?:any
     data?:any
     watch:any
     name?:string
@@ -51,6 +53,8 @@ export interface InputProps{
     tableIndex?:number;
     listName?:string;
     reset?:any;
+    setError?:any;
+    clearErrors?:any;
     watch?:any;
     getValues?:any;
     setValue?:any
@@ -120,6 +124,8 @@ export interface TableProps{
     control:any
     watch:any
     reset?:any
+    clearErrors?:any
+    setError?:any
     getValues?:any
     setValue?:any
     baseUrl?:string

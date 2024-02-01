@@ -185,7 +185,7 @@ const P32 = styled.div`
          saveForm:saveDraft,
      }));
 
-    const { handleSubmit,control,setValue,reset,getValues,watch,  formState: { errors } } = useForm<any>({
+    const { handleSubmit,control,setValue,reset,getValues,watch,setError,clearErrors,  formState: { errors } } = useForm<any>({
     });
 
     const [leftItems, setLeftItems] = useState<Item[]>([]);
@@ -362,6 +362,8 @@ const P32 = styled.div`
                                                                     name={item.name}
                                                                     getValues={getValues}
                                                                     theme={theme}
+                                                                    setError={setError}
+                                                                    clearErrors={clearErrors}
                                                                     watch={watch}
                                                                     baseUrl={baseUrl}
                                                                     token={token}

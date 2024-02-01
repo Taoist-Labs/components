@@ -8,6 +8,7 @@ import InitialItem from "./json/initialItem";
 import CreateProject from "./json/createProject.json";
 import Motivation from "./json/motivation.json";
 import AllJson from "./json/all.json";
+import 'md-editor-rt/lib/style.css';
 
 const AllBox = styled.div`
     padding: 24px 32px;
@@ -139,25 +140,21 @@ function New() {
                                 {
                                     "id": 318,
                                     "component_id": 13,
-                                    "name": "deliverables",
+                                    "name": "motivation",
                                     "schema": "",
-                                    "data": {"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"交付物","proposal_id":"os-395"},
-                                    "create_ts": 1706514968
-                                },
-                                {
-                                    "id": 319,
-                                    "component_id": 14,
-                                    "name": "deadline",
-                                    "schema": "",
-                                    "data": {"applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","description":"2024-02-02T16:00:00.000Z","proposal_id":"os-395"},
-                                    "create_ts": 1706514968
-                                },
-                                {
-                                    "id": 320,
-                                    "component_id": 21,
-                                    "name": "budget_p1",
-                                    "schema": "",
-                                    "data": {"amount":"50","applicant":"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e","proposal_id":"os-395","typeTest":{"id":1,"name":"SCR"}},
+                                    "data": {
+                                        "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                                        "budgetList": [{
+                                            "address": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                                            "amount": "5000",
+                                            "description": "test",
+                                            "typeTest": {
+                                                "id": 1,
+                                                "name": "SCR"
+                                            }
+                                        }],
+                                        "proposal_id": "os-521"
+                                    },
                                     "create_ts": 1706514968
                                 }
                             ]}

@@ -62,7 +62,7 @@ const ErrorTips = styled.div`
     white-space: nowrap;
 `
 
-export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues,watch}:InputProps){
+export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues,watch,setError,clearErrors}:InputProps){
 
     const [prop,setProp] = useState<any>();
     const [inputName,setInputName] = useState('')
@@ -73,6 +73,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
         let arr:any ={}
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
+
 
             if(inner.name === "validate"){
 
@@ -91,20 +92,31 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                         break;
                 }
             }
+
+
         })
         setProp(arr)
     }, [item.properties]);
 
-    useEffect(() => {
 
+
+
+    useEffect(() => {
         if(tableIndex===undefined){
             setValue(`${type}.${item?.name}`,item?.value)
             setInputValue(item?.value)
         }
+
         // return () =>{
         //     reset();
         // }
     }, []);
+
+    useEffect(() => {
+        if(prop?.needParseSNS){
+            getSNS(value);
+        }
+    }, [prop?.needParseSNS]);
 
 
 
@@ -115,28 +127,52 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
 
     let timeoutId:any;
     let value = watch(inputName);
+
+
     useEffect(() => {
         if(!value)return;
-
-        console.log(value,inputValue,value === inputValue)
         if(value === inputValue && value.indexOf("seedao")>-1){
-            console.error(inputValue)
-
             getAddr()
         }
 
-
     }, [item.inputType,inputValue,value]);
 
+    const getSNS = async (wallet:string) =>{
+        try{
+            const rt = await sns.name(wallet);
+            setInputValue(rt);
+
+        }catch (e) {
+            console.error(e)
+        }
+
+    }
+
     const getAddr = async () =>{
-        let rt = await sns.resolve(value);
-        setValue(inputName,rt)
+        // clearErrors(inputName)
+        try{
+            let rt = await sns.resolve(value);
+            const decimalValue = parseInt(rt, 16);
+            if(decimalValue){
+                setValue(inputName,rt)
+
+            }else{
+                // setError(inputName,{type: 'manual', message: Lan[language??"zh"]?.inputError })
+                setValue(inputName,value)
+            }
+
+        }catch (e) {
+            setValue(inputName,value)
+            console.error(e)
+        }
+
     }
 
 
     const handleInput = (e:ChangeEvent) =>{
         const {value} = e.target as HTMLInputElement;
         setInputValue(value);
+        // clearErrors(inputName)
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             setValue(inputName,value)
@@ -171,7 +207,6 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                                         onChange={(e)=>handleInput(e)}
                                         value={inputValue}
                                         className={`${!!fieldState.error?'error':''}`}/>
-
                                     <input type="hidden" {...field} readOnly={true} value={getValues(inputName) || ''} />
 
                                 </>
