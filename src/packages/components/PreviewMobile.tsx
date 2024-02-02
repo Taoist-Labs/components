@@ -274,9 +274,13 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
     const port = window.location.port;
     const link = protocol + '//' + hostname + (port ? ':' + port : '');
 
+    const [snsMap,setSnsMap] = useState<any>({})
+    const [addr,setAddr] = useState<string[]>([])
+
     useEffect(() => {
         if(!DataSource || !initialItems) return;
         let arr:any[]=[];
+        let addressArr:string[] = [];
 
         DataSource.map((d:any)=>{
             initialItems.map((i:any)=>{
@@ -302,7 +306,12 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                                    newRow.pro = {};
                                    newRow.properties?.map((nw:any)=>{
                                        newRow.pro[nw.name] = nw.value;
+                                       if(nw.name === "needParseSNS"){
+                                           addressArr.push(value)
+                                       }
                                    })
+                                   setAddr([...addressArr])
+                                   console.log(addressArr)
                                    arr.push(newRow)
                                    inner.table[j] = arr;
                                }
@@ -367,6 +376,24 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
         return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
+    }
+    useEffect(() => {
+        if(!addr?.length)return;
+        returnSNSStr()
+    }, [addr]);
+
+
+    const returnSNSStr = async () =>{
+
+        const rt = await sns.names(addr!);
+        let snsMapArr:any = {};
+        addr?.map((item:string,index:number)=>{
+            snsMapArr[item] = rt[index] || item;
+        })
+
+
+
+        setSnsMap(snsMapArr)
     }
 
     const togo =(id:string) =>{
@@ -476,9 +503,10 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                                                             <tr key={`tbody_${rInd}`}>
                                                                 {
                                                                     r.map((rInner:any,rIin:number)=>(<td key={`td_${rIin}`}>
+
                                                                             {
                                                                                 rInner.type === "input" &&
-                                                                                <span>{rInner?.value}</span>
+                                                                                <span>{rInner?.pro?.needParseSNS? (snsMap[rInner?.value] ?? "") : rInner?.value}</span>
 
                                                                             }
 
@@ -540,7 +568,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                                         {
                                             inner.type === "input" && <dl className="line">
                                                 {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
-                                                <dd><WhiteBox>{inner?.value}</WhiteBox></dd>
+                                                <dd><WhiteBox>{inner?.pro?.needParseSNS? (snsMap[inner?.value] ?? "") :inner?.value}</WhiteBox></dd>
                                             </dl>
                                         }
                                         {

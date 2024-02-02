@@ -145,7 +145,6 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
         }catch (e) {
             console.error(e)
         }
-
     }
 
     const getAddr = async () =>{
@@ -158,7 +157,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
 
             }else{
                 // setError(inputName,{type: 'manual', message: Lan[language??"zh"]?.inputError })
-                setValue(inputName,value)
+                setValue(inputName,"")
             }
 
         }catch (e) {
@@ -172,7 +171,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
     const handleInput = (e:ChangeEvent) =>{
         const {value} = e.target as HTMLInputElement;
         setInputValue(value);
-        // clearErrors(inputName)
+        clearErrors(inputName)
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             setValue(inputName,value)

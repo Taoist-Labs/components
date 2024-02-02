@@ -133,7 +133,7 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDY4MDAyMjMsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.sMkTR5hZXbLgf1JzNEyB98CRpcCsmBQiKklcgDFz1Wc"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDY5NDQ2NTQsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.r9aHau_i5xCQOql877UhO6gadjaDeN1rAy10uBUWbAo"
                               showRight={true}
                               theme={false}
                             DataSource={[
@@ -146,13 +146,32 @@ function New() {
                                         "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
                                         "budgetList": [{
                                             "address": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
-                                            "amount": "5000",
+                                            "amount": "500",
                                             "description": "test",
                                             "typeTest": {
                                                 "id": 1,
                                                 "name": "SCR"
                                             }
-                                        }],
+                                        },
+                                            {
+                                                "address": "0x9d6b1a15d476bfbbdf4274ef6b405086cd7258f9",
+                                                "amount": "500",
+                                                "description": "test",
+                                                "typeTest": {
+                                                    "id": 1,
+                                                    "name": "SCR"
+                                                }
+                                            },
+                                            {
+                                                "address": "0x4d4b78d37090ed3e1eae6779ba2c3d6728052915",
+                                                "amount": "500",
+                                                "description": "test",
+                                                "typeTest": {
+                                                    "id": 1,
+                                                    "name": "SCR"
+                                                }
+                                            }
+                                        ],
                                         "proposal_id": "os-521"
                                     },
                                     "create_ts": 1706514968

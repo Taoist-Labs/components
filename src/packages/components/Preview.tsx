@@ -280,10 +280,13 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
     const hostname = window.location.hostname;
     const port = window.location.port;
     const link = protocol + '//' + hostname + (port ? ':' + port : '');
+    const [snsMap,setSnsMap] = useState<any>({})
+    const [addrArr,setAddrArr] = useState<string[]>([])
 
     useEffect(() => {
         if(!DataSource  || !initialItems) return;
         let arr:any[]=[];
+        let addressArr:string[] = [];
 
         DataSource.map((d:any)=>{
             initialItems.map( async(i:any)=>{
@@ -295,6 +298,7 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                         inner.properties?.map((inn:any)=>{
                             inner.pro[inn.name] = inn.value;
                         })
+
                         inner.value = (data as any)[inner.name] ?? null;
                        if(inner.type === "table"){
                            inner.table = [...Array(inner.value.length)];
@@ -307,10 +311,16 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                        value
                                    }
                                    newRow.pro = {};
-                                   newRow.properties?.map((nw:any)=>{
+                                   newRow.properties?.map(async (nw:any)=>{
                                        newRow.pro[nw.name] = nw.value;
+                                       if(nw.name === "needParseSNS"){
+                                           addressArr.push(value)
+                                       }
+
                                    })
+
                                    arr.push(newRow)
+
                                    inner.table[j] = arr;
                                }
                            }
@@ -336,8 +346,9 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                 }
             })
         })
-        setList([...arr])
 
+        setAddrArr([...addressArr])
+        setList([...arr])
 
     }, [DataSource,initialItems]);
     useEffect(() => {
@@ -369,6 +380,22 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
 
     }
 
+    const returnSNSStr = async () =>{
+
+        const rt = await sns.names(addrArr!);
+        let snsMapArr:any = {};
+        addrArr?.map((item:string,index:number)=>{
+            snsMapArr[item] = rt[index] || item;
+        })
+
+        setSnsMap(snsMapArr)
+    }
+
+    useEffect(() => {
+        if(!addrArr?.length)return;
+        returnSNSStr()
+    }, [addrArr.length]);
+
     const returnSNS = async () =>{
         const _wallet = address.toLocaleLowerCase();
         const rt = await sns.name(_wallet);
@@ -389,6 +416,8 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
         return year + '-' + month + '-' + day;
 
     }
+
+
 
     return <Box theme={theme?.toString()} key={`box_${uuidv4()}`} >
 
@@ -488,7 +517,7 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                                                                 r.map((rInner:any,rIin:number)=>(<td key={`td_${rIin}_${uuidv4()}`}>
                                                                                         {
                                                                                             rInner.type === "input" &&
-                                                                                            <span>{rInner?.value}</span>
+                                                                                            <span>{rInner?.pro?.needParseSNS? (snsMap[rInner?.value] ?? "") :rInner?.value} </span>
 
                                                                                         }
 
@@ -551,7 +580,8 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                                         inner.type === "input" && <LineBox>
                                                             {!item.noTitle && <dt>{inner?.pro?.title}</dt>}
                                                             <dd>
-                                                                <WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox>
+                                                                {/*<WhiteBox theme={theme?.toString()}>{inner?.value}</WhiteBox>*/}
+                                                                <WhiteBox theme={theme?.toString()}>{inner?.pro?.needParseSNS? (snsMap[inner?.value] ?? "") :inner?.value}</WhiteBox>
 
                                                             </dd>
 

@@ -35,20 +35,47 @@ function PreviewPage() {
                 {
                     "id": 386,
                     "component_id": 19,
-                    "name": "reject",
+                    "name": "motivation",
                     "schema": "",
                     "data": {
-                        "applicant": "0x4d4b78D37090eD3e1EAe6779bA2C3D6728052915",
-                        "proposal_id": "os-449",
-                        "proposal_info": {
-                            "applicant": "0x183f09c3ce99c02118c570e03808476b22d63191",
-                            "applicant_avatar": "https://seedao-os-superapp.s3.ap-northeast-2.amazonaws.com/user_avatars/0x183F09C3cE99C02118c570e03808476b22d63191_1703655467478.png",
-                            "create_ts": 1704675541,
-                            "id": 201,
-                            "name": "创建一个提案试试投票啥时候开始",
-                            "proposal_category_name": "General Discussions",
-                            "proposal_state": "vote_passed"
-                        }
+                        "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                        "budgetList": [{
+                            "address": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                            "amount": "100",
+                            "description": " 备注",
+                            "typeTest": {
+                                "id": 1,
+                                "name": "SCR"
+                            }
+                        },
+                            {
+                                "address": "0x9d6b1a15d476bfbbdf4274ef6b405086cd7258f9",
+                                "amount": "500",
+                                "description": "test",
+                                "typeTest": {
+                                    "id": 1,
+                                    "name": "SCR"
+                                }
+                            },
+                            {
+                                "address": "0x4f429abe06dCC2598bd2aD4D2D20041D8fA3cb2F",
+                                "amount": "500",
+                                "description": "test",
+                                "typeTest": {
+                                    "id": 1,
+                                    "name": "SCR"
+                                }
+                            },
+                            {
+                                "address": "0x4d4b78d37090ed3e1eae6779ba2c3d6728052915",
+                                "amount": "500",
+                                "description": "test",
+                                "typeTest": {
+                                    "id": 1,
+                                    "name": "SCR"
+                                }
+                            }],
+                        "proposal_id": "os-586"
                     },
                     "create_ts": 1706543824
                 }
