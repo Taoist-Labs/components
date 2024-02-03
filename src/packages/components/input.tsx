@@ -57,9 +57,10 @@ const Box = styled.div<{theme?:string}>`
 const ErrorTips = styled.div`
     position: absolute;
     color: #FB4E4E;
-    bottom: -20px;
-    font-size: 12px;
+    bottom: -14px;
+    font-size: 12px!important;
     white-space: nowrap;
+    z-index: 999;
 `
 
 export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues,watch,setError,clearErrors}:InputProps){

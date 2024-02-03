@@ -57,8 +57,9 @@ const ErrorTips = styled.div`
     position: absolute;
     color: #FB4E4E;
     bottom: -20px;
-    font-size: 12px;
+    font-size: 12px!important;
     white-space: nowrap;
+    z-index: 999;
 `
 
 export default function RichText({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues}:InputProps){
@@ -72,8 +73,6 @@ export default function RichText({item,tableIndex,listName,type,reset,setValue,t
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
         })
-
-        console.log(item.value,arr.hint)
 
         if(item.value){
             setValue(`${type}.${item?.name}`, item.value);

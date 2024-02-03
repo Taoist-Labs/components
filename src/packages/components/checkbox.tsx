@@ -80,9 +80,10 @@ const RhtBox = styled.div`
 const ErrorTips = styled.div`
     position: absolute;
     color: #FB4E4E;
-    bottom: -15px;
-    font-size: 12px;
+    bottom: -14px;
+    font-size: 12px!important;
     white-space: nowrap;
+    z-index: 999;
 `
 
 export default function Checkbox({item,tableIndex,type,listName,reset,setValue,getValues,theme,language,control,baseUrl,version,token}:InputProps){
