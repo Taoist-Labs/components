@@ -72,12 +72,20 @@ export default function RichText({item,tableIndex,listName,type,reset,setValue,t
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
         })
+
+        console.log(item.value,arr.hint)
+
         if(item.value){
             setValue(`${type}.${item?.name}`, item.value);
+        }else{
+
+            let str =`<!---${arr?.hint}--->`;
+            setValue(`${type}.${item?.name}`, arr?.hint?str:"");
         }
 
         setProp(arr)
     }, [item.properties]);
+
 
     const handleEditorChange = (text:any) => {
 
