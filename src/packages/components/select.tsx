@@ -45,7 +45,7 @@ const ErrorTips = styled.div`
     right: 30px;
     font-size: 12px!important;
     white-space: nowrap;
-    z-index: 999;
+    z-index: 9;
 `
 
 

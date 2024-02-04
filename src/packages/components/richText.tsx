@@ -61,7 +61,7 @@ const ErrorTips = styled.div`
     left: 10px;
     font-size: 12px!important;
     white-space: nowrap;
-    z-index: 999;
+    z-index: 9;
 `
 
 export default function RichText({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues}:InputProps){
@@ -83,7 +83,7 @@ export default function RichText({item,tableIndex,listName,type,reset,setValue,t
             setValue(`${type}.${item?.name}`, item.value);
         }else{
 
-            let str =`<!---${arr?.hint}--->`;
+            let str =`<!-- ${arr?.hint} -->`;
             setValue(`${type}.${item?.name}`, arr?.hint?str:"");
         }
 

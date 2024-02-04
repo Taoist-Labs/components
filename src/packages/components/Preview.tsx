@@ -47,7 +47,7 @@ const InnerBox = styled.div<{theme:string}>`
         background: ${props=>props.theme === 'true'?"#161518":"#fff"};
         border: ${props=>props.theme === 'true'?"1px solid #29282F":"1px solid rgba(217, 217, 217, 0.50)"};
         box-shadow: ${props=>props.theme === 'true'?"none":"2px 4px 4px 0px rgba(211, 206, 221, 0.10)"};
-        padding:30px 20px;
+        padding:20px 0 0;
         box-sizing: border-box;
         border-radius: 8px;
     }
@@ -56,7 +56,6 @@ const InnerBox = styled.div<{theme:string}>`
 const TitleBox = styled.div`
     font-size: 16px;
   font-weight: bold;
-  margin-bottom: 10px;
   padding-left: 20px;
 `
 
@@ -85,18 +84,21 @@ const ContentBox = styled.ul<{theme:string}>`
     
     
 `
+const ContentBox2 = styled(ContentBox)`
+    padding:10px 15px 15px;
+`
 
 const ThBox = styled.th<thProps>`
     width: ${props => props.width+ "%"};
 `
 
 const BeforeDiv = styled.div`
-    margin-bottom: 20px;
+
     
 `
 
 const AfterDiv = styled.div`
-    margin-bottom: 20px;
+
 `
 
 const UlBox = styled.ul`
@@ -122,7 +124,6 @@ const UlBox = styled.ul`
     }
 `
 const P32 = styled.div`
-    margin-bottom: 20px;
     padding-inline: 32px;
     
 `
@@ -421,6 +422,7 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
 
     return <Box theme={theme?.toString()} key={`box_${uuidv4()}`} >
 
+
         {
             !!BeforeComponent && <BeforeDiv  key={`before_${uuidv4()}`}>
                 {
@@ -457,27 +459,27 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                 </InnerBox>
                             }
                             {
-                                item.name_type === "relate" && <InnerBox className="borderBox"  theme={theme?.toString()}  onClick={()=>togo(item?.proposal_id)}>
+                                item.name_type === "relate" && <InnerBox className="borderBox"   theme={theme?.toString()}  onClick={()=>togo(item?.proposal_id)}>
                                 <TitleBox>{item?.title}</TitleBox>
-                                <ContentBox theme={theme?.toString()}>
+                                <ContentBox2 theme={theme?.toString()}>
                                 <LineBox>
                                     <dd>
                                         <WhiteBox theme={theme?.toString()}>{item.content[0]?.value}</WhiteBox>
                                     </dd>
                                 </LineBox>
-                                </ContentBox>
+                                </ContentBox2>
                             </InnerBox>
                             }
                             {
                                 item.name_type === "reject" && <InnerBox className="borderBox"  theme={theme?.toString()}  onClick={()=>togo(item?.proposal_id)}>
                                 <TitleBox>{item?.title}</TitleBox>
-                                <ContentBox theme={theme?.toString()}>
+                                <ContentBox2 theme={theme?.toString()}>
                                 <LineBox>
                                     <dd>
                                         <WhiteBox theme={theme?.toString()}>{item.content[0]?.value?.name}</WhiteBox>
                                     </dd>
                                 </LineBox>
-                                </ContentBox>
+                                </ContentBox2>
                             </InnerBox>
                             }
 

@@ -151,7 +151,7 @@ const ErrorTips = styled.div`
     right: 10px;
     font-size: 12px!important;
     white-space: nowrap;
-    z-index: 999;
+    z-index: 9;
 `
 
 const Loading = styled.div`
