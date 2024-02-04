@@ -5,6 +5,7 @@ import DelJson from "./delMember.json";
 import OtherJson from "./other.json";
 import DateJson from "./date.json";
 import RichTJson from "./richText.json";
+import Checkbox from "./checkbox.json";
 
 const initialItems: any[] = [
     {
@@ -70,6 +71,15 @@ const initialItems: any[] = [
         auto_action:"auto_action5",
         schema:RichTJson,
         name:"rich"
+    },
+    {
+        id: '8',
+        title:"多选项",
+        src: 'https://img0.baidu.com/it/u=46644979,2438128608&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+        dragType: 'image',
+        auto_action:"auto_action5",
+        schema:Checkbox,
+        name:"checkAll"
     }
 ];
 export default initialItems;

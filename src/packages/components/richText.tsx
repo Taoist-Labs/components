@@ -6,6 +6,7 @@ import {Controller} from "react-hook-form";
 import Lan from "../utils/lan";
 import { MdEditor } from 'md-editor-rt';
 import { v4 as uuidv4 } from 'uuid';
+import ErrorImg from "../svg/error";
 
 
 const Box = styled.div<{theme?:string}>`
@@ -56,7 +57,8 @@ const Box = styled.div<{theme?:string}>`
 const ErrorTips = styled.div`
     position: absolute;
     color: #FB4E4E;
-    bottom: -20px;
+    bottom: 30px;
+    left: 10px;
     font-size: 12px!important;
     white-space: nowrap;
     z-index: 999;
@@ -110,10 +112,11 @@ export default function RichText({item,tableIndex,listName,type,reset,setValue,t
                             onChange={handleEditorChange}
                             theme={theme ? 'dark' : 'light'}
                             placeholder={prop?.hint}
+                            className={`${!!fieldState.error?'error':''}`}
                         />
                         {
                             !!fieldState.error && <ErrorTips>
-                                {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.inputError}
+                                <ErrorImg />
                             </ErrorTips>
                         }
                     </>

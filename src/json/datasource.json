@@ -2,14 +2,11 @@
   {
     "name": "create",
     "data": {
-      "budget":  {
-        "value": "chocolate",
-        "label": "Chocolate"
-      },
-      "logo": "https://img0.baidu.com/it/u=1119404505,3019956218&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-      "file": "bitbug_favicon (1).ico",
-      "issue": "项目名称",
-      "description": "项目简介",
+
+      "file": "",
+      "issue": "",
+      "logo": "",
+      "description": "",
       "addList": [
         {
           "logo": "https://img0.baidu.com/it/u=3979949991,2513156939&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
@@ -31,43 +28,6 @@
         }
       ]
 
-    }
-  },
-  {
-    "name": "delete",
-    "data": {
-      "delMemeberList": [
-        {"value":"strawberry","label":"Strawberry"},
-        {
-          "value": "chocolate",
-          "label": "Chocolate"
-        },
-        {
-          "value": "chocolate",
-          "label": "Chocolate"
-        }
-      ]
-    }
-  },
-  {
-    "name": "add",
-    "data": {
-      "memberList": [
-        {
-          "members": "0x07Da0c2CA57Cc384b39242A81323ba8417248153",
-          "category": {
-            "value": "chocolate",
-            "label": "Chocolate"
-          }
-        },
-        {
-          "members": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
-          "category": {
-            "value": "strawberry",
-            "label": "Strawberry"
-          }
-        }
-      ]
     }
   }
 ]

@@ -1,0 +1,28 @@
+{
+  "title": "选择",
+  "type": "checkAll",
+  "content": [
+    {
+      "type": "checkbox",
+      "dataList": "datasrv/asset_type",
+      "value":"",
+      "name": "typeTest",
+      "properties":[
+        {
+          "name": "title",
+          "value": "资产类型"
+        },
+        {
+          "name": "size",
+          "value": "md"
+        },
+        {
+          "name": "validate",
+          "value": {
+            "required": true
+          }
+        }
+      ]
+    }
+  ]
+}

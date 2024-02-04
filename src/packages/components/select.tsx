@@ -3,6 +3,7 @@ import React,{forwardRef, useEffect, useState} from "react";
 import {UseFormRegister,Controller} from "react-hook-form";
 import Select from 'react-select';
 import Lan from "../utils/lan";
+import ErrorImg from "../svg/error";
 
 const Box = styled.div`
     display: flex;
@@ -40,7 +41,8 @@ const Box = styled.div`
 const ErrorTips = styled.div`
     position: absolute;
     color: #FB4E4E;
-    bottom: -14px;
+    bottom: 11px;
+    right: 30px;
     font-size: 12px!important;
     white-space: nowrap;
     z-index: 999;
@@ -67,7 +69,7 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
     }, [item.properties]);
 
     const getSource = (type:string) =>{
-        const typeStr = type.split('datasrv/')[1]
+        const typeStr = type?.split('datasrv/')[1]
 
         fetch(`${baseUrl}/${version}/data_srv/widget_data?type=${typeStr}`,
             {
@@ -165,7 +167,7 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
                           />
                           {
                               !!fieldState.error &&  <ErrorTips>
-                                  {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.selectError}
+                                  <ErrorImg />
                               </ErrorTips>
                           }
                       </div>

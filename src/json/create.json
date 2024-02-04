@@ -6,27 +6,6 @@
   "automation_action": "unknown/budget_apply/create_project",
   "content": [
     {
-      "type": "select",
-      "dataList": "--budget-resource--",
-      "name": "budget",
-      "properties":[
-        {
-          "name": "title",
-          "value": "预算来源"
-        },
-        {
-          "name": "size",
-          "value": "md"
-        },
-        {
-          "name": "validate",
-          "value": {
-            "maxLength": 20
-          }
-        }
-      ]
-    },
-    {
       "type": "input",
       "inputType": "text",
       "value": "",
@@ -66,6 +45,7 @@
         {
           "name": "validate",
           "value": {
+            "required": true,
             "maxLength": 200
           }
         }
@@ -88,7 +68,7 @@
         {
           "name": "validate",
           "value": {
-
+            "required": true
           }
         }
       ]
@@ -110,7 +90,7 @@
         {
           "name": "validate",
           "value": {
-
+            "required": true
           }
         }
       ]

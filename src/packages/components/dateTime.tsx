@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {Controller} from "react-hook-form";
 import DatePicker from "react-datepicker";
 import Lan from "../utils/lan";
+import ErrorImg from "../svg/error";
 
 const Box = styled.div<{theme?:string}>`
     display: flex;
@@ -83,7 +84,8 @@ const Box = styled.div<{theme?:string}>`
 const ErrorTips = styled.div`
     position: absolute;
     color: #FB4E4E;
-    bottom: -14px;
+    bottom: 9px;
+    right: 10px;
     font-size: 12px!important;
     white-space: nowrap;
     z-index: 999;
@@ -132,11 +134,12 @@ export default function DateTime({item,tableIndex,listName,type,reset,setValue,t
                                     focus: (ref as any)?.setFocus
                                 });
                             }}
+                            className={`${!!fieldState.error?'error':''}`}
                             onChange={(date: any) => handleDateChange(date)}
                         />
                         {
                             !!fieldState.error && <ErrorTips>
-                                {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.inputError}
+                                <ErrorImg />
                             </ErrorTips>
                         }
                     </>

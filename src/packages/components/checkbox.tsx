@@ -5,6 +5,7 @@ import {InputProps} from "../type/compontent.type";
 import { v4 as uuidv4 } from 'uuid';
 import Lan from "../utils/lan";
 import {Controller} from "react-hook-form";
+import ErrorImg from "../svg/error";
 
 const Box = styled.div`
     display: flex;
@@ -80,7 +81,9 @@ const RhtBox = styled.div`
 const ErrorTips = styled.div`
     position: absolute;
     color: #FB4E4E;
-    bottom: -14px;
+    bottom: 14px;
+    right: 0;
+    background: #fff;
     font-size: 12px!important;
     white-space: nowrap;
     z-index: 999;
@@ -110,7 +113,7 @@ export default function Checkbox({item,tableIndex,type,listName,reset,setValue,g
 
 
     const getSource = (type:string) =>{
-        const typeStr = type.split('datasrv/')[1]
+        const typeStr = type?.split('datasrv/')[1]
 
         fetch(`${baseUrl}/${version}/data_srv/widget_data?type=${typeStr}`,
             {
@@ -213,7 +216,7 @@ export default function Checkbox({item,tableIndex,type,listName,reset,setValue,g
                         <input type="hidden"  {...field} value={getValues(inputName) || ''}/>
                         {
                             !!fieldState.error && <ErrorTips>
-                            {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.inputError}
+                                <ErrorImg />
                             </ErrorTips>
                         }
                     </>

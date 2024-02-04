@@ -4,6 +4,7 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import Lan from "../utils/lan";
 import {Controller} from "react-hook-form";
 import sns from "@seedao/sns-js";
+import ErrorImg from "../svg/error";
 
 
 const Box = styled.div<{theme?:string}>`
@@ -57,10 +58,14 @@ const Box = styled.div<{theme?:string}>`
 const ErrorTips = styled.div`
     position: absolute;
     color: #FB4E4E;
-    bottom: -14px;
+    bottom: 9px;
+    right: 5px;
     font-size: 12px!important;
     white-space: nowrap;
     z-index: 999;
+    background: #fff;
+
+    
 `
 
 export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues,watch,setError,clearErrors}:InputProps){
@@ -197,7 +202,6 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                                     {...field}
                                     value={getValues(inputName) || ''}
                                     className={`${!!fieldState.error?'error':''}`}
-
                                 />
                             }
                             {
@@ -217,13 +221,13 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                                         {...field}
                                         type={item.inputType==="number"?"number":"text"}
                                         value={getValues(inputName) || ''}
-                                        className={`${!!fieldState.error?'error':''}`}/>
+                                        className={`${!!fieldState.error?'error':''}`} />
                                 </>
                             }
 
                             {
                                 !!fieldState.error &&  <ErrorTips>
-                                    {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.inputError}
+                                    <ErrorImg />
                                 </ErrorTips>
                             }
                         </>

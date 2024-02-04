@@ -8,11 +8,12 @@ import FileImg from "../svg/file";
 import Lan from "../utils/lan";
 import {Controller} from "react-hook-form";
 import Trash from "../svg/trash";
+import ErrorImg from "../svg/error";
 
 const Box = styled.div`
     display: flex;
   align-items: flex-start;
-    position: relative;
+
     flex-direction: column;
     width: 100%;
     padding: 0 5px;
@@ -100,6 +101,7 @@ const UploadBox  = styled.div<{ size: string,theme?:string }>`
   justify-content: center;
     background: ${props=>props.theme === 'true'?"#1A1323":"#fff"};
     color: ${props=>props.theme === 'true'?"#fff":"#1A1323"};
+    position: relative;
     &:hover{
         background: rgba(82, 0, 255, 0.05);
     }
@@ -116,6 +118,7 @@ const UploadFileBox = styled.label <{ bgtheme?: string }>`
     display: flex;
     align-items: center;
     padding: 8px;
+    position: relative;
     .fileBtn{
         background: ${props=> props.bgtheme === 'true'?"#1A1323":"#F9F9F9"};
         border-radius: 8px;
@@ -144,7 +147,8 @@ const UploadFileBox = styled.label <{ bgtheme?: string }>`
 const ErrorTips = styled.div`
     position: absolute;
     color: #FB4E4E;
-    bottom: -14px;
+    bottom: 10px;
+    right: 10px;
     font-size: 12px!important;
     white-space: nowrap;
     z-index: 999;
@@ -367,8 +371,16 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
                                             <span>{Lan[language??"zh"]?.upload}</span>
                                         </div>
 
+
+                                        {
+                                            !!fieldState.error &&  <ErrorTips>
+                                                <ErrorImg />
+                                            </ErrorTips>
+                                        }
+
                                     </UploadBox>
                                 }
+
 
                             </UploadImgBox>
                         }
@@ -391,16 +403,16 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
                                         <div className="loader"/>
                                     </LoadingFile>
                                 }
-
+                                {
+                                    !!fieldState.error &&  <ErrorTips>
+                                        <ErrorImg />
+                                    </ErrorTips>
+                                }
 
                             </UploadFileBox>
                         }
                         <input type="hidden"  {...field} value={getValues(inputName) || ''} />
-                        {
-                            !!fieldState.error &&  <ErrorTips>
-                                {fieldState.error.message?fieldState.error.message:Lan[language??"zh"]?.fileError}
-                            </ErrorTips>
-                        }
+
                     </>
 
                 )}
