@@ -74,6 +74,12 @@ export default function RichText({item,tableIndex,listName,type,reset,setValue,t
         let arr:any ={}
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
+            if(inner.name === "validate"){
+                console.log(inner.value.pattern)
+                inner.value.pattern = new RegExp(inner.value.pattern);
+                console.log(inner.value.pattern)
+            }
+            // inner.value.pattern = new RegExp(inner.value.pattern);
         })
 
         if(item.value){
@@ -104,6 +110,7 @@ export default function RichText({item,tableIndex,listName,type,reset,setValue,t
                 rules={prop?.validate}
                 render={({ field,fieldState }) => (
                     <>
+
                         <MdEditor
                             {...field}
                             toolbarsExclude={['github', 'save']}

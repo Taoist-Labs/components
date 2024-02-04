@@ -30,7 +30,7 @@
   {
     "id": 13,
     "name": "deliverables",
-    "schema": "{\"type\":\"deliverables\",\"title\":\"交付物\",\"content\":[{\"type\":\"richText\",\"value\":\"\",\"name\":\"description\",\"properties\":[{\"name\":\"title\",\"value\":\"交付物\"},{\"name\":\"hint\",\"value\":\"请注明交付物的类型或形式。（如线上讨论会1场 / SNS 增长人数不少于50人 / 活动内容文稿宣传 1 篇 / 培训课程 pft 文档 1 份等）\"},{\"name\":\"size\",\"value\":\"lg\"},{\"name\":\"validate\",\"value\":{\"required\":true}}]}]}",
+    "schema": "{\"type\":\"deliverables\",\"title\":\"交付物\",\"content\":[{\"type\":\"richText\",\"value\":\"\",\"name\":\"description\",\"properties\":[{\"name\":\"title\",\"value\":\"交付物\"},{\"name\":\"hint\",\"value\":\"请注明交付物的类型或形式。（如线上讨论会1场 / SNS 增长人数不少于50人 / 活动内容文稿宣传 1 篇 / 培训课程 pft 文档 1 份等）\"},{\"name\":\"size\",\"value\":\"lg\"},{\"name\":\"validate\",\"value\":{\"required\":true,\"pattern\":\"^<!--.*-->(.|\\n)+$\"}}]}]}",
     "screenshot_uri": "",
     "is_hidden": false
   },
