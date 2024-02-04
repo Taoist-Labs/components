@@ -42,6 +42,24 @@ function PreviewPage() {
                     },
                 },
                 {
+                    component_id: 716,
+                    name: 'budget',
+                    schema: '',
+                    data: {
+                        "applicant": "0x4d4b78D37090eD3e1EAe6779bA2C3D6728052915",
+                        "budgetList": [{
+                            "address": "0x4d4b78D37090eD3e1EAe6779bA2C3D6728052915",
+                            "amount": "44444",
+                            "description": "44",
+                            "typeTest": {
+                                "id": 2,
+                                "name": "USDT"
+                            }
+                        }],
+                        "proposal_id": "os-807"
+                    },
+                },
+                {
                     component_id: 416,
                     name: 'reject',
                     schema: '',

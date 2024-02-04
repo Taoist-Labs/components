@@ -12,7 +12,7 @@ const Box = styled.div<{theme?:string}>`
     
   table{
     width: 100%;
-      margin-bottom: 20px;
+      //margin-bottom: 20px;
 
     td,th{
  
@@ -140,6 +140,15 @@ const WhiteBox = styled.div<{theme:string}>`
 `
 const WhiteBox2 = styled(WhiteBox)`
   background: transparent;
+    overflow: hidden;
+    padding: 0;
+    .md-editor-preview-wrapper{
+        padding: 5px 12px;
+        p{
+            font-size: 14px!important;
+        }
+
+    }
   
 `
 
