@@ -216,6 +216,9 @@ export default function File({item,tableIndex,listName,type,setValue,reset,getVa
         let arr:any ={}
         item.properties.map((inner)=>{
             arr[inner.name] = inner.value;
+            if(inner.name === "validate" && inner.value.pattern){
+                inner.value.pattern = new RegExp(inner.value.pattern);
+            }
         })
 
         setProp(arr)

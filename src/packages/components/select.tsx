@@ -61,6 +61,9 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
         let arr: any = {}
         item.properties.map((inner:any) => {
             arr[inner.name] = inner.value;
+            if(inner.name === "validate" && inner.value.pattern){
+                inner.value.pattern = new RegExp(inner.value.pattern);
+            }
         })
 
         getSource(item.dataList)

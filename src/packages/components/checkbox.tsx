@@ -105,6 +105,9 @@ export default function Checkbox({item,tableIndex,type,listName,reset,setValue,g
         let arr:any ={}
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
+            if(inner.name === "validate" && inner.value.pattern){
+                inner.value.pattern = new RegExp(inner.value.pattern);
+            }
         })
         getSource(item.dataList)
         setProp(arr)

@@ -102,6 +102,9 @@ export default function DateTime({item,tableIndex,listName,type,reset,setValue,t
 
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
+            if(inner.name === "validate" && inner.value.pattern){
+                inner.value.pattern = new RegExp(inner.value.pattern);
+            }
         })
         if(item.value){
             const date = new Date(item.value);
