@@ -49,7 +49,7 @@ const ErrorTips = styled.div`
 `
 
 
-const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset,setValue,theme,baseUrl,version,token,language,errors }, ref) => {
+const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<any>>>(({item,control,tableIndex,listName,type,reset,setValue,theme,baseUrl,version,token,language,errors,operate }, ref) => {
 
     const [prop, setProp] = useState<any>();
     const [dataSource,setDataSource] = useState<any[]>([])
@@ -63,6 +63,7 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
             arr[inner.name] = inner.value;
             if(inner.name === "validate" && inner.value.pattern){
                 inner.value.pattern = new RegExp(inner.value.pattern);
+                console.log(inner.value.pattern )
             }
         })
 
@@ -150,7 +151,6 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
       <Box>
           <label  className="labelLft">{prop?.title}</label>
           <div>
-
               <Controller
                   name={inputName}
                   control={control}
@@ -162,6 +162,7 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
                               {...field}
                               className={!!fieldState.error?'error':''}
                               options={dataSource}
+                              isDisabled={operate === "template" && item.value }
                               styles={customStyles}
                               getOptionLabel={(option) => option.name}
                               getOptionValue={(option) => option.id}

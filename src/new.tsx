@@ -115,7 +115,57 @@ function New() {
 
     }, []);
 
-
+    const testArr123:any = [
+        {
+            "id": 21,
+            "name": "budget_p1",
+            "schema": {
+                "title": "预算申请(P1)",
+                "type": "budget_p1",
+                "desc": "P1 提案可申请不超过 20000 SCR 的激励",
+                "content": [{
+                    "type": "input",
+                    "inputType": "number",
+                    "value": "",
+                    "name": "amount",
+                    "properties": [{
+                        "name": "title",
+                        "value": "数额"
+                    }, {
+                        "name": "size",
+                        "value": "md"
+                    }, {
+                        "name": "validate",
+                        "value": {
+                            "required": true,
+                            "pattern": "^[1-9]\\d*$",
+                            "max":2000
+                        }
+                    }]
+                },
+                    {
+                    "type": "select",
+                    "dataList": "datasrv/asset_type",
+                    "value": {"id": 1, "name": "SCR"},
+                    "name": "typeTest",
+                    "properties": [{
+                        "name": "title",
+                        "value": "资产类型"
+                    }, {
+                        "name": "size",
+                        "value": "md"
+                    }, {
+                        "name": "validate",
+                        "value": {
+                            "required": true
+                        }
+                    }]
+                }]
+            },
+            "screenshot_uri": "",
+            "is_hidden": false
+        }
+    ]
     return (
         <>
             <TopBox>
@@ -135,49 +185,46 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDcwNTY1MTksIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.PzcGmmLbulqKiGSh1un-w124ScXWRNJ1DgihXfWNjjY"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDgwODkwMTAsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.1TpBKFPBx9MRJr2FejKMPLhB2_Y_xGUNHpk_nXnnrl4"
                               showRight={true}
                               theme={false}
-                            DataSource={[
-                                {
-                                    "id": 318,
-                                    "component_id": 13,
-                                    "name": "deliverables",
-                                    "schema": "",
-                                    "data": {
-                                        "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
-                                        "budgetList": [{
-                                            "address": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
-                                            "amount": "500",
-                                            "description": "test",
-                                            "typeTest": ""
-                                        },
-                                            {
-                                                "address": "0x9d6b1a15d476BfBBDf4274Ef6B405086cD7258f9",
-                                                "amount": "100",
-                                                "description": "lala",
-                                                "typeTest": {
-                                                    "id": 1,
-                                                    "name": "SCR"
-                                                }
-                                            }, {
-                                                "address": "0x41D2Ce62cd81D9ccd5C6890DCb44267B26165F85",
-                                                "amount": "200",
-                                                "description": "lala",
-                                                "typeTest": {
-                                                    "id": 1,
-                                                    "name": "SCR"
-                                                }
-                                            }
-
-                                        ],
-                                        "proposal_id": "os-521"
-                                    },
-                                    "create_ts": 1706514968
-                                }
-                            ]}
+                            // DataSource={[
+                            //     {
+                            //         "id": 1377,
+                            //         "component_id": 21,
+                            //         "name": "budget_p1",
+                            //         "schema": "",
+                            //         "data": "{\"amount\":\"35\",\"applicant\":\"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e\",\"proposal_id\":\"os-860\",\"typeTest\":{\"id\":1,\"name\":\"SCR\"}}",
+                            //         "create_ts": 1707313977
+                            //     },
+                            //     {
+                            //         "id": 1378,
+                            //         "component_id": 13,
+                            //         "name": "deliverables",
+                            //         "schema": "",
+                            //         "data": "{\"applicant\":\"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e\",\"description\":\"\\u003c!-- 请注明交付物的类型或形式。（如线上讨论会1场 / SNS 增长人数不少于50人 / 活动内容文稿宣传 1 篇 / 培训课程 pft 文档 1 份等） --\\u003e\\n交付物\",\"proposal_id\":\"os-860\"}",
+                            //         "create_ts": 1707313977
+                            //     },
+                            //     {
+                            //         "id": 1379,
+                            //         "component_id": 14,
+                            //         "name": "deadline",
+                            //         "schema": "",
+                            //         "data": "{\"applicant\":\"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e\",\"description\":\"2024-02-16T16:00:00.000Z\",\"proposal_id\":\"os-860\"}",
+                            //         "create_ts": 1707313977
+                            //     },
+                            //     {
+                            //         "id": 1413,
+                            //         "component_id": 1,
+                            //         "name": "create_project",
+                            //         "schema": "",
+                            //         "data": "{\"project_name\":\"[BetaTest] gfagfsdg \",\"applicant\":\"0xD85c413dA833CeBD8338138CcEFA04979DF70E8e\",\"proposal_id\":\"860\",\"budget\":\"\",\"deliverable\":\"\",\"plan_time\":\"\",\"sip\":0}",
+                            //         "create_ts": 1707314087
+                            //     }
+                            // ]}
                                 operate={operate}
-                              initialItems={list}
+                              // initialItems={list}
+                              initialItems={testArr123}
                               BeforeComponent={
             <>
                                   {/*<Preview DataSource={*/}

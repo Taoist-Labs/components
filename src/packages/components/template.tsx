@@ -362,6 +362,7 @@ const P32 = styled.div`
                                                                     name={item.name}
                                                                     getValues={getValues}
                                                                     theme={theme}
+                                                                    operate={operate}
                                                                     setError={setError}
                                                                     clearErrors={clearErrors}
                                                                     watch={watch}

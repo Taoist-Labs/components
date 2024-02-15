@@ -17,6 +17,7 @@ export interface ChildProps {
     setError?:any
     reset?:any
     clearErrors?:any
+    operate?:string
     data?:any
     watch:any
     name?:string

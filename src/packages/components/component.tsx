@@ -47,19 +47,16 @@ const Tips = styled.div`
     opacity: 0.6;
 `
 
-const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch,setError,clearErrors}:ChildProps) =>{
+const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch,setError,clearErrors,operate}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const operate = searchParams.get('operate');
+    // const searchParams = new URLSearchParams(window.location.search);
+    // const operate = searchParams.get('operate');
 
     useEffect(() => {
-
         listArr?.content.map((item:Item)=>{
             if(!!data){
                 item.value = data[item.name];
-            }else{
-                item.value = null;
             }
         })
         listArr.name = name ?? '';
@@ -126,6 +123,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 item={item}
                                 control={control}
                                 type={list?.name}
+                                operate={operate}
                                 reset={reset}
                                 setValue={setValue}
                                 theme={theme}
