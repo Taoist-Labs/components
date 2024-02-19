@@ -1,6 +1,6 @@
 import {InputProps} from "../type/compontent.type";
 import styled from "styled-components";
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {Controller} from "react-hook-form";
 import DatePicker from "react-datepicker";
 import Lan from "../utils/lan";
@@ -142,6 +142,9 @@ export default function DateTime({item,tableIndex,listName,type,reset,setValue,t
                             }}
                             className={`${!!fieldState.error?'error':''}`}
                             onChange={(date: any) => handleDateChange(date)}
+                            onKeyDown={(e) => {
+                                e.preventDefault();
+                            }}
                         />
                         {
                             !!fieldState.error && <ErrorTips>

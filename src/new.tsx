@@ -138,8 +138,7 @@ function New() {
                         "name": "validate",
                         "value": {
                             "required": true,
-                            "pattern": "^[1-9]\\d*$",
-                            "max":2000
+                            "pattern": "^(20000|[0-9]{1,4})$",
                         }
                     }]
                 },
@@ -223,8 +222,8 @@ function New() {
                             //     }
                             // ]}
                                 operate={operate}
-                              // initialItems={list}
-                              initialItems={testArr123}
+                              initialItems={list}
+                              // initialItems={testArr123}
                               BeforeComponent={
             <>
                                   {/*<Preview DataSource={*/}
