@@ -116,6 +116,8 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 language={language}
                                 getValues={getValues}
                                 theme={theme}
+                                baseUrl={baseUrl}
+                                version={version}
                             />
                         }
                         {
