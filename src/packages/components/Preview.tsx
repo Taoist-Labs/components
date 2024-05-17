@@ -280,6 +280,11 @@ const TitleBox2 = styled(TitleBox)`
     padding-left: 0;
 `
 
+const SumBox = styled.div`
+    font-weight: bold;
+    margin-top: 20px;
+`
+
 
 export default function Preview({DataSource,innerData,initialItems,theme,BeforeComponent,AfterComponent,language}:any){
 
@@ -331,10 +336,34 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
 
                                    arr.push(newRow)
 
+
+
                                    inner.table[j] = arr;
                                }
                            }
 
+                           if(inner?.sum){
+                               const { type,number } = inner?.sum;
+                               let totalObj:any = {};
+
+                               inner.table.map((item:any)=>{
+                                   let typeIndex = item.findIndex((inn:any) => inn.name === type);
+                                   let numberIndex = item.findIndex((inn:any) => inn.name === number);
+
+                                   const key = item[typeIndex].value.name;
+                                   const amount = item[numberIndex].value;
+                                   if(!totalObj[key]){
+                                       totalObj[key] = Number(amount)
+                                   }else{
+                                       totalObj[key]  += Number(amount);
+                                   }
+                               })
+                               let strArr =[];
+                               for(let key in totalObj){
+                                   strArr.push(`${totalObj[key]} ${key}`)
+                               }
+                               inner.sum.total = strArr.join(",");
+                           }
                        }
                         return inner;
                     })
@@ -504,7 +533,7 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                             item.content.map((inner:any,innerKey:number)=>(
                                                 <LineFlex key={`component_${innerKey}_${uuidv4()}`}  className={(inner.type === "file" && inner.uploadType ==="image" || inner.type === "checkbox")?"lgImg": inner?.pro?.size}>
                                                     {
-                                                        inner.type === "table" && <TableOuter theme={theme?.toString()}>
+                                                        inner.type === "table" && <div><TableOuter theme={theme?.toString()}>
 
                                                             <table cellPadding="0" cellSpacing="0">
                                                                 <thead>
@@ -573,6 +602,11 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                                                 </tbody>
                                                             </table>
                                                         </TableOuter>
+                                                            {
+                                                                !!inner?.sum &&  <SumBox>{inner?.sum?.label}:{inner?.sum?.total}</SumBox>
+                                                            }
+
+                                                    </div>
                                                     }
                                                     {
                                                         inner.type === "richText" && <LineBox>
