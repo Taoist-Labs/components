@@ -346,6 +346,7 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
 
 
                                inner.table.map((item:any)=>{
+
                                    let typeIndex = item.findIndex((inn:any) => inn.name === type);
                                    let numberIndex = item.findIndex((inn:any) => inn.name === number);
                                    if(!item.length)return;

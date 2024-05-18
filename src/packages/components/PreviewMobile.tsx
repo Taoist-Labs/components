@@ -262,6 +262,12 @@ const TitleBox2 = styled(TitleBox)`
     padding-left: 0;
 `
 
+const SumBox = styled.div`
+    font-weight: bold;
+    margin-top: 20px;
+`
+
+
 export default function Preview({DataSource,initialItems,theme,language}:any){
 
     const [list,setList] = useState<any[]>([])
@@ -317,6 +323,31 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                                }
                            }
 
+                           if(inner?.sum){
+                               const { type,number } = inner?.sum;
+                               let totalObj:any = {};
+
+
+                               inner.table.map((item:any)=>{
+                                   let typeIndex = item.findIndex((inn:any) => inn.name === type);
+                                   let numberIndex = item.findIndex((inn:any) => inn.name === number);
+                                   if(!item.length)return;
+
+
+                                   const key = item[typeIndex].value?.name;
+                                   const amount = item[numberIndex].value;
+                                   if(!totalObj[key]){
+                                       totalObj[key] = Number(amount)
+                                   }else{
+                                       totalObj[key]  += Number(amount);
+                                   }
+                               })
+                               let strArr =[];
+                               for(let key in totalObj){
+                                   strArr.push(`${totalObj[key]} ${key}`)
+                               }
+                               inner.sum.total = strArr.join(",");
+                           }
                        }
                         return inner;
                     })
@@ -481,7 +512,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
                                     <div key={`component_${innerKey}`}>
                                         {
-                                            inner.type === "table" && <InnerTable>
+                                            inner.type === "table" &&<div> <InnerTable>
 
                                                 <table cellPadding="0" cellSpacing="0"  className="table">
                                                     <thead>
@@ -550,7 +581,13 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
                                                     </tbody>
                                                 </table>
+
                                             </InnerTable>
+                                                {
+                                                    !!inner?.sum &&  <SumBox>{inner?.sum?.label}:{inner?.sum?.total}</SumBox>
+                                                }
+                                            </div>
+
                                         }
 
                                         {
