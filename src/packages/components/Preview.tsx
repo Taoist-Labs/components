@@ -336,8 +336,6 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
 
                                    arr.push(newRow)
 
-
-
                                    inner.table[j] = arr;
                                }
                            }
@@ -346,9 +344,11 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                const { type,number } = inner?.sum;
                                let totalObj:any = {};
 
+
                                inner.table.map((item:any)=>{
                                    let typeIndex = item.findIndex((inn:any) => inn.name === type);
                                    let numberIndex = item.findIndex((inn:any) => inn.name === number);
+                                   if(!item.length)return;
 
                                    const key = item[typeIndex].value.name;
                                    const amount = item[numberIndex].value;

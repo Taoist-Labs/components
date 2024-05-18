@@ -118,6 +118,7 @@ export interface TableProps{
         rows:any;
         name:string;
         value?:any;
+        sum?:any;
     }
     theme?:boolean;
     type?:string;

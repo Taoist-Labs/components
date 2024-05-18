@@ -89,6 +89,11 @@ const AddBox = styled.div`
 //     opacity: 0.6;
 // `
 
+const SumBox = styled.div`
+    font-weight: bold;
+    padding: 20px;
+`
+
 export default function Table({item,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token,errors,watch,setError,clearErrors}:TableProps){
 
     const [column,setColumn] = useState(0);
@@ -125,9 +130,39 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
         }else{
             append(dataItem)
         }
+
+
         setDataItem(obj);
 
     }, [item]);
+
+    let rt = watch( `${type}.${item?.name}`);
+
+    if(item?.sum && rt?.length){
+        const { type,number } = item?.sum;
+        let totalObj:any = {};
+
+        rt.map((ii:any)=>{
+
+            if(!ii || !ii[type] || !ii[number])return;
+
+
+            const key = ii[type]?.name;
+            const amount = ii[number];
+
+
+            if(!totalObj[key]){
+                totalObj[key] = Number(amount)
+            }else{
+                totalObj[key]  += Number(amount);
+            }
+        })
+        let strArr =[];
+        for(let key in totalObj){
+            strArr.push(`${totalObj[key]} ${key}`)
+        }
+        item.sum.total = strArr.join(",");
+    }
 
 
     useEffect(() => {
@@ -184,6 +219,7 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
                 }
                 </tbody>
             </table>
+
             <AddBox>
                 <BtmBtn onClick={() => append(dataItem)}  theme={theme?.toString()}>
                     <Add theme={theme} /> <span>{Lan[language??"zh"]?.add}</span>
@@ -191,7 +227,9 @@ export default function Table({item,control,type,setValue,reset,getValues,theme,
             </AddBox>
 
 
-
+            {
+                !!item?.sum &&  <SumBox>{item?.sum?.label}: {item?.sum?.total}</SumBox>
+            }
 
         </Box>
 
