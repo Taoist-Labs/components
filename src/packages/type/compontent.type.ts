@@ -26,6 +26,7 @@ export interface ChildProps {
     getValues?:any
     baseUrl?:string
     token?:string
+    movitationSum?:string
     errors?:any
     trigger?:any
     version?:string
@@ -122,6 +123,7 @@ export interface TableProps{
     }
     theme?:boolean;
     type?:string;
+    movitationSum?:string;
     language?:string;
     control:any
     watch:any

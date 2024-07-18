@@ -5,6 +5,7 @@ import Lan from "../utils/lan";
 import {Controller} from "react-hook-form";
 import sns from "@seedao/sns-js";
 import ErrorImg from "../svg/error";
+import DisableNumberInputWheel from "./DisableInput";
 
 
 const Box = styled.div<{theme?:string}>`
@@ -190,6 +191,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
   if(!prop)return null;
     return <Box theme={theme?.toString()}>
         <label className="labelLft">{prop?.title}</label>
+        <DisableNumberInputWheel />
         <div className="rht">
                 <Controller
                     name={inputName}

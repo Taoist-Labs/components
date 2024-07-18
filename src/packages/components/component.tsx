@@ -47,7 +47,7 @@ const Tips = styled.div`
     opacity: 0.6;
 `
 
-const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch,setError,clearErrors,operate}:ChildProps) =>{
+const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch,setError,clearErrors,operate,movitationSum}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
 
     // const searchParams = new URLSearchParams(window.location.search);
@@ -153,6 +153,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 baseUrl={baseUrl}
                                 version={version}
                                 token={token}
+                                movitationSum={movitationSum}
                             />
                         }
                         {

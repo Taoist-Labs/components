@@ -185,9 +185,10 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTYwMTcxNTAsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.nBorfcS9Gq5AxsnKbWVHx5_OzkgryptZEP2BZ1kAocg"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTY1Mzc2ODUsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.Quii2hMq4Q-BHrgxLYE-WRyuQHGCISowj2c26VnyKZg"
                               showRight={true}
                               theme={false}
+                            movitationSum={"100 SCR,200 USDT"}
 
 
                             // DataSource={[

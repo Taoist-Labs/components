@@ -179,7 +179,7 @@ const P32 = styled.div`
     }
 `
 
- const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token,onSaveData}:any,ref) => {
+ const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token,onSaveData,movitationSum}:any,ref) => {
      React.useImperativeHandle(ref, () => ({
          submitForm:handleSubmit(onSubmit,onError),
          saveForm:saveDraft,
@@ -306,7 +306,16 @@ const P32 = styled.div`
 
     const onSubmit = async (data:any) =>{
 
+
+
         let formData = formatDAllData(data)
+
+        if(data?.motivationResult){
+            onSubmitData && onSubmitData(false,"");
+            return;
+        }
+
+
         onSubmitData && onSubmitData(true,formData);
 
     }
@@ -371,6 +380,7 @@ const P32 = styled.div`
                                                                     version={version}
                                                                     language={language}
                                                                     errors={errors}
+                                                                    movitationSum={movitationSum}
                                                                     control={control} setValue={setValue}
                                                                     reset={reset} data={item?.data}/>
 
