@@ -96,7 +96,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
     }
 
     const getTemplateFileUrl = (language?: string) => {
-        return `https://superapp-backend-prod.s3.ap-northeast-1.amazonaws.com/templates/upload_template_${
+        return `https://superapp-backend-prod.s3.ap-northeast-1.amazonaws.com/templates/proposal_upload_template_${
             language || 'en'
         }.xlsx`;
     };
