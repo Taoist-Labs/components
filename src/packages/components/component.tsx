@@ -9,10 +9,15 @@ import File from "./File";
 import CheckBox from "./checkbox"
 import DateTime from "./dateTime";
 import RichText from "./richText";
+import BatchTable from "./batchTable";
+import * as XLSX from 'xlsx';
 
 
 const Box = styled.div`
   padding: 12px 24px;
+    .table{
+        width: 100%;
+    }
 `
 
 const TitleBox = styled.div`
@@ -20,7 +25,9 @@ const TitleBox = styled.div`
   padding-bottom: 20px;
     font-size: 16px;
     margin-top: 10px;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     text-align: left;
 `
 
@@ -47,11 +54,22 @@ const Tips = styled.div`
     opacity: 0.6;
 `
 
+const TipsBox = styled.div`
+`
+
 const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch,setError,clearErrors,operate,movitationSum}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
+    const [batchShow,setBatchShow] = useState<boolean>(false);
+    const [showType,setShowType] = useState<number>(1);
+    const[ itemList,setItemList] = useState<any[]>([]);
 
     // const searchParams = new URLSearchParams(window.location.search);
     // const operate = searchParams.get('operate');
+
+    useEffect(() => {
+
+        setBatchShow(!!list?.batchImport)
+    }, [list?.batchImport]);
 
     useEffect(() => {
         listArr?.content.map((item:Item)=>{
@@ -70,8 +88,32 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
         return (item.type === "checkbox" || (item.type === "file" && item.uploadType === "image"))?"lg":arr[0]?.value;
     }
 
+    const showImport = (type:number,ilist?:any[]) =>{
+        setBatchShow(false)
+
+        setItemList(ilist??[])
+        setShowType(type)
+    }
+
+    const getTemplateFileUrl = (language?: string) => {
+        return `https://superapp-backend-prod.s3.ap-northeast-1.amazonaws.com/templates/upload_template_${
+            language || 'en'
+        }.xlsx`;
+    };
+
+    const downloadFile = async () => {
+        window.open(getTemplateFileUrl(language), '_blank');
+    };
+
+
     return <Box key={list?.id}>
-        <TitleBox>{list?.title}</TitleBox>
+        <TitleBox>
+            <span>{list?.title}</span>
+            {
+                list?.batchImport && <span onClick={downloadFile}>下载模版</span>
+            }
+
+        </TitleBox>
         {/*{*/}
         {/*    !!list?.desc &&  <Tips>{list?.desc}</Tips>*/}
         {/*}*/}
@@ -138,8 +180,17 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                             />
                         }
                         {
-                            item.type === "table" && <Table
-                                item={item}
+                            item.type === "table" && batchShow && <TipsBox>
+                                <BatchTable
+                                    item={item}
+                                    showImport={showImport}
+                                />
+
+                            </TipsBox>
+                        }
+                        {
+                            item.type === "table" && !batchShow &&<Table
+                                item={showType === 1 ?item:itemList}
                                 control={control}
                                 type={list?.name}
                                 setValue={setValue}

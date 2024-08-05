@@ -7,6 +7,7 @@ export interface Icomponent {
     desc:string;
     automation_action:string;
     content:any[]
+    batchImport:boolean;
 }
 
 export interface ChildProps {
@@ -121,12 +122,13 @@ export interface TableProps{
         value?:any;
         sum?:any;
     }
+    showImport?:any;
     theme?:boolean;
     type?:string;
     movitationSum?:string;
     language?:string;
-    control:any
-    watch:any
+    control?:any
+    watch?:any
     reset?:any
     clearErrors?:any
     setError?:any
@@ -144,6 +146,7 @@ export interface ChildMethods {
 
 export interface  Item  {
     id: string;
+    defaultValue?:string;
     screenshot_uri: string;
     is_hidden: boolean;
     title: string;
@@ -152,5 +155,6 @@ export interface  Item  {
     dragType?: string;
     schema: any;
     data?:any;
+    batchImport:boolean;
     value?:any
 };

@@ -83,10 +83,10 @@ function New() {
     };
     const handleSave = (data: any) => {
         console.log(data)
-        // console.log(JSON.stringify({
-        //     ...data,
-        //     test
-        // }))
+        console.log(JSON.stringify({
+            ...data,
+            // test
+        }))
     };
 
     const saveAll = () =>{
@@ -118,47 +118,99 @@ function New() {
     const testArr123:any = [
 
         {
-            "id": 21,
-            "name": "budget_p1",
-            "schema": {
-                "title": "预算申请(P1)",
-                "type": "budget_p1",
-                "desc": "P1 提案可申请不超过 20000 SCR 的激励",
+            "id": 15,
+            "name": "motivation",
+
+            "schema":{
+                "type": "budget",
+                "title": "激励申请表",
+                "batchImport":true,
+                // templateUrl:"",
                 "content": [{
-                    "type": "input",
-                    "inputType": "number",
-                    "value": "",
-                    "name": "amount",
-                    "properties": [{
-                        "name": "title",
-                        "value": "数额"
+                    "type": "table",
+                    "name": "budgetList",
+                    "desc": "如果此项目有预付部分，请在以下表格中分配中剔除已预付的部分。",
+                    "sum": {
+                        "label": "申请总资产",
+                        "type": "assetInfo",
+                        "number": "amount"
+                    },
+                    "style": {
+                        "width": [20, 20, 20, 40],
+                        "tHeader": ["接收人", "资产类型", "资产数量", "备注"]
+                    },
+                    "rows": [{
+                        "type": "input",
+                        "inputType": "address",
+                        "value": "",
+                        "name": "address",
+                        "properties": [{
+                            "name": "title",
+                            "value": "接收人"
+                        }, {
+                            "name": "size",
+                            "value": "md"
+                        }, {
+                            "name": "needParseSNS",
+                            "value": true
+                        }, {
+                            "name": "validate",
+                            "value": {
+                                "required": true
+                            }
+                        }]
                     }, {
-                        "name": "size",
-                        "value": "md"
+                        "type": "select",
+                        "dataList": "datasrv/asset_type_proposal",
+                        "value": "",
+                        "name": "assetInfo",
+                        "properties": [{
+                            "name": "title",
+                            "value": "资产类型"
+                        }, {
+                            "name": "size",
+                            "value": "md"
+                        }, {
+                            "name": "validate",
+                            "value": {
+                                "required": true
+                            }
+                        }]
                     }, {
-                        "name": "validate",
-                        "value": {
-                            "required": true,
-                            "pattern": "^(20000|[0-9]{1,4})$",
-                        }
-                    }]
-                },
-                    {
-                    "type": "select",
-                    "dataList": "datasrv/asset_type",
-                    "value": {"id": 1, "name": "SCR"},
-                    "name": "typeTest",
-                    "properties": [{
-                        "name": "title",
-                        "value": "资产类型"
+                        "type": "input",
+                        "inputType": "number",
+                        "value": "0",
+                        "name": "amount",
+                        "properties": [{
+                            "name": "title",
+                            "value": "资产数量"
+                        }, {
+                            "name": "size",
+                            "value": "md"
+                        }, {
+                            "name": "validate",
+                            "value": {
+                                "required": true,
+                                "min": 0
+                            }
+                        }]
                     }, {
-                        "name": "size",
-                        "value": "md"
-                    }, {
-                        "name": "validate",
-                        "value": {
-                            "required": true
-                        }
+                        "type": "input",
+                        "inputType": "text",
+                        "value": "",
+                        "name": "description",
+                        "properties": [{
+                            "name": "title",
+                            "value": "备注"
+                        }, {
+                            "name": "size",
+                            "value": "md"
+                        }, {
+                            "name": "validate",
+                            "value": {
+                                "required": true
+                            }
+                        }]
                     }]
                 }]
             },
@@ -185,11 +237,28 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTY1Mzc2ODUsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.Quii2hMq4Q-BHrgxLYE-WRyuQHGCISowj2c26VnyKZg"
-                              showRight={true}
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI1ODAyNjAsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.qLusj05BZsMRkefVZMfV4J0lH1XyPlXKSO69s6svnzA"
+                              showRight={false}
                               theme={false}
                             movitationSum={"100 SCR,200 USDT"}
-
+                            DataSource={[{
+                                "id": 3271,
+                                "component_id": 15,
+                                "name": "motivation",
+                                "schema": "",
+                                "data": {
+                                    "budgetList": [{
+                                        "address": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                                        "amount": "10",
+                                        "assetInfo": {
+                                            "id": 1,
+                                            "name": "SCR"
+                                        },
+                                        "description": "11"
+                                    }],
+                                },
+                                "create_ts": 1722525023
+                            }]}
 
                             // DataSource={[
                             //     {
@@ -226,7 +295,7 @@ function New() {
                             //     }
                             // ]}
                                 operate={operate}
-                              initialItems={list}
+                              initialItems={testArr123}
                               // initialItems={testArr123}
                               BeforeComponent={
             <>
