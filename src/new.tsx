@@ -179,7 +179,8 @@ function New() {
                     }, {
                         "type": "input",
                         "inputType": "number",
-                        "value": "0",
+                        "value": "",
+                        defaultValue:"0",
                         "name": "amount",
                         "properties": [{
                             "name": "title",
@@ -198,6 +199,7 @@ function New() {
                         "type": "input",
                         "inputType": "text",
                         "value": "",
+                        defaultValue:"无",
                         "name": "description",
                         "properties": [{
                             "name": "title",
@@ -237,7 +239,7 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI1ODAyNjAsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.qLusj05BZsMRkefVZMfV4J0lH1XyPlXKSO69s6svnzA"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI5MjM3ODQsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.oWji-K_L6_rAdXEAAT6MBr7Nb8UU4H72kKmK4VrwdI0"
                               showRight={false}
                               theme={false}
                             movitationSum={"100 SCR,200 USDT"}

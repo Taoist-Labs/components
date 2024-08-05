@@ -75,12 +75,12 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
     const [inputName,setInputName] = useState('')
     const [inputValue,setInputValue]= useState('')
 
+
     useEffect(() => {
         if(!item.properties)return;
         let arr:any ={}
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
-
 
             if(inner.name === "validate"){
 
@@ -119,21 +119,21 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
         // }
     }, []);
 
+    let timeoutId:any;
+    let value = watch(inputName);
+
+
     useEffect(() => {
         if(prop?.needParseSNS){
-            getSNS(value);
+          getSNS(value);
         }
-    }, [prop?.needParseSNS]);
-
-
-
+    }, [prop?.needParseSNS,value]);
 
     useEffect(()=>{
         setInputName(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
     },[tableIndex,listName,item])
 
-    let timeoutId:any;
-    let value = watch(inputName);
+
 
 
     useEffect(() => {
@@ -147,7 +147,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
     const getSNS = async (wallet:string) =>{
         try{
             const rt = await sns.name(wallet);
-            setInputValue(rt);
+            rt && setInputValue(rt);
 
         }catch (e) {
             console.error(e)
@@ -196,6 +196,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                 <Controller
                     name={inputName}
                     control={control}
+                    defaultValue={item?.defaultValue?.toString()}
                     rules={prop?.validate}
                     render={({ field,fieldState }) => (
                         <>
@@ -222,7 +223,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                                     <input
                                         {...field}
                                         type={item.inputType==="number"?"number":"text"}
-                                        value={getValues(inputName) || ''}
+                                        value={getValues(inputName)  || ''}
                                         className={`${!!fieldState.error?'error':''}`} />
                                 </>
                             }

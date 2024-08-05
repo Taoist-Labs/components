@@ -3,7 +3,7 @@
     import {TableProps, thProps} from "../type/compontent.type";
     import Input from "./input";
     import SelectBox from "./select";
-    import { useFieldArray,Controller } from 'react-hook-form';
+    import {useFieldArray, Controller, set} from 'react-hook-form';
     import File from "./File";
     import CheckBox from "./checkbox";
     import Minus from "../svg/minus";
@@ -128,6 +128,7 @@
                 obj[inner.name] = "";
             })
 
+
             if(item?.value?.length){
                 item.value?.map((inner:any)=>{
                     append(inner)
@@ -135,7 +136,6 @@
             }else{
                 append(dataItem)
             }
-
 
             setDataItem(obj);
 
@@ -217,6 +217,17 @@
             }
         }, []);
 
+        const appendNew = () =>{
+            let newItem = dataItem;
+
+            for(let key in newItem){
+                const nowItem = item.rows.find((nI:any)=>nI.name === key );
+                newItem[key] = nowItem.defaultValue;
+            }
+            setDataItem(newItem);
+            append(newItem)
+        }
+
         if(!item)return null;
         return <OuterBox>
             {/*<Tips>*/}
@@ -267,7 +278,7 @@
                 </table>
 
                 <AddBox>
-                    <BtmBtn onClick={() => append(dataItem)}  theme={theme?.toString()}>
+                    <BtmBtn onClick={() => appendNew()}  theme={theme?.toString()}>
                         <Add theme={theme} /> <span>{Lan[language??"zh"]?.add}</span>
                     </BtmBtn>
                 </AddBox>

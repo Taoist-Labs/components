@@ -50,6 +50,7 @@ export interface InputProps{
         properties:PropertiesObj[]
         value?:any
         dataList?:any
+        defaultValue?:string|number;
     }
     theme?:boolean;
     type?:string;
