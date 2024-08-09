@@ -6,6 +6,8 @@ import {Controller} from "react-hook-form";
 import sns from "@seedao/sns-js";
 import ErrorImg from "../svg/error";
 import DisableNumberInputWheel from "./DisableInput";
+import {Simulate} from "react-dom/test-utils";
+import input = Simulate.input;
 
 
 const Box = styled.div<{theme?:string}>`
@@ -81,7 +83,6 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
         let arr:any ={}
         item.properties.map((inner,index)=>{
             arr[inner.name] = inner.value;
-
             if(inner.name === "validate"){
 
                 switch(item.inputType){
@@ -99,8 +100,6 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                         break;
                 }
             }
-
-
         })
         setProp(arr)
     }, [item.properties]);
@@ -113,7 +112,6 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
             setValue(`${type}.${item?.name}`,item?.value)
             setInputValue(item?.value)
         }
-
         // return () =>{
         //     reset();
         // }
@@ -121,6 +119,8 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
 
     let timeoutId:any;
     let value = watch(inputName);
+
+
 
 
     useEffect(() => {
@@ -138,7 +138,8 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
 
     useEffect(() => {
         if(!value)return;
-        if(value === inputValue && value.indexOf("seedao")>-1){
+
+        if((value === inputValue || value === getValues(inputName)) && value.indexOf("seedao")>-1){
             getAddr()
         }
 
