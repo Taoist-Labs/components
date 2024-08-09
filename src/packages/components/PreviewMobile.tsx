@@ -297,6 +297,9 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                         inner.pro = {};
                         inner.properties?.map((inn:any)=>{
                             inner.pro[inn.name] = inn.value;
+                            if(inn.name === "needParseSNS"){
+                                addressArr.push((data as any)[inner.name])
+                            }
                         })
                         inner.value = (data as any)[inner.name] ?? null;
                        if(inner.type === "table"){
