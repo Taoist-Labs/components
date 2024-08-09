@@ -303,15 +303,18 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
         let arr:any[]=[];
         let addressArr:string[] = [];
 
+
         DataSource.map((d:any)=>{
             initialItems.map( async(i:any)=>{
-
                 if(i.name === d.name){
                     const {data} = d;
                    i.schema.content?.map( (inner:any)=>{
                         inner.pro = {};
                         inner.properties?.map((inn:any)=>{
                             inner.pro[inn.name] = inn.value;
+                            if(inn.name === "needParseSNS"){
+                                addressArr.push((data as any)[inner.name])
+                            }
                         })
 
                         inner.value = (data as any)[inner.name] ?? null;
@@ -325,12 +328,14 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
                                        ...inner.rows[k],
                                        value
                                    }
+
                                    newRow.pro = {};
                                    newRow.properties?.map(async (nw:any)=>{
                                        newRow.pro[nw.name] = nw.value;
                                        if(nw.name === "needParseSNS"){
                                            addressArr.push(value)
                                        }
+
 
                                    })
 
