@@ -115,12 +115,69 @@ function New() {
 
     }, []);
 
+
+
     const testArr123:any = [
+        // {
+        //     "id": 150,
+        //     "name": "public",
+        //     schema:{
+        //         "type": "public",
+        //         "title": "更换公共项目负责人",
+        //         "content": [
+        //             {
+        //                 "type": "select",
+        //                 "dataList": "datasrv/common_project_list",
+        //                 "name": "common_project_id",
+        //                 "properties": [{
+        //                     "name": "title",
+        //                     "value": "选择公共项目"
+        //                 }, {
+        //                     "name": "size",
+        //                     "value": "lg"
+        //                 }, {
+        //                     "name": "validate",
+        //                     "value": {
+        //                         "required": true
+        //                     }
+        //                 }]
+        //             },
+        //             {
+        //                 "type": "input",
+        //                 "inputType": "text",
+        //                 "value": "",
+        //                 "name": "admin_wallet",
+        //                 "properties": [{
+        //                     "name": "title",
+        //                     "value": "新项目负责人SNS"
+        //                 }, {
+        //                     "name": "size",
+        //                     "value": "lg"
+        //                 },  {
+        //                     "name": "needParseSNS",
+        //                     "value": true
+        //                 },
+        //                     {
+        //                     "name": "validate",
+        //                     "value": {
+        //                         "required": true
+        //                     }
+        //                 }]
+        //             }
+        //         ]
+        //     }
+        //
+        // }
+
+
+
+
+
+
 
         {
             "id": 15,
             "name": "motivation",
-
             "schema":{
                 "type": "budget",
                 "title": "激励申请表",
@@ -239,28 +296,33 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI5MjM3ODQsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.oWji-K_L6_rAdXEAAT6MBr7Nb8UU4H72kKmK4VrwdI0"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzE3NzM5NTMsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.HjXXRM79RYfL8-N_Lb7nNMTnkHv4J6s93wYJEW3imCI"
                               showRight={false}
                               theme={false}
                             movitationSum={"100 SCR,200 USDT"}
-                            DataSource={[{
-                                "id": 3271,
-                                "component_id": 15,
-                                "name": "motivation",
-                                "schema": "",
-                                "data": {
-                                    "budgetList": [{
-                                        "address": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
-                                        "amount": "10",
-                                        "assetInfo": {
-                                            "id": 1,
-                                            "name": "SCR"
-                                        },
-                                        "description": "11"
-                                    }],
-                                },
-                                "create_ts": 1722525023
-                            }]}
+                            DataSource={[
+                                // {
+                                //     "id": 3491,
+                                //     "component_id": 15,
+                                //     "name": "motivation",
+                                //     "schema": "",
+                                //     "data": {
+                                //         "applicant": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                                //         "budgetList": [{
+                                //             "address": "0xD85c413dA833CeBD8338138CcEFA04979DF70E8e",
+                                //             "amount": "11",
+                                //             "assetInfo": {
+                                //                 "id": 1,
+                                //                 "name": "SCR"
+                                //             },
+                                //             "description": "1111"
+                                //         }],
+                                //         "proposal_id": "os-1797"
+                                //     },
+                                //
+                                //     "create_ts": 1731734037
+                                // }
+                                ]}
 
                             // DataSource={[
                             //     {

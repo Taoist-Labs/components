@@ -168,8 +168,9 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
                 setValue(inputName,"")
             }
 
+
         }catch (e) {
-            setValue(inputName,value)
+            setValue(inputName,"")
             console.error(e)
         }
 

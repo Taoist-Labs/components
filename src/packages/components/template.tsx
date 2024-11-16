@@ -210,15 +210,24 @@ const P32 = styled.div`
     const init = () =>{
         let updateRht:Item[] = [];
         let updateLft = [...leftItems];
+        if(!DataSource?.length){
+
+            const cptIndex = initialItems.findIndex((item:any)=> item.name === "motivation");
+            if(cptIndex>=-1){
+                updateRht.push({...initialItems[cptIndex],  dragType: 'form'});
+            }
+
+        }else{
+            DataSource.map((dItem:any)=>{
+                const cptIndex = initialItems.findIndex((item:any)=> item.name === dItem.name);
+
+                initialItems[cptIndex].data = dItem?.data ;
+
+                updateRht.push({...initialItems[cptIndex],  dragType: 'form'});
+            })
+        }
 
 
-        DataSource.map((dItem:any)=>{
-            const cptIndex = initialItems.findIndex((item:any)=> item.name === dItem.name);
-
-            initialItems[cptIndex].data = dItem?.data ;
-
-            updateRht.push({...initialItems[cptIndex],  dragType: 'form'});
-        })
 
         const cptLft = initialItems.filter((element:any)=> !updateRht.some(e => e.name === element.name));
         updateLft = [...cptLft];

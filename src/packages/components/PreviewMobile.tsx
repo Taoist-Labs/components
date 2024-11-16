@@ -319,8 +319,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                                            addressArr.push(value)
                                        }
                                    })
-                                   setAddr([...addressArr])
-                                   console.log(addressArr)
+
                                    arr.push(newRow)
                                    inner.table[j] = arr;
                                }
@@ -371,6 +370,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
                 }
             })
         })
+        setAddr([...addressArr])
         setList([...arr])
 
 

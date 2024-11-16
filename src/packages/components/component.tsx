@@ -180,16 +180,15 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                             />
                         }
                         {
-                            item.type === "table" && batchShow && <TipsBox>
+                            item.type === "table" && batchShow && !item?.value && <TipsBox>
                                 <BatchTable
                                     item={item}
                                     showImport={showImport}
                                 />
-
                             </TipsBox>
                         }
                         {
-                            item.type === "table" && !batchShow &&<Table
+                            item.type === "table" && (!batchShow || !!item?.value) &&<Table
                                 item={showType === 1 ?item:itemList}
                                 control={control}
                                 type={list?.name}
