@@ -57,7 +57,7 @@ const Tips = styled.div`
 const TipsBox = styled.div`
 `
 
-const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch,setError,clearErrors,operate,movitationSum}:ChildProps) =>{
+const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch,setError,clearErrors,operate,movitationSum,rpc}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
     const [batchShow,setBatchShow] = useState<boolean>(false);
     const [showType,setShowType] = useState<number>(1);
@@ -129,6 +129,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 type={list?.name}
                                 reset={reset}
                                 watch={watch}
+                                rpc={rpc}
                                 setValue={setValue}
                                 clearErrors={clearErrors}
                                 language={language}
@@ -199,6 +200,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 theme={theme}
                                 setError={setError}
                                 watch={watch}
+                                rpc={rpc}
                                 language={language}
                                 baseUrl={baseUrl}
                                 version={version}

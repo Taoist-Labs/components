@@ -179,7 +179,7 @@ const P32 = styled.div`
     }
 `
 
- const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token,onSaveData,movitationSum}:any,ref) => {
+ const Template = React.forwardRef(({onSubmitData,DataSource,operate,initialItems,BeforeComponent,AfterComponent,theme,showRight,language,baseUrl,version,token,onSaveData,movitationSum,rpc}:any,ref) => {
      React.useImperativeHandle(ref, () => ({
          submitForm:handleSubmit(onSubmit,onError),
          saveForm:saveDraft,
@@ -378,6 +378,7 @@ const P32 = styled.div`
                                                                 <Component
                                                                     listArr={item.schema}
                                                                     name={item.name}
+                                                                    rpc={rpc}
                                                                     getValues={getValues}
                                                                     theme={theme}
                                                                     operate={operate}

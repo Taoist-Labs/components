@@ -71,7 +71,7 @@ const ErrorTips = styled.div`
     
 `
 
-export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues,watch,setError,clearErrors}:InputProps){
+export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues,watch,setError,clearErrors,rpc}:InputProps){
 
     const [prop,setProp] = useState<any>();
     const [inputName,setInputName] = useState('')
@@ -147,7 +147,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
 
     const getSNS = async (wallet:string) =>{
         try{
-            const rt = await sns.name(wallet);
+            const rt = await sns.name(wallet,rpc);
             rt && setInputValue(rt);
 
         }catch (e) {
@@ -158,7 +158,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
     const getAddr = async () =>{
         // clearErrors(inputName)
         try{
-            let rt = await sns.resolve(value);
+            let rt = await sns.resolve(value,rpc);
             const decimalValue = parseInt(rt, 16);
             if(decimalValue){
                 setValue(inputName,rt)

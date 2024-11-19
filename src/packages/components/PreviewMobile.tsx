@@ -268,7 +268,7 @@ const SumBox = styled.div`
 `
 
 
-export default function Preview({DataSource,initialItems,theme,language}:any){
+export default function Preview({DataSource,initialItems,theme,language,rpc}:any){
 
     const [list,setList] = useState<any[]>([])
     const [address,setAddress] = useState('');
@@ -394,7 +394,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
     const returnSNS = async () =>{
         const _wallet = address.toLocaleLowerCase();
-        const rt = await sns.name(_wallet);
+        const rt = await sns.name(_wallet,rpc);
         setSnsStr( rt || address)
     }
 
@@ -419,7 +419,7 @@ export default function Preview({DataSource,initialItems,theme,language}:any){
 
     const returnSNSStr = async () =>{
 
-        const rt = await sns.names(addr!);
+        const rt = await sns.names(addr!,rpc);
         let snsMapArr:any = {};
         addr?.map((item:string,index:number)=>{
             snsMapArr[item] = rt[index] || item;

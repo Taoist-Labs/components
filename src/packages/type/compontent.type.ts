@@ -31,6 +31,7 @@ export interface ChildProps {
     errors?:any
     trigger?:any
     version?:string
+    rpc?:string
 }
 
 interface PropertiesObj{
@@ -68,6 +69,7 @@ export interface InputProps{
     language?:string;
     token?:string
     version?:string
+    rpc?:string
 }
 export interface SelectProps{
     item:{
@@ -139,6 +141,7 @@ export interface TableProps{
     errors?:string
     token?:string
     version?:string
+    rpc?:string
 }
 
 export interface ChildMethods {

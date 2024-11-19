@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React,{useEffect, useState} from "react";
 import {thProps} from "../type/compontent.type";
 import sns from '@seedao/sns-js';
+
 import Lan from "../utils/lan";
 import { MdPreview } from 'md-editor-rt';
 import { v4 as uuidv4 } from 'uuid';
@@ -286,7 +287,7 @@ const SumBox = styled.div`
 `
 
 
-export default function Preview({DataSource,innerData,initialItems,theme,BeforeComponent,AfterComponent,language}:any){
+export default function Preview({DataSource,innerData,initialItems,theme,BeforeComponent,AfterComponent,language,rpc}:any){
 
     const [list,setList] = useState<any[]>([])
     const [address,setAddress] = useState('');
@@ -427,7 +428,7 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
 
     const returnSNSStr = async () =>{
 
-        const rt = await sns.names(addrArr!);
+        const rt = await sns.names(addrArr!,rpc);
         let snsMapArr:any = {};
         addrArr?.map((item:string,index:number)=>{
             snsMapArr[item] = rt[index] || item;
@@ -443,7 +444,7 @@ export default function Preview({DataSource,innerData,initialItems,theme,BeforeC
 
     const returnSNS = async () =>{
         const _wallet = address.toLocaleLowerCase();
-        const rt = await sns.name(_wallet);
+        const rt = await sns.name(_wallet,rpc);
         setSnsStr( rt || address)
     }
 
