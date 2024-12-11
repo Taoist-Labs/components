@@ -70,7 +70,7 @@ const ErrorTips = styled.div`
 
     
 `
-
+let timeoutId:any;
 export default function Input({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues,watch,setError,clearErrors,rpc}:InputProps){
 
     const [prop,setProp] = useState<any>();
@@ -117,11 +117,8 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
         // }
     }, []);
 
-    let timeoutId:any;
+
     let value = watch(inputName);
-
-
-
 
     useEffect(() => {
         if(prop?.needParseSNS){
@@ -184,7 +181,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             setValue(inputName,value)
-        }, 300);
+        }, 1000);
 
 
     }
