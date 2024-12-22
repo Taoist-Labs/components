@@ -96,7 +96,21 @@ const ErrorTips = styled.div`
 
 export default function DateTime({item,tableIndex,listName,type,reset,setValue,theme,language,control,getValues}:InputProps){
     const [prop,setProp] = useState<any>();
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState<string>();
+
+    // useEffect(() => {
+    //     const currentDate = formatDate(new Date());
+    //     setStartDate(currentDate)
+    //
+    // }, []);
+
+    function formatDate(date:any) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+    }
 
     useEffect(() => {
 
@@ -140,6 +154,7 @@ export default function DateTime({item,tableIndex,listName,type,reset,setValue,t
                                     focus: (ref as any)?.setFocus
                                 });
                             }}
+                            minDate={new Date()}
                             className={`${!!fieldState.error?'error':''}`}
                             onChange={(date: any) => handleDateChange(date)}
                             onKeyDown={(e) => {
