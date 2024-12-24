@@ -97,6 +97,9 @@
             margin-bottom: -3px;
             margin-left: 5px;
         }
+        .errorTips{
+            margin-left: 10px;
+        }
     `
 
     export default function Table({item,control,type,setValue,reset,getValues,theme,language,baseUrl,version,token,errors,watch,setError,clearErrors,movitationSum,rpc}:TableProps){
@@ -114,6 +117,7 @@
             },
             shouldUnregister:true
         });
+
 
 
         useEffect(() => {
@@ -172,27 +176,39 @@
 
         let tableResult = watch(`${type}.${item?.name}`)
         let checkAll = false;
+        let tipsErr = "";
+
         const formatTable = () =>{
             if(!movitationSum || !tableResult)return;
             const totalArr = movitationSum?.split(",")
             const inputTotal = item?.sum?.total?.split(",")
 
-
             if (totalArr?.length < inputTotal?.length) {
                 checkAll = true;
+                tipsErr = "资产数量错误"
+                return;
             } else {
+
+                if(inputTotal?.length === 1 && !inputTotal[0])
+                {
+                    checkAll = false;
+                    return;
+                }
                 for(let i=0;i<inputTotal?.length;i++){
                     let item = inputTotal[i];
+
                     const remainArr = item.split(' ');
                     const finditemIndex = totalArr.findIndex((innerItem:any) => innerItem.indexOf(remainArr[1])>-1);
                     if (finditemIndex === -1) {
                         checkAll = true;
-                        return;
+                        tipsErr = "资产类型错误"
+                        // return;
+                        break;
                     }
                     const totalNum = totalArr[finditemIndex]?.split(' ')[0];
                     if (Number(totalNum) < Number(remainArr[0])) {
                         checkAll = true;
-
+                        tipsErr = "资产数量错误"
                         break;
                     } else {
                         checkAll = false;
@@ -287,7 +303,11 @@
                     !!item?.sum &&  <><SumBox>{item?.sum?.label}: {item?.sum?.total}
                         {
                             checkAll &&<ErrorImg/>
-                        }</SumBox> </>
+                        }
+                        {
+                            checkAll &&<span className="errorTips">{tipsErr}</span>
+                        }
+                    </SumBox> </>
                 }
 
 
