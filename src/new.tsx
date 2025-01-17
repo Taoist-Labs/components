@@ -296,7 +296,7 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzUxMzI4NzEsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.e4wVNV6ZgOp1BxFUGiMqgNI0jiPB3BShYvmgTf0CxJk"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzcxMjQxNTMsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.fGlsP3dQea-P7EHIbdYf2IM2NNRogT-1Kzq0TFdSfaY"
                               showRight={false}
                               theme={false}
                             movitationSum={"100 SCR,200 USDT"}

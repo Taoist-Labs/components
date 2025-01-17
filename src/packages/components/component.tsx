@@ -57,6 +57,12 @@ const Tips = styled.div`
 const TipsBox = styled.div`
 `
 
+const BackNav = styled.div`
+    padding-bottom: 10px;
+    position: relative;
+    z-index: 9;
+`
+
 const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch,setError,clearErrors,operate,movitationSum,rpc}:ChildProps) =>{
     const [list,setList] = useState<Icomponent>();
     const [batchShow,setBatchShow] = useState<boolean>(false);
@@ -105,6 +111,15 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
         window.open(getTemplateFileUrl(language), '_blank');
     };
 
+    const handleBack = (index:number) =>{
+        setBatchShow(true)
+        let arrObj = JSON.parse(JSON.stringify(list));
+
+        delete  arrObj?.content[index].value;
+        setList(arrObj)
+
+    }
+
 
     return <Box key={list?.id}>
         <TitleBox>
@@ -135,7 +150,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 language={language}
                                 setError={setError}
                                 getValues={getValues}
-                                theme={theme} />
+                                theme={theme}/>
                         }
                         {
                             item.type === "datepicker" && <DateTime
@@ -181,16 +196,23 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                             />
                         }
                         {
-                            item.type === "table" && batchShow && !item?.value && <TipsBox>
+                            item.type === "table" && typeof list?.batchImport === "boolean" && (!batchShow || !!item?.value) && <BackNav onClick={()=>handleBack(index)}>
+                                &lt;返回上一层
+                            </BackNav>
+                        }
+
+                        {
+                        item.type === "table" && batchShow && !item?.value && <TipsBox>
                                 <BatchTable
                                     item={item}
                                     showImport={showImport}
                                 />
                             </TipsBox>
                         }
+
                         {
-                            item.type === "table" && (!batchShow || !!item?.value) &&<Table
-                                item={showType === 1 ?item:itemList}
+                            item.type === "table" && (!batchShow || !!item?.value) && <Table
+                                item={showType === 1 ? item : itemList}
                                 control={control}
                                 type={list?.name}
                                 setValue={setValue}
@@ -219,7 +241,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 version={version}
                                 getValues={getValues}
                                 theme={theme}
-                                language={language} />
+                                language={language}/>
                         }
                         {
                             item.type === "checkbox" && <CheckBox
@@ -233,7 +255,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 version={version}
                                 language={language}
                                 token={token}
-                                theme={theme}  />
+                                theme={theme}/>
                         }
                     </li>
                 ))
