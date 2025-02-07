@@ -11,6 +11,7 @@ import DateTime from "./dateTime";
 import RichText from "./richText";
 import BatchTable from "./batchTable";
 import * as XLSX from 'xlsx';
+import Lan from "../utils/lan";
 
 
 const Box = styled.div`
@@ -57,10 +58,16 @@ const Tips = styled.div`
 const TipsBox = styled.div`
 `
 
-const BackNav = styled.div`
-    padding-bottom: 10px;
+const BackNav = styled.div<{theme?:string}>`
+  
     position: relative;
     z-index: 9;
+    display: inline-block;
+    padding:10px;
+    border-radius: 5px;
+    background: ${props=> props.theme === 'true'?"#2D2736":"rgba(82, 0, 255, 0.08)"};
+    margin-bottom: 10px;
+    margin-left: 5px;
 `
 
 const Component = ({listArr,control,setValue,reset,data,getValues,theme,language,name,baseUrl,version,token,errors,watch,setError,clearErrors,operate,movitationSum,rpc}:ChildProps) =>{
@@ -197,7 +204,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                         }
                         {
                             item.type === "table" && typeof list?.batchImport === "boolean" && (!batchShow || !!item?.value) && <BackNav onClick={()=>handleBack(index)}>
-                                &lt;返回上一层
+                                &lt; {Lan[language ?? "zh"]?.back}
                             </BackNav>
                         }
 
@@ -206,6 +213,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 <BatchTable
                                     item={item}
                                     showImport={showImport}
+                                    language={language}
                                 />
                             </TipsBox>
                         }

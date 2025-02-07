@@ -220,8 +220,12 @@ const P32 = styled.div`
         }else{
             DataSource.map((dItem:any)=>{
                 const cptIndex = initialItems.findIndex((item:any)=> item.name === dItem.name);
+                if(cptIndex === -1){
+                    return;
+                }
 
                 initialItems[cptIndex].data = dItem?.data ;
+
 
                 updateRht.push({...initialItems[cptIndex],  dragType: 'form'});
             })

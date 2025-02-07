@@ -4,6 +4,7 @@ import {TableProps, thProps} from "../type/compontent.type";
 import AddIcon from '../svg/addPrimary';
 import ImportImg from "../svg/table";
 import * as XLSX from 'xlsx';
+import Lan from "../utils/lan";
 
 const OuterBox = styled.div`
     `
@@ -103,7 +104,7 @@ const BtnBox = styled.label`
   }
 `;
 
-export default function BatchTable({item,showImport}:TableProps){
+export default function BatchTable({item,showImport,language}:TableProps){
 
     const [column,setColumn] = useState(0);
     const [width,setWidth] = useState<number[]>([]);
@@ -197,7 +198,7 @@ export default function BatchTable({item,showImport}:TableProps){
 
             </table>
             <MidBox>
-                <div className="button" onClick={()=>showImport(1)}><AddIcon /> <span>添加明细</span></div>
+                <div className="button" onClick={()=>showImport(1)}><AddIcon /> <span>{Lan[language ?? "zh"]?.addItem}</span></div>
 
 
                 <BtnBox htmlFor="fileUpload" onChange={(e) => updateFile(e)}>
@@ -211,7 +212,7 @@ export default function BatchTable({item,showImport}:TableProps){
                         }}
                     />
                     <ImportImg />
-                    <span>导入表格</span>
+                    <span>{Lan[language ?? "zh"]?.Import}</span>
                 </BtnBox>
 
             </MidBox>

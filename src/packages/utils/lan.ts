@@ -12,6 +12,9 @@ interface Language {
         selectError:string;
         fileError:string
         status:string
+        back:string
+        addItem:string
+        Import:string
     };
 }
 
@@ -27,7 +30,10 @@ const Lan:Language = {
         inputError:"请选择正确内容",
         selectError:"请输入正确内容",
         fileError:"请选择正确的文件",
-        status:"已通过"
+        status:"已通过",
+        back:"返回上一层",
+        addItem:"添加明细",
+        Import:"导入表格"
     },
     en:{
         dragTips:"Please select the components from the right",
@@ -40,7 +46,10 @@ const Lan:Language = {
         inputError:"Please enter the correct content.",
         selectError:"Please select the correct content",
         fileError:"Please select the correct file",
-        status:"Passed"
+        status:"Passed",
+        back:"Back",
+        addItem:"Add Item",
+        Import:"Import"
     }
 }
 export default Lan
