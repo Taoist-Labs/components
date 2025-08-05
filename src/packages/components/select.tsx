@@ -143,6 +143,8 @@ const SelectBox =forwardRef<HTMLSelectElement, any & ReturnType<UseFormRegister<
     };
     useEffect(()=>{
         setInputName(tableIndex!==undefined?`${type}.${listName}.${tableIndex}.${item?.name}`:`${type}.${item?.name}`)
+
+        setValue(`${type}.${listName}.${tableIndex}.${item?.name}`,item?.value)
     },[tableIndex])
 
 
