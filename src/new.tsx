@@ -118,109 +118,46 @@ function New() {
 
 
     const testArr123:any = [
-        // {
-        //     "id": 150,
-        //     "name": "public",
-        //     schema:{
-        //         "type": "public",
-        //         "title": "更换公共项目负责人",
-        //         "content": [
-        //             {
-        //                 "type": "select",
-        //                 "dataList": "datasrv/common_project_list",
-        //                 "name": "common_project_id",
-        //                 "properties": [{
-        //                     "name": "title",
-        //                     "value": "选择公共项目"
-        //                 }, {
-        //                     "name": "size",
-        //                     "value": "lg"
-        //                 }, {
-        //                     "name": "validate",
-        //                     "value": {
-        //                         "required": true
-        //                     }
-        //                 }]
-        //             },
-        //             {
-        //                 "type": "input",
-        //                 "inputType": "text",
-        //                 "value": "",
-        //                 "name": "admin_wallet",
-        //                 "properties": [{
-        //                     "name": "title",
-        //                     "value": "新项目负责人SNS"
-        //                 }, {
-        //                     "name": "size",
-        //                     "value": "lg"
-        //                 },  {
-        //                     "name": "needParseSNS",
-        //                     "value": true
-        //                 },
-        //                     {
-        //                     "name": "validate",
-        //                     "value": {
-        //                         "required": true
-        //                     }
-        //                 }]
-        //             }
-        //         ]
-        //     }
-        //
-        // }
-
-
-
-
-
-
-
         {
-            "id": 15,
-            "name": "motivation",
-            "schema":{
-                "type": "budget",
-                "title": "激励申请表",
-                "batchImport":true,
-                // templateUrl:"",
+            "id": 23,
+            "name": "budget_p2",
+            "schema": {
+                "type": "budget_p2",
+                "title": "预算申请",
                 "content": [{
                     "type": "table",
                     "name": "budgetList",
-                    "desc": "如果此项目有预付部分，请在以下表格中分配中剔除已预付的部分。",
-                    "sum": {
-                        "label": "申请总资产",
-                        "type": "assetInfo",
-                        "number": "amount"
-                    },
+                    "desc": "P2 提案可申请不超过 1000 USDC 的激励。 目前预付只能选择U，且需要说明预付的具体使用途径。",
                     "style": {
                         "width": [20, 20, 20, 40],
-                        "tHeader": ["接收人", "资产类型", "资产数量", "备注"]
+                        "tHeader": ["申请数额", "资产类型", "预付比例(0-50%)", "预付需求说明"]
                     },
                     "rows": [{
                         "type": "input",
-                        "inputType": "address",
+                        "inputType": "number",
                         "value": "",
-                        "name": "address",
+                        "name": "amount",
                         "properties": [{
                             "name": "title",
-                            "value": "接收人"
+                            "value": "申请数额"
                         }, {
                             "name": "size",
                             "value": "md"
                         }, {
-                            "name": "needParseSNS",
-                            "value": true
-                        }, {
                             "name": "validate",
                             "value": {
-                                "required": true
+                                "required": true,
+                                "min": 0
                             }
                         }]
                     }, {
                         "type": "select",
                         "dataList": "datasrv/asset_type_proposal",
-                        "value": "",
-                        "name": "assetInfo",
+                        "value": {
+                            "id": 2,
+                            "name": "USDC"
+                        },
+                        "name": "typeTest",
                         "properties": [{
                             "name": "title",
                             "value": "资产类型"
@@ -237,11 +174,11 @@ function New() {
                         "type": "input",
                         "inputType": "number",
                         "value": "",
-                        defaultValue:"0",
-                        "name": "amount",
+                        "defaultValue": "0",
+                        "name": "proportion",
                         "properties": [{
                             "name": "title",
-                            "value": "资产数量"
+                            "value": "预付比例"
                         }, {
                             "name": "size",
                             "value": "md"
@@ -249,18 +186,18 @@ function New() {
                             "name": "validate",
                             "value": {
                                 "required": true,
-                                "min": 0
+                                "pattern": "^(?:[1-9]|[1-4]\\d|50|0)$"
                             }
                         }]
                     }, {
                         "type": "input",
                         "inputType": "text",
                         "value": "",
-                        defaultValue:"无",
+                        "defaultValue": "无",
                         "name": "description",
                         "properties": [{
                             "name": "title",
-                            "value": "备注"
+                            "value": "预付需求说明"
                         }, {
                             "name": "size",
                             "value": "md"
@@ -273,10 +210,61 @@ function New() {
                     }]
                 }]
             },
-            "screenshot_uri": "",
             "is_hidden": false
         }
     ]
+
+    const p1Json:any[] =[
+        {
+            "id": 21,
+            "name": "budget_p1",
+            "schema": {
+                "title": "预算申请(P1)",
+                "type": "budget_p1",
+                "desc": "P1 提案可申请不超过 20000 WANG 的激励",
+                "content": [{
+                    "type": "input",
+                    "inputType": "number",
+                    "value": "",
+                    "name": "amount",
+                    "properties": [{
+                        "name": "title",
+                        "value": "数额"
+                    }, {
+                        "name": "size",
+                        "value": "md"
+                    }, {
+                        "name": "validate",
+                        "value": {
+                            "required": true,
+                            "max": 20000
+                        }
+                    }]
+                }, {
+                    "type": "select",
+                    "dataList": "datasrv/asset_type_proposal",
+                    "value": {
+                        "id": 1,
+                        "name": "SEE"
+                    },
+                    "name": "typeTest",
+                    "properties": [{
+                        "name": "title",
+                        "value": "资产类型"
+                    }, {
+                        "name": "size",
+                        "value": "md"
+                    }, {
+                        "name": "validate",
+                        "value": {
+                            "required": true
+                        }
+                    }]
+                }]
+            },
+            "is_hidden": false
+        },
+    ];
     return (
         <>
             <TopBox>
@@ -296,7 +284,7 @@ function New() {
                             language="en"
                               baseUrl="https://test-api.seedao.tech"
                               version="v1"
-                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzcxMjQxNTMsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.fGlsP3dQea-P7EHIbdYf2IM2NNRogT-1Kzq0TFdSfaY"
+                              token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTQ0NTk1NzEsIkRhdGEiOnsiV2FsbGV0IjoiMHhEODVjNDEzZEE4MzNDZUJEODMzODEzOENjRUZBMDQ5NzlERjcwRThlIn19.yW5PA0asyEpCGv4w8hyr0307mBXx3Lwa9LicpxcalWM"
                               showRight={false}
                               theme={false}
                             movitationSum={"100 SCR,200 USDT"}
@@ -360,7 +348,6 @@ function New() {
                             // ]}
                                 operate={operate}
                               initialItems={testArr123}
-                              // initialItems={testArr123}
                               BeforeComponent={
             <>
                                   {/*<Preview DataSource={*/}

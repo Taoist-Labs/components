@@ -144,6 +144,7 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
 
     const getSNS = async (wallet:string) =>{
         try{
+            if(!wallet?.length)return;
             const rt = await sns.name(wallet,rpc);
             rt && setInputValue(rt);
 
@@ -170,7 +171,6 @@ export default function Input({item,tableIndex,listName,type,reset,setValue,them
             setValue(inputName,"")
             console.error(e)
         }
-
     }
 
 
