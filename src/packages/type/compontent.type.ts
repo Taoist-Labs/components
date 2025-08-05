@@ -142,6 +142,7 @@ export interface TableProps{
     token?:string
     version?:string
     rpc?:string
+    operate?:string
 }
 
 export interface ChildMethods {

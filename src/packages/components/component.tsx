@@ -231,6 +231,7 @@ const Component = ({listArr,control,setValue,reset,data,getValues,theme,language
                                 setError={setError}
                                 watch={watch}
                                 rpc={rpc}
+                                operate={operate}
                                 language={language}
                                 baseUrl={baseUrl}
                                 version={version}
